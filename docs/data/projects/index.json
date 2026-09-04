@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788508918,
+  "updated_at_unix": 1788511735,
   "counts": {
     "running": 1,
     "completed": 0,
@@ -10,10 +10,10 @@
   "projects": [
     {
       "id": "paperplane",
-      "title": "Foldable A4 Paper Plane Distance Search",
+      "title": "Foldable Paper Plane Distance Search",
       "status": "running",
-      "updated_at_unix": 1788508907,
-      "started_at_unix": 1788508697,
+      "updated_at_unix": 1788511724,
+      "started_at_unix": 1788509966,
       "completed_at_unix": null,
       "json": "paperplane.json"
     }
