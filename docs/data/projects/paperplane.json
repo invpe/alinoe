@@ -1,19 +1,19 @@
 {
   "schema": 1,
   "id": "paperplane",
-  "title": "Foldable A4 Paper Plane Distance Search",
-  "description": "Search a reproducible parametric A4 fold construction and launch conditions for maximum simulated horizontal distance using the Microgrid ESP32 fleet.",
+  "title": "Foldable Paper Plane Distance Search",
+  "description": "Search a reproducible parametric A4 fold construction and launch conditions for maximum simulated horizontal distance.",
   "status": "running",
-  "updated_at_unix": 1788508907,
-  "started_at_unix": 1788508697,
+  "updated_at_unix": 1788511724,
+  "started_at_unix": 1788509966,
   "completed_at_unix": null,
   "progress": {
-    "current": 800,
+    "current": 6700,
     "total": 250000,
     "unit": "candidates",
-    "throughput": 3.8,
+    "throughput": 3.81,
     "throughput_unit": "candidates/s",
-    "eta_seconds": 65512
+    "eta_seconds": 63824
   },
   "best": {
     "label": "Best simulated distance",
@@ -43,18 +43,18 @@
   "search": {
     "mode": "convergence",
     "stop_reason": null,
-    "evaluated": 800,
-    "submitted": 807,
+    "evaluated": 6700,
+    "submitted": 6707,
     "minimum_candidates": 20000,
     "patience_candidates": 50000,
     "improvement_epsilon_m": 0.005,
     "maximum_candidates": 250000,
-    "last_improvement_at": 346,
-    "last_meaningful_improvement_at": 346,
-    "candidates_since_meaningful_improvement": 454
+    "last_improvement_at": 347,
+    "last_meaningful_improvement_at": 347,
+    "candidates_since_meaningful_improvement": 6353
   },
   "details": {
-    "project_name": "paperplane-1337-4042047",
+    "project_name": "paperplane-1337-4058605",
     "seed": 1337,
     "window": 8,
     "construction": {
