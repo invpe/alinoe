@@ -2,17 +2,19 @@
   "schema": 1,
   "id": "proteinlock",
   "title": "ProteinLock \u2014 L99A Molecular Docking",
-  "description": "Search small molecular candidates for poses predicted to fit the T4 lysozyme L99A pocket, then validate the ranking against published reference data.",
+  "description": "Search for a small molecule that fits into a tiny pocket inside a well-studied test protein called T4 lysozyme L99A, then compare the result with published reference data.",
   "status": "completed",
-  "updated_at_unix": 1788525616,
-  "started_at_unix": 1788525612,
-  "completed_at_unix": 1788525616,
+  "updated_at_unix": 1788535097,
+  "started_at_unix": 1788535020,
+  "completed_at_unix": 1788535097,
   "progress": {
     "current": 10,
     "total": 10,
     "unit": "molecules",
-    "throughput": 2.313,
+    "help": "How many candidate molecules ProteinLock has fully evaluated in this run.",
+    "throughput": 0.13,
     "throughput_unit": "molecules/s",
+    "throughput_help": "How fast this run is evaluating complete candidate molecules. This measures speed, not how good the scientific result is.",
     "eta_seconds": null
   },
   "best": {
@@ -20,31 +22,39 @@
     "value": 11.358,
     "unit": "",
     "decimals": 3,
+    "help": "ProteinLock's own fit score for the best candidate in this run. Higher is better inside this model; it is not an experimental binding-strength measurement.",
     "status": ""
   },
   "metrics": [
     {
       "label": "Pose RMSD",
-      "value": "1.536 \u00c5"
+      "value": "1.536 \u00c5",
+      "help": "How close ProteinLock's predicted position is to a measured reference position. Smaller is better. \u00c5 is a tiny distance used for atoms; below 2 \u00c5 passes this checkpoint."
     },
     {
       "label": "Positive/negative AUC",
-      "value": "0.929"
+      "value": "0.929",
+      "help": "How well ProteinLock ranks known fitting molecules above known non-fitting ones. 0.5 is like random ordering; 1.0 is perfect. Higher is better."
     },
     {
       "label": "Known classes",
-      "value": "7 positive / 2 negative"
+      "value": "7 positive / 2 negative",
+      "help": "How many checkpoint molecules have a published answer we can compare against. Positive means known to bind here; negative means known not to bind in this benchmark. One of the 10 cases is unclassified."
     },
     {
       "label": "Validation",
-      "value": "PASS"
+      "value": "PASS",
+      "help": "PASS means this checkpoint met both rules: the reference pose was close enough and the ranking separated positive from negative cases well enough."
     }
   ],
   "search": {
     "mode": "blind_rigid_body_docking",
-    "execution": "cpu",
+    "execution": "microgrid",
     "candidate_count": 10,
     "random_poses_per_candidate": 18000,
+    "search_block_poses": 3000,
+    "seed": 1000,
+    "window": 16,
     "answer_key_visible_during_search": false,
     "answer_key_open": true,
     "benchmark": "published L99A checkpoint",
@@ -74,53 +84,58 @@
       "protein": "T4 lysozyme L99A",
       "pdb": "181L"
     },
-    "execution": "CPU validation before ELF/ESP32 freeze",
+    "execution": "Microgrid ESP32 fleet",
+    "run_name": "proteinlock-1000-11018",
+    "seed": 1000,
+    "window": 16,
+    "window_active": true,
+    "window_note": "Maximum number of Microgrid tasks in flight.",
+    "poses_per_candidate": 18000,
+    "block_poses": 3000,
     "results": [
       {
-        "index": 1,
-        "total": 10,
         "seed": 1000,
         "name": "PL-C01",
-        "score": 9.367447,
-        "repulsion": 4.405541,
-        "contact": -13.772988,
+        "score": 9.36745,
+        "repulsion": 4.40554,
+        "contact": -13.77299,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
-          26.206053,
+          26.206052,
           6.433916,
           5.327556,
           0.998359,
           1.246093,
           3.61835
-        ]
+        ],
+        "index": 1,
+        "total": 10
       },
       {
-        "index": 2,
-        "total": 10,
         "seed": 1001,
         "name": "PL-C02",
-        "score": 9.946146,
+        "score": 9.94615,
         "repulsion": 7.10178,
-        "contact": -17.047926,
+        "contact": -17.04793,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
-          26.328577,
+          26.328578,
           6.023765,
-          5.439469,
+          5.43947,
           1.338363,
           1.859836,
           1.459711
-        ]
+        ],
+        "index": 2,
+        "total": 10
       },
       {
-        "index": 3,
-        "total": 10,
         "seed": 1002,
         "name": "PL-C03",
-        "score": 10.950383,
-        "repulsion": 10.336257,
+        "score": 10.95039,
+        "repulsion": 10.33625,
         "contact": -21.28664,
         "polar": 0.0,
         "poses": 18000,
@@ -128,38 +143,38 @@
           25.96397,
           5.915595,
           5.677649,
-          2.470275,
-          1.999872,
+          2.470276,
+          1.999873,
           2.147839
-        ]
+        ],
+        "index": 3,
+        "total": 10
       },
       {
-        "index": 4,
-        "total": 10,
         "seed": 1003,
         "name": "PL-C04",
-        "score": 10.372524,
-        "repulsion": 7.238786,
-        "contact": -17.611311,
+        "score": 10.37253,
+        "repulsion": 7.23879,
+        "contact": -17.61131,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
-          27.772863,
+          27.772864,
           6.596312,
           3.773446,
           2.141019,
           0.564153,
           4.788756
-        ]
+        ],
+        "index": 4,
+        "total": 10
       },
       {
-        "index": 5,
-        "total": 10,
         "seed": 1004,
         "name": "PL-C05",
         "score": 9.43792,
-        "repulsion": 5.527908,
-        "contact": -14.965828,
+        "repulsion": 5.52791,
+        "contact": -14.96583,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
@@ -169,109 +184,111 @@
           5.701566,
           3.06814,
           1.859705
-        ]
+        ],
+        "index": 5,
+        "total": 10
       },
       {
-        "index": 6,
-        "total": 10,
         "seed": 1005,
         "name": "PL-C06",
-        "score": 11.358398,
+        "score": 11.3584,
         "repulsion": 6.31839,
-        "contact": -17.676788,
+        "contact": -17.67679,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
           26.718962,
           5.515483,
           5.137661,
-          5.071048,
+          5.071049,
           2.561642,
-          1.704765
-        ]
+          1.704766
+        ],
+        "index": 6,
+        "total": 10
       },
       {
-        "index": 7,
-        "total": 10,
         "seed": 1006,
         "name": "PL-C07",
-        "score": 10.652479,
-        "repulsion": 5.923605,
-        "contact": -16.576084,
+        "score": 10.65248,
+        "repulsion": 5.92361,
+        "contact": -16.57609,
         "polar": 0.0,
         "poses": 18000,
         "pose": [
           26.874786,
-          6.596234,
+          6.596235,
           4.413659,
           4.236439,
-          1.069968,
+          1.069969,
           0.432825
-        ]
+        ],
+        "index": 7,
+        "total": 10
       },
       {
-        "index": 8,
-        "total": 10,
         "seed": 1007,
         "name": "PL-C08",
-        "score": 9.284579,
+        "score": 9.28458,
         "repulsion": 5.35227,
-        "contact": -16.586849,
+        "contact": -16.58685,
         "polar": 1.95,
         "poses": 18000,
         "pose": [
           26.849154,
           5.724206,
           4.360718,
-          5.600793,
+          5.600794,
           0.872798,
-          5.151537
-        ]
+          5.151538
+        ],
+        "index": 8,
+        "total": 10
       },
       {
-        "index": 9,
-        "total": 10,
         "seed": 1008,
         "name": "PL-C09",
-        "score": 9.338823,
-        "repulsion": 5.581967,
+        "score": 9.33882,
+        "repulsion": 5.58197,
         "contact": -16.37079,
         "polar": 1.45,
         "poses": 18000,
         "pose": [
-          27.071041,
+          27.071042,
           5.702317,
           3.730593,
           4.095195,
-          2.028697,
-          3.745986
-        ]
+          2.028698,
+          3.745987
+        ],
+        "index": 9,
+        "total": 10
       },
       {
-        "index": 10,
-        "total": 10,
         "seed": 1009,
         "name": "PL-C10",
-        "score": 8.053351,
-        "repulsion": 4.558738,
+        "score": 8.05335,
+        "repulsion": 4.55874,
         "contact": -13.81209,
         "polar": 1.2,
         "poses": 18000,
         "pose": [
-          26.234165,
+          26.234166,
           6.088468,
           5.406196,
           4.072725,
           1.103262,
           0.684643
-        ]
+        ],
+        "index": 10,
+        "total": 10
       }
     ],
     "ranking": [
       {
         "rank": 1,
         "name": "PL-C06",
-        "score": 11.358398,
+        "score": 11.3584,
         "label": "UNKNOWN",
         "has_experimental_delta_g": false,
         "experimental_delta_g": null
@@ -279,7 +296,7 @@
       {
         "rank": 2,
         "name": "PL-C03",
-        "score": 10.950383,
+        "score": 10.95039,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -5.76
@@ -287,7 +304,7 @@
       {
         "rank": 3,
         "name": "PL-C07",
-        "score": 10.652479,
+        "score": 10.65248,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -4.67
@@ -295,7 +312,7 @@
       {
         "rank": 4,
         "name": "PL-C04",
-        "score": 10.372524,
+        "score": 10.37253,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -6.55
@@ -303,7 +320,7 @@
       {
         "rank": 5,
         "name": "PL-C02",
-        "score": 9.946146,
+        "score": 9.94615,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -5.52
@@ -319,7 +336,7 @@
       {
         "rank": 7,
         "name": "PL-C01",
-        "score": 9.367447,
+        "score": 9.36745,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -5.19
@@ -327,7 +344,7 @@
       {
         "rank": 8,
         "name": "PL-C09",
-        "score": 9.338823,
+        "score": 9.33882,
         "label": "NEGATIVE",
         "has_experimental_delta_g": false,
         "experimental_delta_g": null
@@ -335,7 +352,7 @@
       {
         "rank": 9,
         "name": "PL-C08",
-        "score": 9.284579,
+        "score": 9.28458,
         "label": "POSITIVE",
         "has_experimental_delta_g": true,
         "experimental_delta_g": -5.46
@@ -343,23 +360,23 @@
       {
         "rank": 10,
         "name": "PL-C10",
-        "score": 8.053351,
+        "score": 8.05335,
         "label": "NEGATIVE",
         "has_experimental_delta_g": false,
         "experimental_delta_g": null
       }
     ],
     "validation": {
-      "pose_rmsd": 1.535501,
+      "pose_rmsd": 1.5355018630207042,
       "pose_pass": true,
-      "auc": 0.928571,
+      "auc": 0.9285714285714286,
       "auc_pass": true,
       "binders": 7,
       "decoys": 2,
-      "affinity_pair_accuracy": 0.52381,
-      "crystal_pose_score": 7.515686,
-      "reference_search_score": 9.367447,
-      "historical_verified": 8,
+      "affinity_pair_accuracy": 0.5238095238095238,
+      "crystal_pose_score": null,
+      "reference_search_score": 9.36745,
+      "historical_verified": 0,
       "historical_complete": false
     },
     "final_gate": {
@@ -1417,112 +1434,112 @@
       },
       "best_candidate": {
         "name": "PL-C06",
-        "score": 11.358398,
+        "score": 11.3584,
         "repulsion": 6.31839,
-        "contact": -17.676788,
+        "contact": -17.67679,
         "polar": 0.0,
         "pose": [
           26.718962,
           5.515483,
           5.137661,
-          5.071048,
+          5.071049,
           2.561642,
-          1.704765
+          1.704766
         ],
         "atoms": [
           {
             "element": "C",
             "position": [
-              26.87504671897404,
-              4.357377797068278,
+              26.875047877079165,
+              4.357377953153576,
               4.372129224405237
             ]
           },
           {
             "element": "C",
             "position": [
-              26.459050731599525,
-              4.264485247121906,
-              5.702515840730267
+              26.45905082881091,
+              4.264485066526928,
+              5.702515485492695
             ]
           },
           {
             "element": "C",
             "position": [
-              26.302966291963404,
-              5.422591005454559,
-              6.4680468330625365
+              26.302965231070065,
+              5.422590668774496,
+              6.468046477825259
             ]
           },
           {
             "element": "C",
             "position": [
-              26.562877281025962,
-              6.673588202931722,
+              26.562876122920837,
+              6.673588046846423,
               5.903192775594762
             ]
           },
           {
             "element": "C",
             "position": [
-              26.978873268400477,
-              6.766480752878094,
-              4.572806159269732
+              26.978873171189093,
+              6.766480933473072,
+              4.572806514507304
             ]
           },
           {
             "element": "C",
             "position": [
-              27.1349577080366,
-              5.60837499454544,
-              3.8072751669374627
+              27.134958768929938,
+              5.608375331225504,
+              3.8072755221747405
             ]
           },
           {
             "element": "C",
             "position": [
-              27.031801808967295,
-              3.1942986276243226,
+              27.03180413015151,
+              3.194298940465292,
               3.6033095528523
             ]
           },
           {
             "element": "C",
             "position": [
-              27.202746418867278,
-              1.925937167004756,
+              27.202750008412867,
+              1.9259376507909698,
               2.7648960835180207
             ]
           },
           {
             "element": "C",
             "position": [
-              27.37369102876726,
-              0.657575706385189,
+              27.373695886674227,
+              0.6575763611166465,
               1.9264826141837417
             ]
           },
           {
             "element": "C",
             "position": [
-              27.544635638667245,
-              -0.6107857542343771,
+              27.544641764935587,
+              -0.6107849285576759,
               1.088069144849463
             ]
           },
           {
             "element": "C",
             "position": [
-              27.715580248567232,
-              -1.8791472148539432,
+              27.715587643196947,
+              -1.8791462182319973,
               0.24965567551518397
             ]
           },
           {
             "element": "C",
             "position": [
-              27.886524858467215,
-              -3.14750867547351,
+              27.886533521458308,
+              -3.147507507906319,
               -0.5887577938190942
             ]
           }
@@ -1531,12 +1548,12 @@
       "search_candidates": [
         {
           "name": "PL-C10",
-          "score": 8.053351,
+          "score": 8.05335,
           "atoms": [
             {
               "element": "C",
               "position": [
-                26.72188851098976,
+                26.721889510989758,
                 6.486630639688559,
                 4.15911890166804
               ]
@@ -1544,7 +1561,7 @@
             {
               "element": "C",
               "position": [
-                26.263518239752933,
+                26.26351923975293,
                 5.180154048017845,
                 4.345199115841254
               ]
@@ -1552,7 +1569,7 @@
             {
               "element": "C",
               "position": [
-                25.775794906066675,
+                25.775795906066673,
                 4.781992323654537,
                 5.592276575757438
               ]
@@ -1560,7 +1577,7 @@
             {
               "element": "C",
               "position": [
-                25.74644148901024,
+                25.74644248901024,
                 5.690305360311441,
                 6.653273098331959
               ]
@@ -1568,7 +1585,7 @@
             {
               "element": "C",
               "position": [
-                26.20481176024707,
+                26.204812760247066,
                 6.996781951982155,
                 6.467192884158745
               ]
@@ -1576,7 +1593,7 @@
             {
               "element": "C",
               "position": [
-                26.692535093933326,
+                26.692536093933324,
                 7.394943676345463,
                 5.220115424242561
               ]
@@ -1584,7 +1601,7 @@
             {
               "element": "O",
               "position": [
-                27.204724313207972,
+                27.20472531320797,
                 6.880803102601428,
                 2.924539354786795
               ]
@@ -1593,163 +1610,163 @@
         },
         {
           "name": "PL-C02",
-          "score": 9.946146,
+          "score": 9.94615,
           "atoms": [
             {
               "element": "C",
               "position": [
-                26.28443490346074,
+                26.28443590346074,
                 5.628029776981224,
-                4.100419296450726
+                4.100420296450726
               ]
             },
             {
               "element": "C",
               "position": [
-                26.154640663293645,
+                26.154641663293646,
                 6.978302815491034,
-                4.434375001502954
+                4.4343760015029545
               ]
             },
             {
               "element": "C",
               "position": [
-                26.198782885358217,
+                26.198783885358218,
                 7.374037085981103,
-                5.773424982419237
+                5.773425982419237
               ]
             },
             {
               "element": "C",
               "position": [
-                26.37271909653926,
+                26.37272009653926,
                 6.419500223018776,
-                6.778518703549274
+                6.778519703549274
               ]
             },
             {
               "element": "C",
               "position": [
-                26.502513336706354,
+                26.502514336706355,
                 5.069227184508966,
-                6.444562998497045
+                6.4445639984970455
               ]
             },
             {
               "element": "C",
               "position": [
-                26.458371114641782,
+                26.458372114641783,
                 4.673492914018897,
-                5.105513017580763
+                5.105514017580763
               ]
             },
             {
               "element": "C",
               "position": [
-                26.240103220250585,
+                26.240104220250586,
                 5.230594903756211,
-                2.755618484654283
+                2.755619484654283
               ]
             }
           ]
         },
         {
           "name": "PL-C06",
-          "score": 11.358398,
+          "score": 11.3584,
           "atoms": [
             {
               "element": "C",
               "position": [
-                26.87504671897404,
-                4.357377797068278,
+                26.875047877079165,
+                4.357377953153576,
                 4.372129224405237
               ]
             },
             {
               "element": "C",
               "position": [
-                26.459050731599525,
-                4.264485247121906,
-                5.702515840730267
+                26.45905082881091,
+                4.264485066526928,
+                5.702515485492695
               ]
             },
             {
               "element": "C",
               "position": [
-                26.302966291963404,
-                5.422591005454559,
-                6.4680468330625365
+                26.302965231070065,
+                5.422590668774496,
+                6.468046477825259
               ]
             },
             {
               "element": "C",
               "position": [
-                26.562877281025962,
-                6.673588202931722,
+                26.562876122920837,
+                6.673588046846423,
                 5.903192775594762
               ]
             },
             {
               "element": "C",
               "position": [
-                26.978873268400477,
-                6.766480752878094,
-                4.572806159269732
+                26.978873171189093,
+                6.766480933473072,
+                4.572806514507304
               ]
             },
             {
               "element": "C",
               "position": [
-                27.1349577080366,
-                5.60837499454544,
-                3.8072751669374627
+                27.134958768929938,
+                5.608375331225504,
+                3.8072755221747405
               ]
             },
             {
               "element": "C",
               "position": [
-                27.031801808967295,
-                3.1942986276243226,
+                27.03180413015151,
+                3.194298940465292,
                 3.6033095528523
               ]
             },
             {
               "element": "C",
               "position": [
-                27.202746418867278,
-                1.925937167004756,
+                27.202750008412867,
+                1.9259376507909698,
                 2.7648960835180207
               ]
             },
             {
               "element": "C",
               "position": [
-                27.37369102876726,
-                0.657575706385189,
+                27.373695886674227,
+                0.6575763611166465,
                 1.9264826141837417
               ]
             },
             {
               "element": "C",
               "position": [
-                27.544635638667245,
-                -0.6107857542343771,
+                27.544641764935587,
+                -0.6107849285576759,
                 1.088069144849463
               ]
             },
             {
               "element": "C",
               "position": [
-                27.715580248567232,
-                -1.8791472148539432,
+                27.715587643196947,
+                -1.8791462182319973,
                 0.24965567551518397
               ]
             },
             {
               "element": "C",
               "position": [
-                27.886524858467215,
-                -3.14750867547351,
+                27.886533521458308,
+                -3.147507507906319,
                 -0.5887577938190942
               ]
             }
@@ -1761,7 +1778,7 @@
           {
             "element": "C",
             "position": [
-              25.810070405751723,
+              25.810069405751722,
               6.229392475974415,
               4.003555655146359
             ]
@@ -1769,7 +1786,7 @@
           {
             "element": "C",
             "position": [
-              25.452451799663148,
+              25.452450799663147,
               5.307084368959467,
               4.989997201593875
             ]
@@ -1777,7 +1794,7 @@
           {
             "element": "C",
             "position": [
-              25.84843485315465,
+              25.84843385315465,
               5.5116087398503915,
               6.313997278278245
             ]
@@ -1785,7 +1802,7 @@
           {
             "element": "C",
             "position": [
-              26.602035594248278,
+              26.602034594248277,
               6.638439524025585,
               6.651556344853642
             ]
@@ -1793,7 +1810,7 @@
           {
             "element": "C",
             "position": [
-              26.959654200336853,
+              26.959653200336852,
               7.560747631040533,
               5.665114798406126
             ]
@@ -1801,7 +1818,7 @@
           {
             "element": "C",
             "position": [
-              26.56367114684535,
+              26.56367014684535,
               7.3562232601496085,
               4.341114721721755
             ]
@@ -1857,13 +1874,13 @@
             ]
           }
         ],
-        "rmsd": 1.535501
+        "rmsd": 1.5355018630207042
       },
       "ranking": [
         {
           "rank": 1,
           "name": "PL-C06",
-          "score": 11.358398,
+          "score": 11.3584,
           "label": "UNKNOWN",
           "has_experimental_delta_g": false,
           "experimental_delta_g": null
@@ -1871,7 +1888,7 @@
         {
           "rank": 2,
           "name": "PL-C03",
-          "score": 10.950383,
+          "score": 10.95039,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -5.76
@@ -1879,7 +1896,7 @@
         {
           "rank": 3,
           "name": "PL-C07",
-          "score": 10.652479,
+          "score": 10.65248,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -4.67
@@ -1887,7 +1904,7 @@
         {
           "rank": 4,
           "name": "PL-C04",
-          "score": 10.372524,
+          "score": 10.37253,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -6.55
@@ -1895,7 +1912,7 @@
         {
           "rank": 5,
           "name": "PL-C02",
-          "score": 9.946146,
+          "score": 9.94615,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -5.52
@@ -1911,7 +1928,7 @@
         {
           "rank": 7,
           "name": "PL-C01",
-          "score": 9.367447,
+          "score": 9.36745,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -5.19
@@ -1919,7 +1936,7 @@
         {
           "rank": 8,
           "name": "PL-C09",
-          "score": 9.338823,
+          "score": 9.33882,
           "label": "NEGATIVE",
           "has_experimental_delta_g": false,
           "experimental_delta_g": null
@@ -1927,7 +1944,7 @@
         {
           "rank": 9,
           "name": "PL-C08",
-          "score": 9.284579,
+          "score": 9.28458,
           "label": "POSITIVE",
           "has_experimental_delta_g": true,
           "experimental_delta_g": -5.46
@@ -1935,23 +1952,23 @@
         {
           "rank": 10,
           "name": "PL-C10",
-          "score": 8.053351,
+          "score": 8.05335,
           "label": "NEGATIVE",
           "has_experimental_delta_g": false,
           "experimental_delta_g": null
         }
       ],
       "validation": {
-        "pose_rmsd": 1.535501,
+        "pose_rmsd": 1.5355018630207042,
         "pose_pass": true,
-        "auc": 0.928571,
+        "auc": 0.9285714285714286,
         "auc_pass": true,
         "binders": 7,
         "decoys": 2,
-        "affinity_pair_accuracy": 0.52381,
-        "crystal_pose_score": 7.515686,
-        "reference_search_score": 9.367447,
-        "historical_verified": 8,
+        "affinity_pair_accuracy": 0.5238095238095238,
+        "crystal_pose_score": null,
+        "reference_search_score": 9.36745,
+        "historical_verified": 0,
         "historical_complete": false
       },
       "final_gate": {
