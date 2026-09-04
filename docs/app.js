@@ -2,6 +2,8 @@ const fmtInt = new Intl.NumberFormat("en-US");
 let projectSignature = "";
 let loadedProjects = [];
 let activeProjectFilter = "all";
+let activeProjectIndex = 0;
+let activeProjectId = "";
 let appConfig = {
   data_base_url: "data",
   grid_poll_ms: 5000,
@@ -72,9 +74,9 @@ function formatBest(best) {
   }
   return {
     value: displayValue(value),
-    unit: displayValue(best.unit || ""),
+    unit: String(best.unit || ""),
     label: displayValue(best.label || "Best result"),
-    status: displayValue(best.status || ""),
+    status: String(best.status || ""),
   };
 }
 
@@ -206,6 +208,21 @@ function updateProjectCounts() {
   document.getElementById("filterCompletedCount").textContent = fmtInt.format(completed);
 }
 
+function updateProjectNavigation(projects) {
+  const previous = document.getElementById("projectPrevious");
+  const next = document.getElementById("projectNext");
+  const position = document.getElementById("projectPosition");
+  const total = projects.length;
+
+  if (position) {
+    position.textContent = total ? `${activeProjectIndex + 1} / ${total}` : `0 / 0`;
+  }
+
+  const disabled = total <= 1;
+  previous.disabled = disabled;
+  next.disabled = disabled;
+}
+
 function renderProjects() {
   const track = document.getElementById("projectsTrack");
   const projects = filteredProjects();
@@ -216,13 +233,26 @@ function renderProjects() {
   });
 
   if (!projects.length) {
+    activeProjectIndex = 0;
+    activeProjectId = "";
+    updateProjectNavigation(projects);
     track.innerHTML = `<article class="project-card loading-card">No ${escapeHTML(activeProjectFilter === "all" ? "" : activeProjectFilter + " ")}projects yet.</article>`;
     return;
   }
 
-  track.innerHTML = projects.map(renderProject).join("");
-  projects.forEach(mountVisualization);
-  track.scrollTo({ left: 0, behavior: "auto" });
+  const rememberedIndex = projects.findIndex(project => project.id === activeProjectId);
+  if (rememberedIndex >= 0) {
+    activeProjectIndex = rememberedIndex;
+  }
+  if (activeProjectIndex < 0) activeProjectIndex = 0;
+  if (activeProjectIndex >= projects.length) activeProjectIndex = projects.length - 1;
+
+  const project = projects[activeProjectIndex];
+  activeProjectId = project.id;
+  updateProjectNavigation(projects);
+
+  track.innerHTML = renderProject(project);
+  mountVisualization(project);
 }
 
 async function loadProjects() {
@@ -275,10 +305,15 @@ async function pollGrid() {
 }
 
 function scrollProjects(direction) {
-  const track = document.getElementById("projectsTrack");
-  const card = track.querySelector(".project-card");
-  const distance = card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.9;
-  track.scrollBy({ left: direction * distance, behavior: "smooth" });
+  const projects = filteredProjects();
+  if (projects.length <= 1) return;
+
+  activeProjectIndex += direction;
+  if (activeProjectIndex < 0) activeProjectIndex = projects.length - 1;
+  if (activeProjectIndex >= projects.length) activeProjectIndex = 0;
+
+  activeProjectId = projects[activeProjectIndex].id;
+  renderProjects();
 }
 
 async function loadConfig() {
@@ -300,6 +335,8 @@ async function startApp() {
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", () => {
       activeProjectFilter = button.dataset.filter || "all";
+      activeProjectIndex = 0;
+      activeProjectId = "";
       renderProjects();
     });
   });
