@@ -1,0 +1,2533 @@
+{
+  "schema": 1,
+  "id": "paperplane",
+  "title": "Foldable A4 Paper Plane Distance Search",
+  "description": "Search a reproducible parametric A4 fold construction and launch conditions for maximum simulated horizontal distance using the Microgrid ESP32 fleet.",
+  "status": "running",
+  "updated_at_unix": 1788508907,
+  "started_at_unix": 1788508697,
+  "completed_at_unix": null,
+  "progress": {
+    "current": 800,
+    "total": 250000,
+    "unit": "candidates",
+    "throughput": 3.8,
+    "throughput_unit": "candidates/s",
+    "eta_seconds": 65512
+  },
+  "best": {
+    "label": "Best simulated distance",
+    "value": 2.499,
+    "unit": "m",
+    "decimals": 3,
+    "status": "SUSPECT"
+  },
+  "metrics": [
+    {
+      "label": "Launch speed",
+      "value": "2.979 m/s"
+    },
+    {
+      "label": "Launch pitch",
+      "value": "1.755 deg"
+    },
+    {
+      "label": "Validity",
+      "value": "SUSPECT"
+    },
+    {
+      "label": "Construction",
+      "value": "Foldable A4 dart/glider"
+    }
+  ],
+  "search": {
+    "mode": "convergence",
+    "stop_reason": null,
+    "evaluated": 800,
+    "submitted": 807,
+    "minimum_candidates": 20000,
+    "patience_candidates": 50000,
+    "improvement_epsilon_m": 0.005,
+    "maximum_candidates": 250000,
+    "last_improvement_at": 346,
+    "last_meaningful_improvement_at": 346,
+    "candidates_since_meaningful_improvement": 454
+  },
+  "details": {
+    "project_name": "paperplane-1337-4042047",
+    "seed": 1337,
+    "window": 8,
+    "construction": {
+      "family": "symmetric_parametric_a4_dart_glider",
+      "sheet": "A4 297x210 mm",
+      "fold_reproducible": true,
+      "model": "reproducible_parametric_uncut_a4_fold_envelope",
+      "material_budget": "keel + wing use the same A4 half-sheet width",
+      "fold_plan": "generated from the winning candidate and embedded in visualization.data"
+    },
+    "candidate": {
+      "nose_fold_depth": 0.06937705820980598,
+      "nose_fold_width": 0.02181757060895695,
+      "shoulder_fold_depth": 0.12877854878256048,
+      "wing_root_fold_from_center": 0.01721562652380241,
+      "wing_tip_fold_from_center": 0.010907042030959001,
+      "dihedral_degrees": 10.174874115411855,
+      "tip_fold_depth": 0.054409057434872586,
+      "tip_fold_degrees": -5.488423199984542,
+      "elevator_fold_depth": 0.03066160218828092,
+      "elevator_degrees": -7.746175545408147,
+      "launch_speed": 2.9790957631927153,
+      "launch_pitch_degrees": 1.7550774233755266
+    }
+  },
+  "visualization": {
+    "code": "const trajectory = data && data.trajectory;\nconst samples = trajectory && Array.isArray(trajectory.samples) ? trajectory.samples : [];\nconst geometry = trajectory && trajectory.geometry ? trajectory.geometry : {};\nconst panels = geometry && Array.isArray(geometry.panels) ? geometry.panels : [];\nconst foldPlan = data && data.fold_plan ? data.fold_plan : null;\n\nroot.style.width = \"100%\";\nroot.style.height = \"100%\";\nroot.style.minHeight = \"280px\";\nroot.style.position = \"relative\";\nroot.style.overflow = \"hidden\";\nroot.style.background = \"#ffffff\";\n\nif (samples.length < 2) {\n  const empty = document.createElement(\"div\");\n  empty.textContent = \"No visualization data yet.\";\n  empty.style.cssText = \"height:280px;display:grid;place-items:center;color:#86868b;font:13px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif\";\n  root.appendChild(empty);\n} else {\n  const flightCanvas = document.createElement(\"canvas\");\n  flightCanvas.style.cssText = \"position:absolute;inset:0;display:block;width:100%;height:100%;min-height:280px\";\n  root.appendChild(flightCanvas);\n\n  const geometryCanvas = document.createElement(\"canvas\");\n  geometryCanvas.style.cssText = \"position:absolute;inset:0;display:block;width:100%;height:100%;min-height:280px;opacity:0\";\n  root.appendChild(geometryCanvas);\n\n  const overlayCanvas = document.createElement(\"canvas\");\n  overlayCanvas.style.cssText = \"position:absolute;inset:0;display:block;width:100%;height:100%;min-height:280px;opacity:0;pointer-events:none\";\n  root.appendChild(overlayCanvas);\n\n  const foldCanvas = document.createElement(\"canvas\");\n  foldCanvas.style.cssText = \"position:absolute;inset:0;display:block;width:100%;height:100%;min-height:280px;opacity:0;pointer-events:none\";\n  root.appendChild(foldCanvas);\n\n  const note = document.createElement(\"span\");\n  note.textContent = \"current best trajectory\";\n  note.style.cssText = \"position:absolute;left:14px;bottom:10px;color:#86868b;font:11px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif\";\n  root.appendChild(note);\n\n  const ctx = flightCanvas.getContext(\"2d\");\n  const overlay = overlayCanvas.getContext(\"2d\");\n  const foldCtx = foldCanvas.getContext(\"2d\");\n  const xs = samples.map(sample => sample[1]);\n  const zs = samples.map(sample => sample[3]);\n  const minX = Math.min(...xs, 0);\n  const maxX = Math.max(...xs, 1);\n  const maxZ = Math.max(...zs, 1);\n  const durationMs = Math.max(1200, Number(trajectory.flight_time_s || samples[samples.length - 1][0] || 1) * 1000);\n  const transitionMs = 650;\n  const geometryHoldMs = 6500;\n  const foldTransitionMs = 650;\n  const pad = 28;\n  const animationStart = performance.now();\n  let geometryRenderer = null;\n  let geometryRendererFailed = false;\n\n  function resizeCanvas(canvas) {\n    const rect = canvas.getBoundingClientRect();\n    const ratio = Math.min(window.devicePixelRatio || 1, 2);\n    const width = Math.max(1, Math.floor(rect.width * ratio));\n    const height = Math.max(1, Math.floor(rect.height * ratio));\n    const changed = canvas.width !== width || canvas.height !== height;\n    if (changed) {\n      canvas.width = width;\n      canvas.height = height;\n    }\n    return changed;\n  }\n\n  function resizeAll() {\n    return resizeCanvas(flightCanvas) | resizeCanvas(geometryCanvas) | resizeCanvas(overlayCanvas) | resizeCanvas(foldCanvas);\n  }\n\n  function trajectoryPoint(sample) {\n    const scaleX = (flightCanvas.width - pad * 2) / Math.max(maxX - minX, 0.001);\n    const scaleZ = (flightCanvas.height - pad * 2) / Math.max(maxZ, 0.001);\n    return [\n      pad + (sample[1] - minX) * scaleX,\n      flightCanvas.height - pad - sample[3] * scaleZ,\n    ];\n  }\n\n  function drawFlight(progress, alpha) {\n    ctx.clearRect(0, 0, flightCanvas.width, flightCanvas.height);\n    ctx.globalAlpha = alpha;\n    ctx.strokeStyle = \"#f0f0f2\";\n    ctx.lineWidth = 1;\n    ctx.beginPath();\n    for (let line = 1; line < 8; ++line) {\n      const y = (flightCanvas.height / 8) * line;\n      ctx.moveTo(0, y);\n      ctx.lineTo(flightCanvas.width, y);\n    }\n    ctx.stroke();\n\n    ctx.strokeStyle = \"#d2d2d7\";\n    ctx.beginPath();\n    ctx.moveTo(0, flightCanvas.height - pad);\n    ctx.lineTo(flightCanvas.width, flightCanvas.height - pad);\n    ctx.stroke();\n\n    ctx.strokeStyle = \"#86868b\";\n    ctx.lineWidth = 2.2;\n    ctx.beginPath();\n    samples.forEach((sample, index) => {\n      const [x, y] = trajectoryPoint(sample);\n      if (index === 0) ctx.moveTo(x, y);\n      else ctx.lineTo(x, y);\n    });\n    ctx.stroke();\n\n    const sampleIndex = Math.min(samples.length - 1, Math.floor(progress * (samples.length - 1)));\n    const nextIndex = Math.min(samples.length - 1, sampleIndex + 1);\n    const [x, y] = trajectoryPoint(samples[sampleIndex]);\n    const [nextX, nextY] = trajectoryPoint(samples[nextIndex]);\n    const angle = Math.atan2(nextY - y, nextX - x);\n    ctx.save();\n    ctx.translate(x, y);\n    ctx.rotate(angle);\n    ctx.fillStyle = \"#ffffff\";\n    ctx.strokeStyle = \"#1d1d1f\";\n    ctx.lineWidth = 1.6;\n    ctx.beginPath();\n    ctx.moveTo(10, 0);\n    ctx.lineTo(-7, -5);\n    ctx.lineTo(-3, 0);\n    ctx.lineTo(-7, 5);\n    ctx.closePath();\n    ctx.fill();\n    ctx.stroke();\n    ctx.restore();\n    ctx.globalAlpha = 1;\n  }\n\n  function subtract3(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }\n  function cross3(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }\n  function normalize3(v) {\n    const length = Math.hypot(v[0], v[1], v[2]);\n    return length < 1e-9 ? [0, 0, 1] : [v[0] / length, v[1] / length, v[2] / length];\n  }\n  function edgeKey(a, b) {\n    const pointKey = point => point.map(value => Math.round(value * 1000000)).join(\",\");\n    const ka = pointKey(a);\n    const kb = pointKey(b);\n    return ka < kb ? `${ka}|${kb}` : `${kb}|${ka}`;\n  }\n\n  function createGeometryRenderer() {\n    const gl = geometryCanvas.getContext(\"webgl\", { alpha: true, antialias: true, depth: true, premultipliedAlpha: false });\n    if (!gl || !panels.length) return null;\n\n    const modelPanels = panels.map((panel, index) => {\n      const corners = panel.corners.map(point => [Number(point[0]), Number(point[1]), Number(point[2])]);\n      const normal = normalize3(cross3(subtract3(corners[1], corners[0]), subtract3(corners[3], corners[0])));\n      return { index, vertical: !!panel.vertical, corners, normal };\n    });\n    const allModelPoints = modelPanels.flatMap(panel => panel.corners);\n    const minMX = Math.min(...allModelPoints.map(p => p[0]));\n    const maxMX = Math.max(...allModelPoints.map(p => p[0]));\n    const minMY = Math.min(...allModelPoints.map(p => p[1]));\n    const maxMY = Math.max(...allModelPoints.map(p => p[1]));\n    const minMZ = Math.min(...allModelPoints.map(p => p[2]));\n    const maxMZ = Math.max(...allModelPoints.map(p => p[2]));\n    const center = [(minMX + maxMX) * 0.5, (minMY + maxMY) * 0.5, (minMZ + maxMZ) * 0.5];\n    const modelSize = Math.max(maxMX - minMX, maxMY - minMY, (maxMZ - minMZ) * 1.8, 0.05);\n\n    const edgeOwners = new Map();\n    modelPanels.forEach(panel => {\n      for (let edge = 0; edge < 4; ++edge) {\n        const a = panel.corners[edge];\n        const b = panel.corners[(edge + 1) % 4];\n        const key = edgeKey(a, b);\n        if (!edgeOwners.has(key)) edgeOwners.set(key, []);\n        edgeOwners.get(key).push(panel);\n      }\n    });\n\n    function edgeClass(panel, a, b) {\n      const owners = edgeOwners.get(edgeKey(a, b)) || [];\n      if (owners.length <= 1) return \"silhouette\";\n      const other = owners.find(owner => owner.index !== panel.index);\n      if (!other) return \"panel\";\n      if (panel.vertical !== other.vertical) return \"crease\";\n      const dot = Math.max(-1, Math.min(1, panel.normal[0] * other.normal[0] + panel.normal[1] * other.normal[1] + panel.normal[2] * other.normal[2]));\n      return Math.acos(Math.abs(dot)) * 180 / Math.PI > 2.0 ? \"crease\" : \"panel\";\n    }\n\n    let currentYaw = 0;\n    function rotatedPoint(p) {\n      const x = p[0] - center[0];\n      const y = p[1] - center[1];\n      const z = p[2] - center[2];\n      const c = Math.cos(currentYaw);\n      const s = Math.sin(currentYaw);\n      return [x * c - y * s, x * s + y * c, z];\n    }\n\n    function cameraPoint(p) {\n      const r = rotatedPoint(p);\n      return [\n        r[0] * 0.82 - r[1] * 0.72,\n        r[0] * 0.36 + r[1] * 0.40 - r[2] * 1.45,\n        r[0] * 1.044 + r[1] * 1.189 + r[2] * 0.5872,\n      ];\n    }\n\n    function clipPoint(modelPoint) {\n      const p = cameraPoint(modelPoint);\n      const scale = 1.45 / modelSize;\n      return [p[0] * scale, -p[1] * scale - 0.03, Math.max(-0.95, Math.min(0.95, -p[2] * scale * 0.42))];\n    }\n\n    const vertexShaderSource = `attribute vec3 aPosition; void main(){ gl_Position = vec4(aPosition, 1.0); }`;\n    const fragmentShaderSource = `precision mediump float; uniform vec4 uColor; void main(){ gl_FragColor = uColor; }`;\n    function compile(type, source) {\n      const shader = gl.createShader(type);\n      gl.shaderSource(shader, source);\n      gl.compileShader(shader);\n      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) { gl.deleteShader(shader); return null; }\n      return shader;\n    }\n    const vertexShader = compile(gl.VERTEX_SHADER, vertexShaderSource);\n    const fragmentShader = compile(gl.FRAGMENT_SHADER, fragmentShaderSource);\n    if (!vertexShader || !fragmentShader) return null;\n    const program = gl.createProgram();\n    gl.attachShader(program, vertexShader);\n    gl.attachShader(program, fragmentShader);\n    gl.linkProgram(program);\n    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return null;\n    const positionLocation = gl.getAttribLocation(program, \"aPosition\");\n    const colorLocation = gl.getUniformLocation(program, \"uColor\");\n    const buffer = gl.createBuffer();\n\n    function drawVertices(mode, points, color) {\n      const flattened = new Float32Array(points.flatMap(clipPoint));\n      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);\n      gl.bufferData(gl.ARRAY_BUFFER, flattened, gl.STREAM_DRAW);\n      gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);\n      gl.enableVertexAttribArray(positionLocation);\n      gl.uniform4fv(colorLocation, color);\n      gl.drawArrays(mode, 0, points.length);\n    }\n\n    function overlayPoint(modelPoint) {\n      const clip = clipPoint(modelPoint);\n      return [(clip[0] * 0.5 + 0.5) * overlayCanvas.width, (1 - (clip[1] * 0.5 + 0.5)) * overlayCanvas.height];\n    }\n\n    function drawOverlay() {\n      overlay.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);\n      const width = geometryCanvas.width;\n      const length = Number(geometry.length_m || 0.297);\n      const span = Number(geometry.span_m || 0.18);\n      const axisX = Math.max(length * 0.24, 0.040);\n      const axisY = Math.max(span * 0.24, 0.032);\n      const axisZ = Math.max(Math.min(length, span) * 0.23, 0.028);\n      const origin = overlayPoint(center);\n\n      function drawAxis(offset, label, dx, dy) {\n        const to = overlayPoint([center[0] + offset[0], center[1] + offset[1], center[2] + offset[2]]);\n        const vx = to[0] - origin[0];\n        const vy = to[1] - origin[1];\n        const length2d = Math.max(Math.hypot(vx, vy), 0.001);\n        const ux = vx / length2d;\n        const uy = vy / length2d;\n        const arrow = Math.max(5, width / 150);\n        overlay.strokeStyle = \"#6e6e73\";\n        overlay.fillStyle = \"#1d1d1f\";\n        overlay.lineWidth = 1.4;\n        overlay.beginPath(); overlay.moveTo(origin[0], origin[1]); overlay.lineTo(to[0], to[1]); overlay.stroke();\n        overlay.beginPath();\n        overlay.moveTo(to[0], to[1]);\n        overlay.lineTo(to[0] - ux * arrow - uy * arrow * 0.45, to[1] - uy * arrow + ux * arrow * 0.45);\n        overlay.lineTo(to[0] - ux * arrow + uy * arrow * 0.45, to[1] - uy * arrow - ux * arrow * 0.45);\n        overlay.closePath(); overlay.fill();\n        overlay.font = `500 ${Math.max(10, width / 90)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        overlay.textAlign = \"center\";\n        overlay.fillText(label, to[0] + dx, to[1] + dy);\n      }\n\n      drawAxis([axisX, 0, 0], \"+X\", 12, -5);\n      drawAxis([0, axisY, 0], \"+Y\", -12, 8);\n      drawAxis([0, 0, axisZ], \"+Z  TOP\", 0, -10);\n      drawAxis([0, 0, -axisZ], \"BOTTOM  -Z\", 0, 14);\n      overlay.fillStyle = \"#1d1d1f\";\n      overlay.beginPath(); overlay.arc(origin[0], origin[1], Math.max(2, width / 350), 0, Math.PI * 2); overlay.fill();\n      overlay.font = `600 ${Math.max(12, width / 64)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n      overlay.textAlign = \"center\";\n      overlay.fillText(\"optimized geometry\", width * 0.5, Math.max(18, width / 48));\n    }\n\n    function render(now) {\n      currentYaw = 0.14 * Math.sin((now || 0) * 0.00085);\n      gl.viewport(0, 0, geometryCanvas.width, geometryCanvas.height);\n      gl.clearColor(1, 1, 1, 0);\n      gl.clearDepth(1.0);\n      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);\n      gl.useProgram(program);\n      gl.enable(gl.DEPTH_TEST);\n      gl.depthFunc(gl.LEQUAL);\n      gl.disable(gl.CULL_FACE);\n      gl.enable(gl.POLYGON_OFFSET_FILL);\n      gl.polygonOffset(1.0, 1.0);\n      modelPanels.forEach(panel => {\n        const c = panel.corners;\n        drawVertices(gl.TRIANGLES, [c[0], c[1], c[2], c[0], c[2], c[3]], panel.vertical ? [0.945, 0.945, 0.955, 1] : [0.992, 0.992, 0.992, 1]);\n      });\n      gl.disable(gl.POLYGON_OFFSET_FILL);\n      modelPanels.forEach(panel => {\n        for (let edge = 0; edge < 4; ++edge) {\n          const a = panel.corners[edge];\n          const b = panel.corners[(edge + 1) % 4];\n          const kind = edgeClass(panel, a, b);\n          const color = kind === \"silhouette\" ? [0.11, 0.11, 0.12, 1] : kind === \"crease\" ? [0.37, 0.37, 0.39, 1] : [0.84, 0.84, 0.86, 1];\n          drawVertices(gl.LINES, [a, b], color);\n        }\n      });\n      drawOverlay();\n    }\n    return { render };\n  }\n\n  function drawGeometryFallback() {\n    overlay.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);\n    overlay.fillStyle = \"#86868b\";\n    overlay.font = `${Math.max(12, overlayCanvas.width / 70)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n    overlay.textAlign = \"center\";\n    overlay.fillText(\"WebGL geometry renderer unavailable\", overlayCanvas.width * 0.5, overlayCanvas.height * 0.5);\n  }\n\n  function drawFoldPlan() {\n    foldCtx.clearRect(0, 0, foldCanvas.width, foldCanvas.height);\n    const w = foldCanvas.width;\n    const h = foldCanvas.height;\n    const ratio = w / Math.max(h, 1);\n    const sheet = foldPlan && foldPlan.sheet ? foldPlan.sheet : { width_m: 0.210, length_m: 0.297 };\n    const creases = foldPlan && Array.isArray(foldPlan.creases) ? foldPlan.creases : [];\n    const steps = foldPlan && Array.isArray(foldPlan.steps) ? foldPlan.steps : [];\n    const wide = ratio > 1.55;\n    const planLeft = w * 0.035;\n    const planTop = h * 0.145;\n    const planWidth = wide ? w * 0.52 : w * 0.78;\n    const planHeight = h * 0.70;\n    const scale = Math.min(planWidth / Number(sheet.width_m || 0.210), planHeight / Number(sheet.length_m || 0.297));\n    const sheetW = Number(sheet.width_m || 0.210) * scale;\n    const sheetH = Number(sheet.length_m || 0.297) * scale;\n    const sx = planLeft + (planWidth - sheetW) * 0.5;\n    const sy = planTop + (planHeight - sheetH) * 0.5;\n\n    function mapPoint(p) {\n      return [sx + (Number(p[0]) + Number(sheet.width_m || 0.210) * 0.5) * scale, sy + Number(p[1]) * scale];\n    }\n\n    function drawArrow(mid, vector, length) {\n      const vx = Number(vector && vector[0] || 0);\n      const vy = Number(vector && vector[1] || 0);\n      const norm = Math.max(Math.hypot(vx, vy), 0.001);\n      const ux = vx / norm;\n      const uy = vy / norm;\n      const start = [mid[0] - ux * length * 0.55, mid[1] - uy * length * 0.55];\n      const end = [mid[0] + ux * length * 0.45, mid[1] + uy * length * 0.45];\n      const head = Math.max(5, w / 190);\n      foldCtx.save();\n      foldCtx.strokeStyle = \"#1d1d1f\";\n      foldCtx.fillStyle = \"#1d1d1f\";\n      foldCtx.lineWidth = Math.max(1.2, w / 950);\n      foldCtx.beginPath(); foldCtx.moveTo(start[0], start[1]); foldCtx.lineTo(end[0], end[1]); foldCtx.stroke();\n      foldCtx.beginPath();\n      foldCtx.moveTo(end[0], end[1]);\n      foldCtx.lineTo(end[0] - ux * head - uy * head * 0.5, end[1] - uy * head + ux * head * 0.5);\n      foldCtx.lineTo(end[0] - ux * head + uy * head * 0.5, end[1] - uy * head - ux * head * 0.5);\n      foldCtx.closePath(); foldCtx.fill();\n      foldCtx.restore();\n    }\n\n    function wrapText(text, x, y, maxWidth, lineHeight, maxLines) {\n      const words = String(text || \"\").split(/\\s+/).filter(Boolean);\n      const lines = [];\n      let current = \"\";\n      for (const word of words) {\n        const trial = current ? current + \" \" + word : word;\n        if (current && foldCtx.measureText(trial).width > maxWidth) {\n          lines.push(current);\n          current = word;\n          if (lines.length >= maxLines - 1) break;\n        } else {\n          current = trial;\n        }\n      }\n      if (current && lines.length < maxLines) lines.push(current);\n      lines.slice(0, maxLines).forEach((line, index) => foldCtx.fillText(line, x, y + index * lineHeight));\n      return lines.length;\n    }\n\n    foldCtx.fillStyle = \"#ffffff\";\n    foldCtx.fillRect(sx, sy, sheetW, sheetH);\n    foldCtx.strokeStyle = \"#1d1d1f\";\n    foldCtx.lineWidth = Math.max(1.5, w / 800);\n    foldCtx.strokeRect(sx, sy, sheetW, sheetH);\n\n    foldCtx.font = `500 ${Math.max(10, w / 100)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n    foldCtx.fillStyle = \"#86868b\";\n    foldCtx.textAlign = \"center\";\n    foldCtx.fillText(\"NOSE\", sx + sheetW * 0.5, sy - Math.max(8, h * 0.018));\n    foldCtx.fillText(\"TAIL\", sx + sheetW * 0.5, sy + sheetH + Math.max(14, h * 0.035));\n\n    const drawnStep = new Set();\n    creases.forEach(crease => {\n      const a = mapPoint(crease.a);\n      const b = mapPoint(crease.b);\n      const kind = crease.kind || \"fold\";\n      const foldType = crease.fold_type || \"valley\";\n      foldCtx.save();\n      foldCtx.strokeStyle = foldType === \"reference\" ? \"#3a3a3c\" : foldType === \"mountain\" ? \"#4c4c50\" : foldType === \"adjust\" ? \"#9a9aa0\" : \"#66666b\";\n      foldCtx.lineWidth = foldType === \"reference\" || kind === \"wing\" ? Math.max(1.5, w / 850) : Math.max(1, w / 1050);\n      if (foldType === \"reference\") foldCtx.setLineDash([Math.max(6, w / 170), Math.max(5, w / 210)]);\n      if (foldType === \"mountain\") foldCtx.setLineDash([Math.max(10, w / 130), Math.max(3, w / 320), Math.max(3, w / 320), Math.max(3, w / 320)]);\n      if (foldType === \"adjust\") foldCtx.setLineDash([Math.max(4, w / 230), Math.max(4, w / 230)]);\n      foldCtx.beginPath(); foldCtx.moveTo(a[0], a[1]); foldCtx.lineTo(b[0], b[1]); foldCtx.stroke();\n      foldCtx.restore();\n\n      const mx = (a[0] + b[0]) * 0.5;\n      const my = (a[1] + b[1]) * 0.5;\n      drawArrow([mx, my], crease.arrow || [0, 0], Math.max(18, Math.min(sheetW, sheetH) * 0.075));\n\n      const step = Number(crease.step || 0);\n      if (step && !drawnStep.has(step)) {\n        drawnStep.add(step);\n        const r = Math.max(8, w / 105);\n        foldCtx.fillStyle = \"#ffffff\";\n        foldCtx.strokeStyle = \"#1d1d1f\";\n        foldCtx.lineWidth = 1.2;\n        foldCtx.beginPath(); foldCtx.arc(mx, my, r, 0, Math.PI * 2); foldCtx.fill(); foldCtx.stroke();\n        foldCtx.fillStyle = \"#1d1d1f\";\n        foldCtx.font = `600 ${Math.max(10, w / 108)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        foldCtx.textAlign = \"center\";\n        foldCtx.textBaseline = \"middle\";\n        foldCtx.fillText(String(step), mx, my + 0.5);\n        foldCtx.textBaseline = \"alphabetic\";\n      }\n    });\n\n    foldCtx.fillStyle = \"#1d1d1f\";\n    foldCtx.font = `600 ${Math.max(13, w / 66)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n    foldCtx.textAlign = \"center\";\n    foldCtx.fillText(\"winning A4 fold plan\", w * 0.5, Math.max(20, w / 48));\n\n    if (wide && steps.length) {\n      const tx = w * 0.60;\n      const ty = h * 0.175;\n      const right = w * 0.965;\n      const textWidth = Math.max(120, right - tx - Math.max(28, w / 28));\n      const blockHeight = Math.max(46, h * 0.112);\n      foldCtx.textAlign = \"left\";\n      steps.slice(0, 6).forEach((step, index) => {\n        const y = ty + index * blockHeight;\n        const r = Math.max(8, w / 108);\n        const creaseForStep = creases.find(crease => Number(crease.step) === Number(step.step));\n        const type = creaseForStep && creaseForStep.fold_type ? String(creaseForStep.fold_type).toUpperCase() : \"FOLD\";\n\n        foldCtx.fillStyle = \"#1d1d1f\";\n        foldCtx.beginPath(); foldCtx.arc(tx, y, r, 0, Math.PI * 2); foldCtx.fill();\n        foldCtx.fillStyle = \"#ffffff\";\n        foldCtx.font = `600 ${Math.max(9, w / 118)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        foldCtx.textAlign = \"center\";\n        foldCtx.textBaseline = \"middle\";\n        foldCtx.fillText(String(step.step), tx, y + 0.5);\n        foldCtx.textBaseline = \"alphabetic\";\n\n        const textX = tx + r + Math.max(9, w / 115);\n        foldCtx.fillStyle = \"#1d1d1f\";\n        foldCtx.textAlign = \"left\";\n        foldCtx.font = `600 ${Math.max(10, w / 100)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        foldCtx.fillText(step.title, textX, y - Math.max(5, h * 0.010));\n        foldCtx.fillStyle = \"#86868b\";\n        foldCtx.font = `500 ${Math.max(8, w / 132)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        const badgeWidth = foldCtx.measureText(type).width + Math.max(12, w / 100);\n        foldCtx.strokeStyle = \"#d2d2d7\";\n        foldCtx.strokeRect(right - badgeWidth, y - Math.max(17, h * 0.035), badgeWidth, Math.max(15, h * 0.032));\n        foldCtx.fillText(type, right - badgeWidth + Math.max(6, w / 200), y - Math.max(6, h * 0.012));\n\n        foldCtx.fillStyle = \"#6e6e73\";\n        foldCtx.font = `400 ${Math.max(9, w / 124)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n        wrapText(step.instruction, textX, y + Math.max(12, h * 0.025), textWidth, Math.max(12, h * 0.027), 2);\n      });\n    }\n\n    const legendY = h - Math.max(30, h * 0.067);\n    foldCtx.textAlign = \"center\";\n    foldCtx.fillStyle = \"#6e6e73\";\n    foldCtx.font = `500 ${Math.max(8, w / 135)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n    foldCtx.fillText(\"arrows show the moving flap \u00b7 dashed = reference \u00b7 dash-dot = wing fold \u00b7 short dash = angle adjustment\", w * 0.5, legendY);\n    foldCtx.fillStyle = \"#86868b\";\n    foldCtx.font = `400 ${Math.max(8, w / 140)}px -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif`;\n    foldCtx.fillText(\"simplified reproducible guide \u00b7 one uncut A4 sheet \u00b7 not a rigid-origami layer solver\", w * 0.5, h - Math.max(11, h * 0.027));\n  }\n\n  function setOpacity(flight, model, overlayValue, fold) {\n    flightCanvas.style.opacity = String(flight);\n    geometryCanvas.style.opacity = String(model);\n    overlayCanvas.style.opacity = String(overlayValue);\n    foldCanvas.style.opacity = String(fold);\n  }\n\n  function draw(now) {\n    const resized = resizeAll();\n    if (!geometryRenderer && !geometryRendererFailed && panels.length) {\n      geometryRenderer = createGeometryRenderer();\n      if (!geometryRenderer) { geometryRendererFailed = true; drawGeometryFallback(); }\n    }\n    if (resized) drawFoldPlan();\n\n    const elapsed = now - animationStart;\n    const flightEnd = durationMs;\n    const geometryStart = flightEnd + transitionMs;\n    const geometryEnd = geometryStart + geometryHoldMs;\n    const foldStart = geometryEnd + foldTransitionMs;\n\n    if (elapsed < flightEnd) {\n      note.textContent = \"current best trajectory\";\n      setOpacity(1, 0, 0, 0);\n      drawFlight(Math.max(0, Math.min(1, elapsed / durationMs)), 1);\n      requestAnimationFrame(draw);\n      return;\n    }\n\n    if (elapsed < geometryStart) {\n      const blend = (elapsed - flightEnd) / transitionMs;\n      note.textContent = blend < 0.5 ? \"current best trajectory\" : \"winning geometry\";\n      setOpacity(1 - blend, blend, blend, 0);\n      drawFlight(1, 1);\n      if (geometryRenderer) geometryRenderer.render(now);\n      requestAnimationFrame(draw);\n      return;\n    }\n\n    if (elapsed < geometryEnd) {\n      note.textContent = \"winning geometry\";\n      setOpacity(0, 1, 1, 0);\n      if (geometryRenderer) geometryRenderer.render(now);\n      requestAnimationFrame(draw);\n      return;\n    }\n\n    if (elapsed < foldStart) {\n      const blend = (elapsed - geometryEnd) / foldTransitionMs;\n      note.textContent = blend < 0.5 ? \"winning geometry\" : \"winning fold plan\";\n      setOpacity(0, 1 - blend, 1 - blend, blend);\n      if (geometryRenderer) geometryRenderer.render(now);\n      drawFoldPlan();\n      requestAnimationFrame(draw);\n      return;\n    }\n\n    note.textContent = \"winning fold plan\";\n    setOpacity(0, 0, 0, 1);\n    drawFoldPlan();\n  }\n\n  drawFoldPlan();\n  requestAnimationFrame(draw);\n}\n",
+    "data": {
+      "trajectory": {
+        "distance_m": 2.499505,
+        "flight_time_s": 1.817518,
+        "maximum_height_m": 1.722996,
+        "samples": [
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.7,
+            0.999883,
+            0.0,
+            -0.015315,
+            0.0
+          ],
+          [
+            0.0275,
+            0.079355,
+            0.0,
+            1.701674,
+            0.999991,
+            0.0,
+            0.004237,
+            0.0
+          ],
+          [
+            0.05,
+            0.140084,
+            6e-06,
+            1.70316,
+            0.998753,
+            3e-06,
+            0.049916,
+            1.3e-05
+          ],
+          [
+            0.0775,
+            0.207532,
+            8.6e-05,
+            1.708142,
+            0.993689,
+            1.7e-05,
+            0.112172,
+            0.000287
+          ],
+          [
+            0.1025,
+            0.260923,
+            0.000198,
+            1.714739,
+            0.987961,
+            -3e-05,
+            0.154704,
+            0.000673
+          ],
+          [
+            0.1275,
+            0.307246,
+            0.000313,
+            1.720047,
+            0.982516,
+            -0.00013,
+            0.186176,
+            0.00108
+          ],
+          [
+            0.1525,
+            0.347993,
+            0.000423,
+            1.722762,
+            0.977738,
+            -0.000279,
+            0.209824,
+            0.001488
+          ],
+          [
+            0.1775,
+            0.384777,
+            0.000526,
+            1.72238,
+            0.973625,
+            -0.00047,
+            0.228144,
+            0.001893
+          ],
+          [
+            0.2025,
+            0.418948,
+            0.00062,
+            1.718758,
+            0.97008,
+            -0.0007,
+            0.242772,
+            0.002296
+          ],
+          [
+            0.2275,
+            0.451522,
+            0.000702,
+            1.712103,
+            0.967133,
+            -0.000967,
+            0.254254,
+            0.002704
+          ],
+          [
+            0.2525,
+            0.483253,
+            0.000764,
+            1.702842,
+            0.964851,
+            -0.001286,
+            0.262775,
+            0.003126
+          ],
+          [
+            0.2775,
+            0.514709,
+            0.000787,
+            1.691305,
+            0.963099,
+            -0.001703,
+            0.269117,
+            0.003569
+          ],
+          [
+            0.3025,
+            0.546291,
+            0.000729,
+            1.677566,
+            0.961444,
+            -0.002301,
+            0.274962,
+            0.004026
+          ],
+          [
+            0.3275,
+            0.578209,
+            0.000468,
+            1.661436,
+            0.959168,
+            -0.003223,
+            0.282783,
+            0.004436
+          ],
+          [
+            0.3525,
+            0.610348,
+            -6.9e-05,
+            1.642526,
+            0.955186,
+            -0.00452,
+            0.29593,
+            0.005008
+          ],
+          [
+            0.3775,
+            0.642251,
+            -0.00085,
+            1.620294,
+            0.947807,
+            -0.006236,
+            0.318732,
+            0.005803
+          ],
+          [
+            0.4025,
+            0.673259,
+            -0.001919,
+            1.594173,
+            0.934657,
+            -0.008604,
+            0.355384,
+            0.00664
+          ],
+          [
+            0.4275,
+            0.702644,
+            -0.003315,
+            1.563959,
+            0.913308,
+            -0.011854,
+            0.407026,
+            0.007581
+          ],
+          [
+            0.4525,
+            0.730146,
+            -0.005025,
+            1.530146,
+            0.881888,
+            -0.016254,
+            0.471097,
+            0.008837
+          ],
+          [
+            0.4775,
+            0.75633,
+            -0.00695,
+            1.494299,
+            0.839362,
+            -0.021952,
+            0.543028,
+            0.010481
+          ],
+          [
+            0.5025,
+            0.782027,
+            -0.008888,
+            1.458404,
+            0.789702,
+            -0.028293,
+            0.612716,
+            0.01217
+          ],
+          [
+            0.5275,
+            0.807413,
+            -0.010635,
+            1.423822,
+            0.743542,
+            -0.034374,
+            0.66767,
+            0.013449
+          ],
+          [
+            0.5525,
+            0.83168,
+            -0.012115,
+            1.391007,
+            0.706394,
+            -0.040127,
+            0.70654,
+            0.014111
+          ],
+          [
+            0.5775,
+            0.854365,
+            -0.013294,
+            1.359814,
+            0.679396,
+            -0.045453,
+            0.732226,
+            0.014159
+          ],
+          [
+            0.6025,
+            0.875571,
+            -0.014152,
+            1.329853,
+            0.662098,
+            -0.050173,
+            0.74761,
+            0.013746
+          ],
+          [
+            0.6275,
+            0.895547,
+            -0.014698,
+            1.300605,
+            0.652932,
+            -0.054231,
+            0.75536,
+            0.013018
+          ],
+          [
+            0.652499,
+            0.914587,
+            -0.014951,
+            1.271583,
+            0.650136,
+            -0.057628,
+            0.757533,
+            0.012071
+          ],
+          [
+            0.677499,
+            0.932987,
+            -0.014926,
+            1.242389,
+            0.652172,
+            -0.060379,
+            0.755584,
+            0.010944
+          ],
+          [
+            0.702499,
+            0.951027,
+            -0.014624,
+            1.212718,
+            0.657821,
+            -0.062496,
+            0.750515,
+            0.009637
+          ],
+          [
+            0.727499,
+            0.968958,
+            -0.014034,
+            1.18234,
+            0.666158,
+            -0.063975,
+            0.743018,
+            0.008118
+          ],
+          [
+            0.752499,
+            0.98701,
+            -0.013129,
+            1.151085,
+            0.676484,
+            -0.0648,
+            0.733573,
+            0.006329
+          ],
+          [
+            0.777499,
+            1.005388,
+            -0.011868,
+            1.118827,
+            0.688276,
+            -0.064925,
+            0.722526,
+            0.004193
+          ],
+          [
+            0.802499,
+            1.024281,
+            -0.010201,
+            1.085477,
+            0.701125,
+            -0.064263,
+            0.710135,
+            0.001626
+          ],
+          [
+            0.827499,
+            1.043864,
+            -0.008079,
+            1.050974,
+            0.714699,
+            -0.062656,
+            0.696619,
+            -0.001425
+          ],
+          [
+            0.852499,
+            1.064321,
+            -0.005488,
+            1.015292,
+            0.728701,
+            -0.059886,
+            0.682191,
+            -0.004927
+          ],
+          [
+            0.877499,
+            1.085852,
+            -0.002466,
+            0.978444,
+            0.742855,
+            -0.055765,
+            0.667068,
+            -0.00878
+          ],
+          [
+            0.902499,
+            1.10868,
+            0.000915,
+            0.940512,
+            0.756908,
+            -0.050238,
+            0.651461,
+            -0.012891
+          ],
+          [
+            0.927499,
+            1.133044,
+            0.004566,
+            0.901671,
+            0.770624,
+            -0.04337,
+            0.635581,
+            -0.017193
+          ],
+          [
+            0.952499,
+            1.159165,
+            0.008402,
+            0.862197,
+            0.783801,
+            -0.03529,
+            0.619631,
+            -0.021608
+          ],
+          [
+            0.977499,
+            1.187201,
+            0.012336,
+            0.822437,
+            0.796299,
+            -0.026169,
+            0.603776,
+            -0.026028
+          ],
+          [
+            1.002499,
+            1.21722,
+            0.016274,
+            0.782758,
+            0.80805,
+            -0.016206,
+            0.58811,
+            -0.03032
+          ],
+          [
+            1.025,
+            1.245907,
+            0.019741,
+            0.747394,
+            0.817985,
+            -0.006698,
+            0.574198,
+            -0.033961
+          ],
+          [
+            1.05,
+            1.279537,
+            0.023414,
+            0.708748,
+            0.828346,
+            0.004262,
+            0.558935,
+            -0.037649
+          ],
+          [
+            1.075001,
+            1.314863,
+            0.026806,
+            0.670998,
+            0.838045,
+            0.015424,
+            0.54385,
+            -0.040861
+          ],
+          [
+            1.100001,
+            1.351698,
+            0.029831,
+            0.634304,
+            0.847141,
+            0.026571,
+            0.528916,
+            -0.043521
+          ],
+          [
+            1.125002,
+            1.389852,
+            0.032421,
+            0.598774,
+            0.855689,
+            0.037496,
+            0.514114,
+            -0.045579
+          ],
+          [
+            1.150003,
+            1.429137,
+            0.034531,
+            0.564477,
+            0.863738,
+            0.048012,
+            0.499441,
+            -0.047024
+          ],
+          [
+            1.175003,
+            1.469378,
+            0.036143,
+            0.53145,
+            0.87133,
+            0.057963,
+            0.484903,
+            -0.047886
+          ],
+          [
+            1.200004,
+            1.510415,
+            0.037262,
+            0.499714,
+            0.878502,
+            0.067232,
+            0.470518,
+            -0.048234
+          ],
+          [
+            1.225004,
+            1.5521,
+            0.037911,
+            0.469274,
+            0.885283,
+            0.075746,
+            0.456309,
+            -0.048154
+          ],
+          [
+            1.250005,
+            1.594303,
+            0.038113,
+            0.44012,
+            0.891699,
+            0.083462,
+            0.442303,
+            -0.047709
+          ],
+          [
+            1.275005,
+            1.636913,
+            0.037871,
+            0.412229,
+            0.897779,
+            0.090345,
+            0.428521,
+            -0.046904
+          ],
+          [
+            1.300006,
+            1.679832,
+            0.037154,
+            0.385565,
+            0.903564,
+            0.096327,
+            0.414981,
+            -0.045659
+          ],
+          [
+            1.325007,
+            1.722976,
+            0.035882,
+            0.360072,
+            0.909106,
+            0.101274,
+            0.401685,
+            -0.043806
+          ],
+          [
+            1.350007,
+            1.766267,
+            0.033889,
+            0.335679,
+            0.914481,
+            0.104937,
+            0.388619,
+            -0.041086
+          ],
+          [
+            1.375008,
+            1.809607,
+            0.030905,
+            0.312302,
+            0.919782,
+            0.106905,
+            0.375751,
+            -0.037204
+          ],
+          [
+            1.400008,
+            1.852838,
+            0.026601,
+            0.289876,
+            0.925094,
+            0.106489,
+            0.363085,
+            -0.032089
+          ],
+          [
+            1.425009,
+            1.895796,
+            0.020885,
+            0.268387,
+            0.930402,
+            0.102909,
+            0.350799,
+            -0.026495
+          ],
+          [
+            1.450009,
+            1.938393,
+            0.01402,
+            0.247867,
+            0.935622,
+            0.09622,
+            0.338989,
+            -0.020988
+          ],
+          [
+            1.47501,
+            1.980576,
+            0.00633,
+            0.228354,
+            0.940676,
+            0.086984,
+            0.327597,
+            -0.015553
+          ],
+          [
+            1.500011,
+            2.022273,
+            -0.001945,
+            0.209864,
+            0.94548,
+            0.075615,
+            0.316616,
+            -0.010248
+          ],
+          [
+            1.525011,
+            2.063424,
+            -0.010594,
+            0.192394,
+            0.949944,
+            0.062463,
+            0.306068,
+            -0.005198
+          ],
+          [
+            1.550012,
+            2.103992,
+            -0.019413,
+            0.175911,
+            0.953998,
+            0.04788,
+            0.295965,
+            -0.00052
+          ],
+          [
+            1.575012,
+            2.143967,
+            -0.028203,
+            0.160356,
+            0.957589,
+            0.032204,
+            0.286307,
+            0.003697
+          ],
+          [
+            1.600013,
+            2.18336,
+            -0.036783,
+            0.145635,
+            0.960685,
+            0.015739,
+            0.277094,
+            0.007393
+          ],
+          [
+            1.625013,
+            2.222197,
+            -0.044988,
+            0.131621,
+            0.963266,
+            -0.001283,
+            0.268339,
+            0.010535
+          ],
+          [
+            1.650014,
+            2.260518,
+            -0.052678,
+            0.118146,
+            0.965314,
+            -0.018738,
+            0.260088,
+            0.013108
+          ],
+          [
+            1.675015,
+            2.298375,
+            -0.059736,
+            0.104979,
+            0.966793,
+            -0.036705,
+            0.252457,
+            0.015124
+          ],
+          [
+            1.700015,
+            2.33582,
+            -0.066071,
+            0.091795,
+            0.967607,
+            -0.055653,
+            0.245689,
+            0.016632
+          ],
+          [
+            1.725016,
+            2.37288,
+            -0.071618,
+            0.078073,
+            0.967476,
+            -0.076971,
+            0.24031,
+            0.017798
+          ],
+          [
+            1.750016,
+            2.409422,
+            -0.076345,
+            0.062879,
+            0.965572,
+            -0.104496,
+            0.237447,
+            0.019244
+          ],
+          [
+            1.775017,
+            2.444677,
+            -0.080274,
+            0.044447,
+            0.959372,
+            -0.148057,
+            0.23904,
+            0.023326
+          ],
+          [
+            1.800017,
+            2.477312,
+            -0.084011,
+            0.020434,
+            0.944146,
+            -0.218177,
+            0.24459,
+            0.034107
+          ],
+          [
+            1.817518,
+            2.497998,
+            -0.086779,
+            0.0,
+            0.92649,
+            -0.278784,
+            0.248568,
+            0.045936
+          ]
+        ],
+        "geometry": {
+          "construction_family": "symmetric_a4_dart_glider",
+          "fold_reproducible": true,
+          "construction_model": "uncut_a4_fold_envelope",
+          "material_budget": "keel_and_wings_partition_one_A4_sheet",
+          "length_m": 0.297,
+          "center_of_mass_from_nose_m": 0.15119,
+          "keel_height_m": 0.014061,
+          "span_m": 0.179017,
+          "planform_area_m2": 0.040511,
+          "panels": [
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.134252,
+                  -0.0,
+                  0.0
+                ],
+                [
+                  0.123213,
+                  -0.010874,
+                  0.001952
+                ],
+                [
+                  0.036257,
+                  -0.011101,
+                  0.001992
+                ],
+                [
+                  0.042898,
+                  -0.0,
+                  0.0
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.042898,
+                  -0.0,
+                  0.0
+                ],
+                [
+                  0.036257,
+                  -0.011101,
+                  0.001992
+                ],
+                [
+                  -0.050699,
+                  -0.011328,
+                  0.002033
+                ],
+                [
+                  -0.048456,
+                  -0.0,
+                  0.0
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.048456,
+                  -0.0,
+                  0.0
+                ],
+                [
+                  -0.050699,
+                  -0.011328,
+                  0.002033
+                ],
+                [
+                  -0.137159,
+                  -0.011555,
+                  0.009407
+                ],
+                [
+                  -0.139314,
+                  -0.0,
+                  0.007334
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.123213,
+                  -0.010874,
+                  0.001952
+                ],
+                [
+                  0.112175,
+                  -0.021805,
+                  0.003913
+                ],
+                [
+                  0.029616,
+                  -0.022236,
+                  0.003991
+                ],
+                [
+                  0.036257,
+                  -0.011101,
+                  0.001992
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.036257,
+                  -0.011101,
+                  0.001992
+                ],
+                [
+                  0.029616,
+                  -0.022236,
+                  0.003991
+                ],
+                [
+                  -0.052943,
+                  -0.022668,
+                  0.004068
+                ],
+                [
+                  -0.050699,
+                  -0.011328,
+                  0.002033
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.050699,
+                  -0.011328,
+                  0.002033
+                ],
+                [
+                  -0.052943,
+                  -0.022668,
+                  0.004068
+                ],
+                [
+                  -0.135005,
+                  -0.023099,
+                  0.011479
+                ],
+                [
+                  -0.137159,
+                  -0.011555,
+                  0.009407
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.112175,
+                  -0.021805,
+                  0.003913
+                ],
+                [
+                  0.101136,
+                  -0.032794,
+                  0.005886
+                ],
+                [
+                  0.022975,
+                  -0.033407,
+                  0.005996
+                ],
+                [
+                  0.029616,
+                  -0.022236,
+                  0.003991
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.029616,
+                  -0.022236,
+                  0.003991
+                ],
+                [
+                  0.022975,
+                  -0.033407,
+                  0.005996
+                ],
+                [
+                  -0.055186,
+                  -0.034019,
+                  0.006106
+                ],
+                [
+                  -0.052943,
+                  -0.022668,
+                  0.004068
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.052943,
+                  -0.022668,
+                  0.004068
+                ],
+                [
+                  -0.055186,
+                  -0.034019,
+                  0.006106
+                ],
+                [
+                  -0.132851,
+                  -0.034632,
+                  0.013549
+                ],
+                [
+                  -0.135005,
+                  -0.023099,
+                  0.011479
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.101136,
+                  -0.032794,
+                  0.005886
+                ],
+                [
+                  0.090097,
+                  -0.043841,
+                  0.007868
+                ],
+                [
+                  0.016334,
+                  -0.044612,
+                  0.008007
+                ],
+                [
+                  0.022975,
+                  -0.033407,
+                  0.005996
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.022975,
+                  -0.033407,
+                  0.005996
+                ],
+                [
+                  0.016334,
+                  -0.044612,
+                  0.008007
+                ],
+                [
+                  -0.05743,
+                  -0.045383,
+                  0.008145
+                ],
+                [
+                  -0.055186,
+                  -0.034019,
+                  0.006106
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.055186,
+                  -0.034019,
+                  0.006106
+                ],
+                [
+                  -0.05743,
+                  -0.045383,
+                  0.008145
+                ],
+                [
+                  -0.130696,
+                  -0.046154,
+                  0.015617
+                ],
+                [
+                  -0.132851,
+                  -0.034632,
+                  0.013549
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.090097,
+                  -0.043841,
+                  0.007868
+                ],
+                [
+                  0.079059,
+                  -0.054945,
+                  0.009861
+                ],
+                [
+                  0.009693,
+                  -0.055851,
+                  0.010024
+                ],
+                [
+                  0.016334,
+                  -0.044612,
+                  0.008007
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.016334,
+                  -0.044612,
+                  0.008007
+                ],
+                [
+                  0.009693,
+                  -0.055851,
+                  0.010024
+                ],
+                [
+                  -0.059673,
+                  -0.056758,
+                  0.010187
+                ],
+                [
+                  -0.05743,
+                  -0.045383,
+                  0.008145
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.05743,
+                  -0.045383,
+                  0.008145
+                ],
+                [
+                  -0.059673,
+                  -0.056758,
+                  0.010187
+                ],
+                [
+                  -0.128418,
+                  -0.057664,
+                  0.018543
+                ],
+                [
+                  -0.130696,
+                  -0.046154,
+                  0.015617
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.079059,
+                  -0.054945,
+                  0.009861
+                ],
+                [
+                  0.06802,
+                  -0.066107,
+                  0.011865
+                ],
+                [
+                  0.003052,
+                  -0.067126,
+                  0.012047
+                ],
+                [
+                  0.009693,
+                  -0.055851,
+                  0.010024
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.009693,
+                  -0.055851,
+                  0.010024
+                ],
+                [
+                  0.003052,
+                  -0.067126,
+                  0.012047
+                ],
+                [
+                  -0.061916,
+                  -0.068144,
+                  0.01223
+                ],
+                [
+                  -0.059673,
+                  -0.056758,
+                  0.010187
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.059673,
+                  -0.056758,
+                  0.010187
+                ],
+                [
+                  -0.061916,
+                  -0.068144,
+                  0.01223
+                ],
+                [
+                  -0.126027,
+                  -0.069163,
+                  0.022035
+                ],
+                [
+                  -0.128418,
+                  -0.057664,
+                  0.018543
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.06802,
+                  -0.066107,
+                  0.011865
+                ],
+                [
+                  0.056981,
+                  -0.077327,
+                  0.013878
+                ],
+                [
+                  -0.003589,
+                  -0.078435,
+                  0.014077
+                ],
+                [
+                  0.003052,
+                  -0.067126,
+                  0.012047
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.003052,
+                  -0.067126,
+                  0.012047
+                ],
+                [
+                  -0.003589,
+                  -0.078435,
+                  0.014077
+                ],
+                [
+                  -0.06416,
+                  -0.079543,
+                  0.014276
+                ],
+                [
+                  -0.061916,
+                  -0.068144,
+                  0.01223
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.061916,
+                  -0.068144,
+                  0.01223
+                ],
+                [
+                  -0.06416,
+                  -0.079543,
+                  0.014276
+                ],
+                [
+                  -0.123598,
+                  -0.080651,
+                  0.025518
+                ],
+                [
+                  -0.126027,
+                  -0.069163,
+                  0.022035
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.056981,
+                  -0.077327,
+                  0.013878
+                ],
+                [
+                  0.045943,
+                  -0.088604,
+                  0.015902
+                ],
+                [
+                  -0.01023,
+                  -0.089779,
+                  0.016113
+                ],
+                [
+                  -0.003589,
+                  -0.078435,
+                  0.014077
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.003589,
+                  -0.078435,
+                  0.014077
+                ],
+                [
+                  -0.01023,
+                  -0.089779,
+                  0.016113
+                ],
+                [
+                  -0.066403,
+                  -0.090953,
+                  0.016324
+                ],
+                [
+                  -0.06416,
+                  -0.079543,
+                  0.014276
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.06416,
+                  -0.079543,
+                  0.014276
+                ],
+                [
+                  -0.066403,
+                  -0.090953,
+                  0.016324
+                ],
+                [
+                  -0.121131,
+                  -0.092127,
+                  0.028991
+                ],
+                [
+                  -0.123598,
+                  -0.080651,
+                  0.025518
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.134252,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.123213,
+                  0.010874,
+                  0.001952
+                ],
+                [
+                  0.036257,
+                  0.011101,
+                  0.001992
+                ],
+                [
+                  0.042898,
+                  0.0,
+                  0.0
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.042898,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.036257,
+                  0.011101,
+                  0.001992
+                ],
+                [
+                  -0.050699,
+                  0.011328,
+                  0.002033
+                ],
+                [
+                  -0.048456,
+                  0.0,
+                  0.0
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.048456,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.050699,
+                  0.011328,
+                  0.002033
+                ],
+                [
+                  -0.137159,
+                  0.011555,
+                  0.009407
+                ],
+                [
+                  -0.139314,
+                  0.0,
+                  0.007334
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.123213,
+                  0.010874,
+                  0.001952
+                ],
+                [
+                  0.112175,
+                  0.021805,
+                  0.003913
+                ],
+                [
+                  0.029616,
+                  0.022236,
+                  0.003991
+                ],
+                [
+                  0.036257,
+                  0.011101,
+                  0.001992
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.036257,
+                  0.011101,
+                  0.001992
+                ],
+                [
+                  0.029616,
+                  0.022236,
+                  0.003991
+                ],
+                [
+                  -0.052943,
+                  0.022668,
+                  0.004068
+                ],
+                [
+                  -0.050699,
+                  0.011328,
+                  0.002033
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.050699,
+                  0.011328,
+                  0.002033
+                ],
+                [
+                  -0.052943,
+                  0.022668,
+                  0.004068
+                ],
+                [
+                  -0.135005,
+                  0.023099,
+                  0.011479
+                ],
+                [
+                  -0.137159,
+                  0.011555,
+                  0.009407
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.112175,
+                  0.021805,
+                  0.003913
+                ],
+                [
+                  0.101136,
+                  0.032794,
+                  0.005886
+                ],
+                [
+                  0.022975,
+                  0.033407,
+                  0.005996
+                ],
+                [
+                  0.029616,
+                  0.022236,
+                  0.003991
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.029616,
+                  0.022236,
+                  0.003991
+                ],
+                [
+                  0.022975,
+                  0.033407,
+                  0.005996
+                ],
+                [
+                  -0.055186,
+                  0.034019,
+                  0.006106
+                ],
+                [
+                  -0.052943,
+                  0.022668,
+                  0.004068
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.052943,
+                  0.022668,
+                  0.004068
+                ],
+                [
+                  -0.055186,
+                  0.034019,
+                  0.006106
+                ],
+                [
+                  -0.132851,
+                  0.034632,
+                  0.013549
+                ],
+                [
+                  -0.135005,
+                  0.023099,
+                  0.011479
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.101136,
+                  0.032794,
+                  0.005886
+                ],
+                [
+                  0.090097,
+                  0.043841,
+                  0.007868
+                ],
+                [
+                  0.016334,
+                  0.044612,
+                  0.008007
+                ],
+                [
+                  0.022975,
+                  0.033407,
+                  0.005996
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.022975,
+                  0.033407,
+                  0.005996
+                ],
+                [
+                  0.016334,
+                  0.044612,
+                  0.008007
+                ],
+                [
+                  -0.05743,
+                  0.045383,
+                  0.008145
+                ],
+                [
+                  -0.055186,
+                  0.034019,
+                  0.006106
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.055186,
+                  0.034019,
+                  0.006106
+                ],
+                [
+                  -0.05743,
+                  0.045383,
+                  0.008145
+                ],
+                [
+                  -0.130696,
+                  0.046154,
+                  0.015617
+                ],
+                [
+                  -0.132851,
+                  0.034632,
+                  0.013549
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.090097,
+                  0.043841,
+                  0.007868
+                ],
+                [
+                  0.079059,
+                  0.054945,
+                  0.009861
+                ],
+                [
+                  0.009693,
+                  0.055851,
+                  0.010024
+                ],
+                [
+                  0.016334,
+                  0.044612,
+                  0.008007
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.016334,
+                  0.044612,
+                  0.008007
+                ],
+                [
+                  0.009693,
+                  0.055851,
+                  0.010024
+                ],
+                [
+                  -0.059673,
+                  0.056758,
+                  0.010187
+                ],
+                [
+                  -0.05743,
+                  0.045383,
+                  0.008145
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.05743,
+                  0.045383,
+                  0.008145
+                ],
+                [
+                  -0.059673,
+                  0.056758,
+                  0.010187
+                ],
+                [
+                  -0.128418,
+                  0.057664,
+                  0.018543
+                ],
+                [
+                  -0.130696,
+                  0.046154,
+                  0.015617
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.079059,
+                  0.054945,
+                  0.009861
+                ],
+                [
+                  0.06802,
+                  0.066107,
+                  0.011865
+                ],
+                [
+                  0.003052,
+                  0.067126,
+                  0.012047
+                ],
+                [
+                  0.009693,
+                  0.055851,
+                  0.010024
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.009693,
+                  0.055851,
+                  0.010024
+                ],
+                [
+                  0.003052,
+                  0.067126,
+                  0.012047
+                ],
+                [
+                  -0.061916,
+                  0.068144,
+                  0.01223
+                ],
+                [
+                  -0.059673,
+                  0.056758,
+                  0.010187
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.059673,
+                  0.056758,
+                  0.010187
+                ],
+                [
+                  -0.061916,
+                  0.068144,
+                  0.01223
+                ],
+                [
+                  -0.126027,
+                  0.069163,
+                  0.022035
+                ],
+                [
+                  -0.128418,
+                  0.057664,
+                  0.018543
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.06802,
+                  0.066107,
+                  0.011865
+                ],
+                [
+                  0.056981,
+                  0.077327,
+                  0.013878
+                ],
+                [
+                  -0.003589,
+                  0.078435,
+                  0.014077
+                ],
+                [
+                  0.003052,
+                  0.067126,
+                  0.012047
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.003052,
+                  0.067126,
+                  0.012047
+                ],
+                [
+                  -0.003589,
+                  0.078435,
+                  0.014077
+                ],
+                [
+                  -0.06416,
+                  0.079543,
+                  0.014276
+                ],
+                [
+                  -0.061916,
+                  0.068144,
+                  0.01223
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.061916,
+                  0.068144,
+                  0.01223
+                ],
+                [
+                  -0.06416,
+                  0.079543,
+                  0.014276
+                ],
+                [
+                  -0.123598,
+                  0.080651,
+                  0.025518
+                ],
+                [
+                  -0.126027,
+                  0.069163,
+                  0.022035
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  0.056981,
+                  0.077327,
+                  0.013878
+                ],
+                [
+                  0.045943,
+                  0.088604,
+                  0.015902
+                ],
+                [
+                  -0.01023,
+                  0.089779,
+                  0.016113
+                ],
+                [
+                  -0.003589,
+                  0.078435,
+                  0.014077
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.003589,
+                  0.078435,
+                  0.014077
+                ],
+                [
+                  -0.01023,
+                  0.089779,
+                  0.016113
+                ],
+                [
+                  -0.066403,
+                  0.090953,
+                  0.016324
+                ],
+                [
+                  -0.06416,
+                  0.079543,
+                  0.014276
+                ]
+              ]
+            },
+            {
+              "vertical": false,
+              "corners": [
+                [
+                  -0.06416,
+                  0.079543,
+                  0.014276
+                ],
+                [
+                  -0.066403,
+                  0.090953,
+                  0.016324
+                ],
+                [
+                  -0.121131,
+                  0.092127,
+                  0.028991
+                ],
+                [
+                  -0.123598,
+                  0.080651,
+                  0.025518
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  0.113032,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.083177,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.083177,
+                  0.0,
+                  -0.015771
+                ],
+                [
+                  0.113032,
+                  0.0,
+                  -0.016405
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  0.083177,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.053322,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.053322,
+                  0.0,
+                  -0.015137
+                ],
+                [
+                  0.083177,
+                  0.0,
+                  -0.015771
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  0.053322,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.023466,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.023466,
+                  0.0,
+                  -0.014503
+                ],
+                [
+                  0.053322,
+                  0.0,
+                  -0.015137
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  0.023466,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.006389,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.006389,
+                  0.0,
+                  -0.013868
+                ],
+                [
+                  0.023466,
+                  0.0,
+                  -0.014503
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  -0.006389,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.036244,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.036244,
+                  0.0,
+                  -0.013234
+                ],
+                [
+                  -0.006389,
+                  0.0,
+                  -0.013868
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  -0.036244,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.0661,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.0661,
+                  0.0,
+                  -0.0126
+                ],
+                [
+                  -0.036244,
+                  0.0,
+                  -0.013234
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  -0.0661,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.095955,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.095955,
+                  0.0,
+                  -0.011966
+                ],
+                [
+                  -0.0661,
+                  0.0,
+                  -0.0126
+                ]
+              ]
+            },
+            {
+              "vertical": true,
+              "corners": [
+                [
+                  -0.095955,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.12581,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.12581,
+                  0.0,
+                  -0.011332
+                ],
+                [
+                  -0.095955,
+                  0.0,
+                  -0.011966
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "candidate": {
+        "nose_fold_depth": 0.06937705820980598,
+        "nose_fold_width": 0.02181757060895695,
+        "shoulder_fold_depth": 0.12877854878256048,
+        "wing_root_fold_from_center": 0.01721562652380241,
+        "wing_tip_fold_from_center": 0.010907042030959001,
+        "dihedral_degrees": 10.174874115411855,
+        "tip_fold_depth": 0.054409057434872586,
+        "tip_fold_degrees": -5.488423199984542,
+        "elevator_fold_depth": 0.03066160218828092,
+        "elevator_degrees": -7.746175545408147,
+        "launch_speed": 2.9790957631927153,
+        "launch_pitch_degrees": 1.7550774233755266
+      },
+      "fold_plan": {
+        "schema": 2,
+        "sheet": {
+          "width_m": 0.21,
+          "length_m": 0.297,
+          "uncut": true
+        },
+        "coordinate_system": "x across sheet from center crease, y nose-to-tail",
+        "guide": "simplified parametric fold recipe",
+        "creases": [
+          {
+            "step": 1,
+            "kind": "center",
+            "a": [
+              0.0,
+              0.0
+            ],
+            "b": [
+              0.0,
+              0.297
+            ],
+            "label": "Center crease",
+            "instruction": "Fold the right half onto the left half, crease, then reopen.",
+            "fold_type": "reference",
+            "moving_side": "right half",
+            "arrow": [
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "step": 2,
+            "kind": "nose",
+            "a": [
+              0.0,
+              0.069377
+            ],
+            "b": [
+              -0.021818,
+              0.0
+            ],
+            "label": "Left nose fold",
+            "instruction": "Bring the left nose corner inward toward the center crease.",
+            "fold_type": "valley",
+            "moving_side": "left nose corner",
+            "arrow": [
+              1.0,
+              0.35
+            ]
+          },
+          {
+            "step": 2,
+            "kind": "nose",
+            "a": [
+              0.0,
+              0.069377
+            ],
+            "b": [
+              0.021818,
+              0.0
+            ],
+            "label": "Right nose fold",
+            "instruction": "Bring the right nose corner inward toward the center crease.",
+            "fold_type": "valley",
+            "moving_side": "right nose corner",
+            "arrow": [
+              -1.0,
+              0.35
+            ]
+          },
+          {
+            "step": 3,
+            "kind": "shoulder",
+            "a": [
+              -0.021818,
+              0.0
+            ],
+            "b": [
+              -0.017216,
+              0.128779
+            ],
+            "label": "Left shoulder fold",
+            "instruction": "Fold the left shoulder flap inward toward the center body.",
+            "fold_type": "valley",
+            "moving_side": "left shoulder flap",
+            "arrow": [
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "step": 3,
+            "kind": "shoulder",
+            "a": [
+              0.021818,
+              0.0
+            ],
+            "b": [
+              0.017216,
+              0.128779
+            ],
+            "label": "Right shoulder fold",
+            "instruction": "Fold the right shoulder flap inward toward the center body.",
+            "fold_type": "valley",
+            "moving_side": "right shoulder flap",
+            "arrow": [
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "step": 4,
+            "kind": "wing",
+            "a": [
+              -0.017216,
+              0.0
+            ],
+            "b": [
+              -0.010907,
+              0.297
+            ],
+            "label": "Left wing fold",
+            "instruction": "With the model folded on the center crease, fold the left wing down along this swept crease.",
+            "fold_type": "mountain",
+            "moving_side": "left outer wing",
+            "arrow": [
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "step": 4,
+            "kind": "wing",
+            "a": [
+              0.017216,
+              0.0
+            ],
+            "b": [
+              0.010907,
+              0.297
+            ],
+            "label": "Right wing fold",
+            "instruction": "Fold the right wing down symmetrically along this swept crease.",
+            "fold_type": "mountain",
+            "moving_side": "right outer wing",
+            "arrow": [
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "step": 5,
+            "kind": "tip",
+            "a": [
+              -0.105,
+              0.242591
+            ],
+            "b": [
+              -0.010907,
+              0.242591
+            ],
+            "label": "Left tip fold",
+            "instruction": "Deflect the left tip by approximately -5.5 degrees.",
+            "fold_type": "adjust",
+            "moving_side": "left wing tip",
+            "arrow": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "step": 5,
+            "kind": "tip",
+            "a": [
+              0.010907,
+              0.242591
+            ],
+            "b": [
+              0.105,
+              0.242591
+            ],
+            "label": "Right tip fold",
+            "instruction": "Deflect the right tip symmetrically by approximately -5.5 degrees.",
+            "fold_type": "adjust",
+            "moving_side": "right wing tip",
+            "arrow": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "step": 6,
+            "kind": "elevator",
+            "a": [
+              -0.105,
+              0.266338
+            ],
+            "b": [
+              -0.010907,
+              0.266338
+            ],
+            "label": "Left elevator fold",
+            "instruction": "Set the left trailing elevator to approximately -7.7 degrees.",
+            "fold_type": "adjust",
+            "moving_side": "left trailing edge",
+            "arrow": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "step": 6,
+            "kind": "elevator",
+            "a": [
+              0.010907,
+              0.266338
+            ],
+            "b": [
+              0.105,
+              0.266338
+            ],
+            "label": "Right elevator fold",
+            "instruction": "Set the right trailing elevator symmetrically to approximately -7.7 degrees.",
+            "fold_type": "adjust",
+            "moving_side": "right trailing edge",
+            "arrow": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "steps": [
+          {
+            "step": 1,
+            "title": "Center crease",
+            "instruction": "Fold the right half onto the left half along the center line, make the crease, then reopen."
+          },
+          {
+            "step": 2,
+            "title": "Nose",
+            "instruction": "Bring both nose corners inward symmetrically to the searched nose depth and width."
+          },
+          {
+            "step": 3,
+            "title": "Shoulders",
+            "instruction": "Fold both shoulder flaps inward symmetrically using the searched shoulder crease."
+          },
+          {
+            "step": 4,
+            "title": "Body and wings",
+            "instruction": "Fold the model in half on the center crease, then fold both outer wings down along the searched swept wing creases."
+          },
+          {
+            "step": 5,
+            "title": "Tips",
+            "instruction": "Adjust both wing tips symmetrically to approximately -5.5 degrees."
+          },
+          {
+            "step": 6,
+            "title": "Elevators and dihedral",
+            "instruction": "Set both elevators to approximately -7.7 degrees, then open the wings to approximately 10.2 degrees dihedral."
+          }
+        ],
+        "legend": {
+          "reference": "reference crease / reopen",
+          "valley": "fold flap toward the center",
+          "mountain": "fold outer wing down",
+          "adjust": "final angle adjustment"
+        },
+        "note": "Reproducible approximation of the searched uncut-A4 fold-envelope; paper thickness and layer contact are not simulated."
+      }
+    }
+  }
+}

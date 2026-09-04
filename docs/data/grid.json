@@ -1,0 +1,23 @@
+{
+  "version": "microgrid-0.13.7",
+  "updated_at_unix": 1788508912,
+  "nodes_online": 8,
+  "nodes_known": 8,
+  "tasks_computing": 0,
+  "tasks_open": 8,
+  "tasks_completed": 34763,
+  "projects_online": 0,
+  "nodes": [
+    {"name": "esp32-node-8", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-1", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-7", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-2", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-6", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-5", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-3", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "esp32-node-4", "version": "0.11.4", "score": 99, "state": "idle", "task_id": 0, "project": ""}
+  ],
+  "projects": [
+
+  ]
+}

@@ -1,1 +1,87 @@
-this is a test
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Microgrid — small computers, interesting problems.">
+  <title>Alinoe — smart home cluster</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="hero section" id="hello">
+      <div class="hero-inner">
+        <p class="eyebrow">ALINOE</p>
+        <h1>Hello world.</h1>
+        <p class="hero-copy">
+          My smart home already has dozens of tiny computers. I make them work together.
+        </p>
+      </div>
+      <a class="down" href="#projects" aria-label="Projects">↓</a>
+    </section>
+
+    <section class="section projects-section" id="projects">
+      <div class="section-head projects-head">
+        <div>
+          <p class="eyebrow">PROJECTS</p>
+          <h2>Home in action</h2>
+          <p>Experiments run across the grid. Some are live, some are finished. All of them stay here.</p>
+        </div>
+      </div>
+
+      <div class="projects-toolbar">
+        <div class="project-filters" role="group" aria-label="Filter projects">
+          <button class="filter active" data-filter="all">All <span id="filterAllCount">0</span></button>
+          <button class="filter" data-filter="running">Running <span id="filterRunningCount">0</span></button>
+          <button class="filter" data-filter="completed">Completed <span id="filterCompletedCount">0</span></button>
+        </div>
+        <div class="project-navigation">
+          <button id="projectPrevious" aria-label="Previous project">←</button>
+          <button id="projectNext" aria-label="Next project">→</button>
+        </div>
+      </div>
+
+      <div id="projectsTrack" class="projects-track">
+        <article class="project-card loading-card">Loading projects…</article>
+      </div>
+      <a class="down" href="#grid" aria-label="Live grid">↓</a>
+    </section>
+
+    <section class="section grid-section" id="grid">
+      <div class="section-head">
+        <p class="eyebrow">LIVE</p>
+        <h2>What is the home doing.</h2>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><strong id="nodesOnline">—</strong><span>devices online</span></div>
+        <div class="stat"><strong id="tasksComputing">—</strong><span>computing now</span></div>
+        <div class="stat"><strong id="tasksCompleted">—</strong><span>completed so far</span></div>
+        <div class="stat"><strong id="gridProjectsRunning">—</strong><span>projects running</span></div>
+        <div class="stat"><strong id="gridProjectsCompleted">—</strong><span>projects completed</span></div>
+      </div>
+
+      <div class="grid-detail">
+        <div>
+          <p class="mini-label">NODES</p>
+          <div id="nodeList" class="node-list"><span class="muted">Waiting for grid.json…</span></div>
+        </div>
+        <div class="grid-meta">
+          <p><span>Open tasks</span><strong id="tasksOpen">—</strong></p>
+          <p><span>Project clients online</span><strong id="projectsOnline">—</strong></p>
+          <p><span>Last update</span><strong id="lastUpdate">—</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer>
+  <a id="githubLink" hidden>GitHub ↗</a>
+  <span class="made-by-human">Invented by human</span> <span class="footer-separator">|</span> <span class="made-with-ai">Made with AI ✦</span>
+</footer>
+
+
+
+  <script src="app.js"></script>
+</body>
+</html>

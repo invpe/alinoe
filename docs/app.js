@@ -1,0 +1,314 @@
+const fmtInt = new Intl.NumberFormat("en-US");
+let projectSignature = "";
+let loadedProjects = [];
+let activeProjectFilter = "all";
+let appConfig = {
+  data_base_url: "data",
+  grid_poll_ms: 5000,
+  projects_poll_ms: 10000,
+  github_url: "",
+  stale_after_seconds: 180,
+};
+
+function cacheBusted(url) {
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}t=${Date.now()}`;
+}
+
+async function getJSON(url) {
+  const response = await fetch(cacheBusted(url), { cache: "no-store" });
+  if (!response.ok) throw new Error(`${url}: ${response.status}`);
+  return response.json();
+}
+
+function dataURL(path) {
+  const base = String(appConfig.data_base_url || "data").replace(/\/$/, "");
+  return `${base}/${path}`;
+}
+
+function relativeURL(path, base) {
+  return new URL(path, new URL(base, window.location.href)).toString();
+}
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function displayValue(value) {
+  if (value === null || value === undefined || value === "") return "—";
+  return String(value);
+}
+
+function effectiveStatus(project) {
+  const status = String(project.status || "unknown").toLowerCase();
+  const updatedAt = Number(project.updated_at_unix || 0);
+  const staleAfter = Number(appConfig.stale_after_seconds || 180);
+  if ((status === "running" || status === "starting") &&
+      updatedAt > 0 && (Date.now() / 1000 - updatedAt) > staleAfter) {
+    return "stale";
+  }
+  return status;
+}
+
+function isRunningProject(project) {
+  const status = effectiveStatus(project);
+  return status === "running" || status === "starting";
+}
+
+function isCompletedProject(project) {
+  return effectiveStatus(project) === "completed";
+}
+
+function formatBest(best) {
+  if (!best) return { value: "—", unit: "", label: "Waiting for first result", status: "" };
+  let value = best.value;
+  if (typeof value === "number" && Number.isFinite(value)) {
+    const decimals = Number.isInteger(best.decimals) ? best.decimals : 3;
+    value = value.toFixed(Math.max(0, Math.min(9, decimals)));
+  }
+  return {
+    value: displayValue(value),
+    unit: displayValue(best.unit || ""),
+    label: displayValue(best.label || "Best result"),
+    status: displayValue(best.status || ""),
+  };
+}
+
+function renderMetric(metric) {
+  return `<div class="fact"><span>${escapeHTML(metric?.label || "Metric")}</span><strong>${escapeHTML(displayValue(metric?.value))}</strong></div>`;
+}
+
+function renderProject(project) {
+  const progress = project.progress || {};
+  const current = Number(progress.current || 0);
+  const total = Number(progress.total || 0);
+  const percentage = total > 0 ? Math.min(100, current / total * 100) : 0;
+  const throughput = Number(progress.throughput || 0);
+  const best = formatBest(project.best);
+  const status = effectiveStatus(project);
+  const metrics = Array.isArray(project.metrics) ? project.metrics : [];
+  const hasVisualization = Boolean(project.visualization?.code);
+
+  const genericMetrics = [
+    {
+      label: progress.unit ? `${progress.unit} tested` : "Progress",
+      value: total ? `${fmtInt.format(current)} / ${fmtInt.format(total)}` : fmtInt.format(current),
+    },
+  ];
+  if (progress.throughput_unit || throughput > 0) {
+    genericMetrics.push({
+      label: "Throughput",
+      value: `${throughput.toFixed(2)} ${progress.throughput_unit || "/ s"}`,
+    });
+  }
+
+  const visualizationHTML = hasVisualization ? `
+    <div class="visualization-wrap" data-visualization="${escapeHTML(project.id)}">
+      <div class="visualization-loading">Loading visualization…</div>
+    </div>` : "";
+
+  return `
+    <article class="project-card ${hasVisualization ? "has-visualization" : "no-visualization"}" data-project="${escapeHTML(project.id)}">
+      <div class="project-top">
+        <div>
+          <h3>${escapeHTML(project.title || project.id)}</h3>
+          <p class="project-description">${escapeHTML(project.description || "")}</p>
+        </div>
+        <span class="status ${escapeHTML(status)}">${escapeHTML(status)}</span>
+      </div>
+      <div class="project-grid">
+        ${visualizationHTML}
+        <div class="best">
+          <div class="best-label">${escapeHTML(best.label)}</div>
+          <div class="best-value">${escapeHTML(best.value)}${best.unit ? ` <small>${escapeHTML(best.unit)}</small>` : ""}</div>
+          ${best.status ? `<div class="result-status">${escapeHTML(best.status)}</div>` : ""}
+          <div class="project-facts">
+            ${[...genericMetrics, ...metrics].map(renderMetric).join("")}
+          </div>
+        </div>
+      </div>
+      <div class="progress-line"><div style="width:${percentage.toFixed(2)}%"></div></div>
+    </article>`;
+}
+
+function base64UTF8(value) {
+  const bytes = new TextEncoder().encode(JSON.stringify(value));
+  let binary = "";
+  const chunk = 0x8000;
+  for (let offset = 0; offset < bytes.length; offset += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunk));
+  }
+  return btoa(binary);
+}
+
+function visualizationSource(project) {
+  const visualization = project.visualization || {};
+  const projectMetadata = { ...project };
+  delete projectMetadata.visualization;
+  const packed = base64UTF8({
+    project: projectMetadata,
+    code: String(visualization.code || ""),
+    data: visualization.data ?? {},
+  });
+
+  return `<!doctype html>
+<html><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; media-src 'none'; font-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'">
+<style>html,body,#root{margin:0;width:100%;height:100%;min-height:280px;background:#0a1016;overflow:hidden}*{box-sizing:border-box}</style>
+</head><body><div id="root"></div><script>
+(function(){
+  const binary=atob("${packed}");
+  const bytes=Uint8Array.from(binary, c => c.charCodeAt(0));
+  const payload=JSON.parse(new TextDecoder().decode(bytes));
+  const root=document.getElementById("root");
+  try {
+    new Function("root", "project", "data", payload.code)(root, payload.project, payload.data);
+  } catch (error) {
+    root.innerHTML='<div style="height:280px;display:grid;place-items:center;color:#a98262;font:13px system-ui,sans-serif">Visualization error</div>';
+    console.error(error);
+  }
+})();
+<\/script></body></html>`;
+}
+
+function mountVisualization(project) {
+  if (!project.visualization?.code) return;
+  const target = document.querySelector(`[data-project="${CSS.escape(project.id)}"] [data-visualization]`);
+  if (!target) return;
+
+  const iframe = document.createElement("iframe");
+  iframe.className = "project-visualization";
+  iframe.setAttribute("sandbox", "allow-scripts");
+  iframe.setAttribute("title", `${project.title || project.id} visualization`);
+  iframe.srcdoc = visualizationSource(project);
+  target.replaceChildren(iframe);
+}
+
+function filteredProjects() {
+  if (activeProjectFilter === "running") return loadedProjects.filter(isRunningProject);
+  if (activeProjectFilter === "completed") return loadedProjects.filter(isCompletedProject);
+  return loadedProjects;
+}
+
+function updateProjectCounts() {
+  const running = loadedProjects.filter(isRunningProject).length;
+  const completed = loadedProjects.filter(isCompletedProject).length;
+  const total = loadedProjects.length;
+
+  document.getElementById("gridProjectsRunning").textContent = fmtInt.format(running);
+  document.getElementById("gridProjectsCompleted").textContent = fmtInt.format(completed);
+  document.getElementById("filterAllCount").textContent = fmtInt.format(total);
+  document.getElementById("filterRunningCount").textContent = fmtInt.format(running);
+  document.getElementById("filterCompletedCount").textContent = fmtInt.format(completed);
+}
+
+function renderProjects() {
+  const track = document.getElementById("projectsTrack");
+  const projects = filteredProjects();
+  updateProjectCounts();
+
+  document.querySelectorAll(".filter").forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === activeProjectFilter);
+  });
+
+  if (!projects.length) {
+    track.innerHTML = `<article class="project-card loading-card">No ${escapeHTML(activeProjectFilter === "all" ? "" : activeProjectFilter + " ")}projects yet.</article>`;
+    return;
+  }
+
+  track.innerHTML = projects.map(renderProject).join("");
+  projects.forEach(mountVisualization);
+  track.scrollTo({ left: 0, behavior: "auto" });
+}
+
+async function loadProjects() {
+  try {
+    const indexUrl = dataURL("projects/index.json");
+    const index = await getJSON(indexUrl);
+    const loaded = await Promise.all((index.projects || []).map(async item => {
+      const projectUrl = relativeURL(item.json, indexUrl);
+      return getJSON(projectUrl);
+    }));
+
+    const signature = JSON.stringify(loaded);
+    if (signature === projectSignature) {
+      updateProjectCounts();
+      return;
+    }
+    projectSignature = signature;
+    loadedProjects = loaded;
+    renderProjects();
+  } catch (_) {
+    loadedProjects = [];
+    projectSignature = "";
+    renderProjects();
+  }
+}
+
+function updateGrid(grid) {
+  document.getElementById("nodesOnline").textContent = fmtInt.format(grid.nodes_online || 0);
+  document.getElementById("tasksComputing").textContent = fmtInt.format(grid.tasks_computing || 0);
+  document.getElementById("tasksCompleted").textContent = fmtInt.format(grid.tasks_completed || 0);
+  document.getElementById("tasksOpen").textContent = fmtInt.format(grid.tasks_open || 0);
+  document.getElementById("projectsOnline").textContent = fmtInt.format(grid.projects_online || 0);
+  document.getElementById("lastUpdate").textContent = grid.updated_at_unix
+    ? new Date(grid.updated_at_unix * 1000).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit", second: "2-digit"})
+    : "—";
+
+  const list = document.getElementById("nodeList");
+  const nodes = grid.nodes || [];
+  list.innerHTML = nodes.length ? nodes.map(node => `
+    <span class="node ${escapeHTML(node.state)}" title="${escapeHTML(node.project || "idle")}">
+      <i class="dot"></i>${escapeHTML(node.name)}
+      ${node.state === "computing" ? `<span class="node-score">task #${escapeHTML(node.task_id)}</span>` : ""}
+      <span class="node-score">${Number(node.score || 0)}%</span>
+    </span>`).join("") : `<span class="muted">No nodes online.</span>`;
+}
+
+async function pollGrid() {
+  try { updateGrid(await getJSON(dataURL("grid.json"))); } catch (_) {}
+  setTimeout(pollGrid, Number(appConfig.grid_poll_ms || 5000));
+}
+
+function scrollProjects(direction) {
+  const track = document.getElementById("projectsTrack");
+  const card = track.querySelector(".project-card");
+  const distance = card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.9;
+  track.scrollBy({ left: direction * distance, behavior: "smooth" });
+}
+
+async function loadConfig() {
+  try {
+    const config = await getJSON("config.json");
+    appConfig = {...appConfig, ...config};
+  } catch (_) {}
+
+  if (appConfig.github_url) {
+    const link = document.getElementById("githubLink");
+    link.href = appConfig.github_url;
+    link.hidden = false;
+  }
+}
+
+async function startApp() {
+  await loadConfig();
+
+  document.querySelectorAll(".filter").forEach(button => {
+    button.addEventListener("click", () => {
+      activeProjectFilter = button.dataset.filter || "all";
+      renderProjects();
+    });
+  });
+  document.getElementById("projectPrevious").addEventListener("click", () => scrollProjects(-1));
+  document.getElementById("projectNext").addEventListener("click", () => scrollProjects(1));
+
+  await loadProjects();
+  pollGrid();
+  setInterval(loadProjects, Number(appConfig.projects_poll_ms || 10000));
+}
+
+startApp();

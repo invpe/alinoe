@@ -1,0 +1,7 @@
+{
+  "data_base_url": "data",
+  "grid_poll_ms": 5000,
+  "projects_poll_ms": 10000,
+  "github_url": "https://github.com/invpe/alinoe",
+  "stale_after_seconds": 180
+}
