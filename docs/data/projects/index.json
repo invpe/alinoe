@@ -1,21 +1,30 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788511735,
+  "updated_at_unix": 1788525854,
   "counts": {
     "running": 1,
-    "completed": 0,
+    "completed": 1,
     "other": 0,
-    "total": 1
+    "total": 2
   },
   "projects": [
     {
       "id": "paperplane",
       "title": "Foldable Paper Plane Distance Search",
       "status": "running",
-      "updated_at_unix": 1788511724,
-      "started_at_unix": 1788509966,
+      "updated_at_unix": 1788525849,
+      "started_at_unix": 1788516546,
       "completed_at_unix": null,
       "json": "paperplane.json"
+    },
+    {
+      "id": "proteinlock",
+      "title": "ProteinLock \u2014 L99A Molecular Docking",
+      "status": "completed",
+      "updated_at_unix": 1788525616,
+      "started_at_unix": 1788525612,
+      "completed_at_unix": 1788525616,
+      "json": "proteinlock.json"
     }
   ]
 }
