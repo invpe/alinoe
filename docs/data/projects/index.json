@@ -1,29 +1,38 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788559201,
+  "updated_at_unix": 1788562801,
   "counts": {
-    "running": 1,
+    "running": 2,
     "completed": 1,
     "other": 0,
-    "total": 2
+    "total": 3
   },
   "projects": [
     {
       "id": "paperplane",
       "title": "Foldable Paper Plane Distance Search",
       "status": "running",
-      "updated_at_unix": 1788559193,
+      "updated_at_unix": 1788562793,
       "started_at_unix": 1788547263,
       "completed_at_unix": null,
       "json": "paperplane.json"
     },
     {
+      "id": "rotor3d",
+      "title": "Rotor3D Passive Autorotation Search",
+      "status": "running",
+      "updated_at_unix": 1788562782,
+      "started_at_unix": 1788561423,
+      "completed_at_unix": null,
+      "json": "rotor3d.json"
+    },
+    {
       "id": "proteinlock",
       "title": "ProteinLock \u2014 L99A Molecular Docking",
       "status": "completed",
-      "updated_at_unix": 1788537234,
-      "started_at_unix": 1788537050,
-      "completed_at_unix": 1788537234,
+      "updated_at_unix": 1788536662,
+      "started_at_unix": 1788536660,
+      "completed_at_unix": 1788536662,
       "json": "proteinlock.json"
     }
   ]
