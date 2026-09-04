@@ -1,0 +1,1979 @@
+{
+  "schema": 1,
+  "id": "proteinlock",
+  "title": "ProteinLock \u2014 L99A Molecular Docking",
+  "description": "Search small molecular candidates for poses predicted to fit the T4 lysozyme L99A pocket, then validate the ranking against published reference data.",
+  "status": "completed",
+  "updated_at_unix": 1788525616,
+  "started_at_unix": 1788525612,
+  "completed_at_unix": 1788525616,
+  "progress": {
+    "current": 10,
+    "total": 10,
+    "unit": "molecules",
+    "throughput": 2.313,
+    "throughput_unit": "molecules/s",
+    "eta_seconds": null
+  },
+  "best": {
+    "label": "Best ProteinLock score",
+    "value": 11.358,
+    "unit": "",
+    "decimals": 3,
+    "status": ""
+  },
+  "metrics": [
+    {
+      "label": "Pose RMSD",
+      "value": "1.536 \u00c5"
+    },
+    {
+      "label": "Positive/negative AUC",
+      "value": "0.929"
+    },
+    {
+      "label": "Known classes",
+      "value": "7 positive / 2 negative"
+    },
+    {
+      "label": "Validation",
+      "value": "PASS"
+    }
+  ],
+  "search": {
+    "mode": "blind_rigid_body_docking",
+    "execution": "cpu",
+    "candidate_count": 10,
+    "random_poses_per_candidate": 18000,
+    "answer_key_visible_during_search": false,
+    "answer_key_open": true,
+    "benchmark": "published L99A checkpoint",
+    "historical_44_31_final_gate": false,
+    "final_gate": {
+      "expected_candidates": 75,
+      "expected_positive": 44,
+      "expected_negative": 31,
+      "candidate_count": 0,
+      "answer_key_count": 0,
+      "verified_candidates": 0,
+      "verified_answer_key": 0,
+      "positive_count": 0,
+      "negative_count": 0,
+      "id_set_match": false,
+      "candidate_hash_match": false,
+      "answer_key_hash_match": false,
+      "provenance_verified": false,
+      "ready": false,
+      "reason": "candidate set is incomplete",
+      "candidate_sha256": "dfb2a571028db3ba0e04cf125756101385744225c0e2308bd8c7b3927239c338",
+      "answer_key_sha256": "2f0a4a05620023528438c0a577f9ad1c80528b57c64f97d622a4673b5c8889c1"
+    }
+  },
+  "details": {
+    "target": {
+      "protein": "T4 lysozyme L99A",
+      "pdb": "181L"
+    },
+    "execution": "CPU validation before ELF/ESP32 freeze",
+    "results": [
+      {
+        "index": 1,
+        "total": 10,
+        "seed": 1000,
+        "name": "PL-C01",
+        "score": 9.367447,
+        "repulsion": 4.405541,
+        "contact": -13.772988,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          26.206053,
+          6.433916,
+          5.327556,
+          0.998359,
+          1.246093,
+          3.61835
+        ]
+      },
+      {
+        "index": 2,
+        "total": 10,
+        "seed": 1001,
+        "name": "PL-C02",
+        "score": 9.946146,
+        "repulsion": 7.10178,
+        "contact": -17.047926,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          26.328577,
+          6.023765,
+          5.439469,
+          1.338363,
+          1.859836,
+          1.459711
+        ]
+      },
+      {
+        "index": 3,
+        "total": 10,
+        "seed": 1002,
+        "name": "PL-C03",
+        "score": 10.950383,
+        "repulsion": 10.336257,
+        "contact": -21.28664,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          25.96397,
+          5.915595,
+          5.677649,
+          2.470275,
+          1.999872,
+          2.147839
+        ]
+      },
+      {
+        "index": 4,
+        "total": 10,
+        "seed": 1003,
+        "name": "PL-C04",
+        "score": 10.372524,
+        "repulsion": 7.238786,
+        "contact": -17.611311,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          27.772863,
+          6.596312,
+          3.773446,
+          2.141019,
+          0.564153,
+          4.788756
+        ]
+      },
+      {
+        "index": 5,
+        "total": 10,
+        "seed": 1004,
+        "name": "PL-C05",
+        "score": 9.43792,
+        "repulsion": 5.527908,
+        "contact": -14.965828,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          26.772734,
+          5.874893,
+          3.923406,
+          5.701566,
+          3.06814,
+          1.859705
+        ]
+      },
+      {
+        "index": 6,
+        "total": 10,
+        "seed": 1005,
+        "name": "PL-C06",
+        "score": 11.358398,
+        "repulsion": 6.31839,
+        "contact": -17.676788,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          26.718962,
+          5.515483,
+          5.137661,
+          5.071048,
+          2.561642,
+          1.704765
+        ]
+      },
+      {
+        "index": 7,
+        "total": 10,
+        "seed": 1006,
+        "name": "PL-C07",
+        "score": 10.652479,
+        "repulsion": 5.923605,
+        "contact": -16.576084,
+        "polar": 0.0,
+        "poses": 18000,
+        "pose": [
+          26.874786,
+          6.596234,
+          4.413659,
+          4.236439,
+          1.069968,
+          0.432825
+        ]
+      },
+      {
+        "index": 8,
+        "total": 10,
+        "seed": 1007,
+        "name": "PL-C08",
+        "score": 9.284579,
+        "repulsion": 5.35227,
+        "contact": -16.586849,
+        "polar": 1.95,
+        "poses": 18000,
+        "pose": [
+          26.849154,
+          5.724206,
+          4.360718,
+          5.600793,
+          0.872798,
+          5.151537
+        ]
+      },
+      {
+        "index": 9,
+        "total": 10,
+        "seed": 1008,
+        "name": "PL-C09",
+        "score": 9.338823,
+        "repulsion": 5.581967,
+        "contact": -16.37079,
+        "polar": 1.45,
+        "poses": 18000,
+        "pose": [
+          27.071041,
+          5.702317,
+          3.730593,
+          4.095195,
+          2.028697,
+          3.745986
+        ]
+      },
+      {
+        "index": 10,
+        "total": 10,
+        "seed": 1009,
+        "name": "PL-C10",
+        "score": 8.053351,
+        "repulsion": 4.558738,
+        "contact": -13.81209,
+        "polar": 1.2,
+        "poses": 18000,
+        "pose": [
+          26.234165,
+          6.088468,
+          5.406196,
+          4.072725,
+          1.103262,
+          0.684643
+        ]
+      }
+    ],
+    "ranking": [
+      {
+        "rank": 1,
+        "name": "PL-C06",
+        "score": 11.358398,
+        "label": "UNKNOWN",
+        "has_experimental_delta_g": false,
+        "experimental_delta_g": null
+      },
+      {
+        "rank": 2,
+        "name": "PL-C03",
+        "score": 10.950383,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -5.76
+      },
+      {
+        "rank": 3,
+        "name": "PL-C07",
+        "score": 10.652479,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -4.67
+      },
+      {
+        "rank": 4,
+        "name": "PL-C04",
+        "score": 10.372524,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -6.55
+      },
+      {
+        "rank": 5,
+        "name": "PL-C02",
+        "score": 9.946146,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -5.52
+      },
+      {
+        "rank": 6,
+        "name": "PL-C05",
+        "score": 9.43792,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -6.7
+      },
+      {
+        "rank": 7,
+        "name": "PL-C01",
+        "score": 9.367447,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -5.19
+      },
+      {
+        "rank": 8,
+        "name": "PL-C09",
+        "score": 9.338823,
+        "label": "NEGATIVE",
+        "has_experimental_delta_g": false,
+        "experimental_delta_g": null
+      },
+      {
+        "rank": 9,
+        "name": "PL-C08",
+        "score": 9.284579,
+        "label": "POSITIVE",
+        "has_experimental_delta_g": true,
+        "experimental_delta_g": -5.46
+      },
+      {
+        "rank": 10,
+        "name": "PL-C10",
+        "score": 8.053351,
+        "label": "NEGATIVE",
+        "has_experimental_delta_g": false,
+        "experimental_delta_g": null
+      }
+    ],
+    "validation": {
+      "pose_rmsd": 1.535501,
+      "pose_pass": true,
+      "auc": 0.928571,
+      "auc_pass": true,
+      "binders": 7,
+      "decoys": 2,
+      "affinity_pair_accuracy": 0.52381,
+      "crystal_pose_score": 7.515686,
+      "reference_search_score": 9.367447,
+      "historical_verified": 8,
+      "historical_complete": false
+    },
+    "final_gate": {
+      "expected_candidates": 75,
+      "expected_positive": 44,
+      "expected_negative": 31,
+      "candidate_count": 0,
+      "answer_key_count": 0,
+      "verified_candidates": 0,
+      "verified_answer_key": 0,
+      "positive_count": 0,
+      "negative_count": 0,
+      "id_set_match": false,
+      "candidate_hash_match": false,
+      "answer_key_hash_match": false,
+      "provenance_verified": false,
+      "ready": false,
+      "reason": "candidate set is incomplete",
+      "candidate_sha256": "dfb2a571028db3ba0e04cf125756101385744225c0e2308bd8c7b3927239c338",
+      "answer_key_sha256": "2f0a4a05620023528438c0a577f9ad1c80528b57c64f97d622a4673b5c8889c1"
+    }
+  },
+  "visualization": {
+    "code": "const pocket = data && data.target && Array.isArray(data.target.pocket_atoms) ? data.target.pocket_atoms : [];\nconst best = data && data.best_candidate ? data.best_candidate : null;\nconst searchCandidates = data && Array.isArray(data.search_candidates) ? data.search_candidates : [];\nconst validation = data && data.reference_pose_validation ? data.reference_pose_validation : null;\n\nroot.style.width = \"100%\";\nroot.style.height = \"100%\";\nroot.style.minHeight = \"280px\";\nroot.style.position = \"relative\";\nroot.style.overflow = \"hidden\";\nroot.style.background = \"#ffffff\";\n\nroot.innerHTML = `\n<style>\n  *{box-sizing:border-box}\n  html,body{margin:0;background:#fff;color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif}\n  .pl{position:relative;height:100%;min-height:280px;overflow:hidden;background:#fff}\n  canvas{position:absolute;inset:0;width:100%;height:100%}\n  .story{position:absolute;left:18px;top:15px;z-index:3;max-width:340px;pointer-events:none}\n  .title{font-size:17px;font-weight:700;letter-spacing:-.02em;color:#1d1d1f}\n  .sub{font-size:11px;color:#6e6e73;margin-top:3px;line-height:1.35}\n  .candidate-id{position:absolute;right:16px;top:17px;z-index:3;color:#6e6e73;font-size:11px;letter-spacing:.08em;pointer-events:none}\n  .legend{position:absolute;left:18px;bottom:12px;z-index:3;display:flex;gap:13px;align-items:center;color:#6e6e73;font-size:10px;pointer-events:none}\n  .legend span{display:inline-flex;align-items:center;gap:5px}\n  .mark{display:inline-block;width:8px;height:8px;border-radius:50%}\n  .mark.protein{background:#f2f2f4;border:1px solid #c7c7cc}\n  .mark.pocket{background:#d2d2d7;border:1px solid #a1a1a6}\n  .mark.candidate{background:#1d1d1f}\n  .mark.reference{background:#fff;border:1px solid #86868b}\n  .mark.contact{width:14px;height:0;border-radius:0;border-top:1px dashed #86868b}\n  .scene-dots{position:absolute;right:16px;bottom:13px;z-index:3;display:flex;gap:5px;pointer-events:none}\n  .scene-dot{width:5px;height:5px;border-radius:50%;background:#d2d2d7}\n  .scene-dot.active{background:#1d1d1f}\n</style>\n<div class=\"pl\">\n  <canvas></canvas>\n  <div class=\"story\"><div class=\"title\"></div><div class=\"sub\"></div></div>\n  <div class=\"candidate-id\"></div>\n  <div class=\"legend\"></div>\n  <div class=\"scene-dots\"><i class=\"scene-dot\"></i><i class=\"scene-dot\"></i><i class=\"scene-dot\"></i></div>\n</div>`;\n\nconst canvas = root.querySelector(\"canvas\");\nconst ctx = canvas.getContext(\"2d\");\nconst titleNode = root.querySelector(\".title\");\nconst subNode = root.querySelector(\".sub\");\nconst candidateNode = root.querySelector(\".candidate-id\");\nconst legendNode = root.querySelector(\".legend\");\nconst sceneDots = Array.from(root.querySelectorAll(\".scene-dot\"));\n\nlet width = 1;\nlet height = 1;\n\nconst SCENE_TARGET_MS = 4200;\nconst SCENE_SEARCH_MS = 6000;\nconst SCENE_RESULT_MS = 6200;\nconst SCENE_TOTAL_MS = SCENE_TARGET_MS + SCENE_SEARCH_MS + SCENE_RESULT_MS;\nconst TRANSITION_MS = 600;\n\nfunction resize(){\n  const rect = canvas.getBoundingClientRect();\n  const dpr = Math.min(window.devicePixelRatio || 1, 2);\n  const w = Math.max(1, Math.round(rect.width * dpr));\n  const h = Math.max(1, Math.round(rect.height * dpr));\n  if(canvas.width !== w || canvas.height !== h){\n    canvas.width = w;\n    canvas.height = h;\n    width = w;\n    height = h;\n  }\n  return dpr;\n}\n\nfunction clamp01(value){ return Math.max(0, Math.min(1, value)); }\nfunction smooth(value){ const t=clamp01(value); return t*t*(3-2*t); }\nfunction fadeWindow(local, duration){\n  const fadeIn = smooth(local / TRANSITION_MS);\n  const fadeOut = smooth((duration - local) / TRANSITION_MS);\n  return Math.min(fadeIn, fadeOut);\n}\n\nfunction centroid(atoms){\n  if(!atoms || !atoms.length) return [26.7, 6.1, 4.2];\n  let x=0,y=0,z=0;\n  atoms.forEach(atom=>{x+=atom.position[0];y+=atom.position[1];z+=atom.position[2];});\n  return [x/atoms.length,y/atoms.length,z/atoms.length];\n}\n\nconst referenceAtoms = validation && Array.isArray(validation.crystal_atoms) ? validation.crystal_atoms : [];\nconst bestAtoms = best && Array.isArray(best.atoms) ? best.atoms : [];\nconst targetCenter = centroid(referenceAtoms.length ? referenceAtoms : (bestAtoms.length ? bestAtoms : pocket));\n\nfunction rotate(point, center, yaw){\n  let x=point[0]-center[0], y=point[1]-center[1], z=point[2]-center[2];\n  const ca=Math.cos(yaw), sa=Math.sin(yaw), cb=Math.cos(-0.32), sb=Math.sin(-0.32);\n  const x1=x*ca-z*sa, z1=x*sa+z*ca;\n  const y2=y*cb-z1*sb, z2=y*sb+z1*cb;\n  return [x1,y2,z2];\n}\n\nfunction project(point){\n  const scale = Math.min(width,height)*0.060;\n  const perspective = 1/(1+Math.max(-8,Math.min(8,point[2]))*0.025);\n  return [width*0.52+point[0]*scale*perspective,height*0.54-point[1]*scale*perspective,point[2],perspective];\n}\n\nfunction atomDistance(a,b){\n  return Math.hypot(a.position[0]-b.position[0],a.position[1]-b.position[1],a.position[2]-b.position[2]);\n}\n\nfunction pointDistance(a,b){ return Math.hypot(a[0]-b[0],a[1]-b[1]); }\n\nfunction distanceToCenter(atom, center){\n  return Math.hypot(atom.position[0]-center[0],atom.position[1]-center[1],atom.position[2]-center[2]);\n}\n\nfunction distanceToAtoms(atom, atoms){\n  let value=Infinity;\n  atoms.forEach(other=>{ value=Math.min(value, atomDistance(atom,other)); });\n  return value;\n}\n\nfunction bondPairs(atoms,maxDistance){\n  const pairs=[];\n  for(let i=0;i<atoms.length;i++) for(let j=i+1;j<atoms.length;j++){\n    if(atomDistance(atoms[i],atoms[j])<maxDistance) pairs.push([i,j]);\n  }\n  return pairs;\n}\n\nfunction contactPairs(pocketAtoms, ligandAtoms, maxDistance){\n  const pairs=[];\n  for(let li=0;li<ligandAtoms.length;li++){\n    const candidates=[];\n    for(let pi=0;pi<pocketAtoms.length;pi++){\n      const d=atomDistance(ligandAtoms[li],pocketAtoms[pi]);\n      if(d<=maxDistance) candidates.push({pi,d});\n    }\n    candidates.sort((a,b)=>a.d-b.d);\n    candidates.slice(0,2).forEach(item=>pairs.push([item.pi,li,item.d]));\n  }\n  return pairs;\n}\n\nfunction localPocketAtoms(center, count){\n  return pocket\n    .map((atom,index)=>({atom,index,distance:distanceToCenter(atom,center)}))\n    .sort((a,b)=>a.distance-b.distance)\n    .slice(0,Math.min(count,pocket.length));\n}\n\nconst localPocket = localPocketAtoms(targetCenter, 26);\n\nfunction convexHull(points){\n  if(points.length<3) return points.slice();\n  const sorted=points.slice().sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]-b[0]);\n  const cross=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);\n  const lower=[];\n  sorted.forEach(p=>{while(lower.length>=2 && cross(lower[lower.length-2],lower[lower.length-1],p)<=0) lower.pop();lower.push(p);});\n  const upper=[];\n  [...sorted].reverse().forEach(p=>{while(upper.length>=2 && cross(upper[upper.length-2],upper[upper.length-1],p)<=0) upper.pop();upper.push(p);});\n  lower.pop();upper.pop();\n  return lower.concat(upper);\n}\n\nfunction expandedHull(points, padding){\n  if(!points.length) return [];\n  const center=[points.reduce((sum,p)=>sum+p[0],0)/points.length,points.reduce((sum,p)=>sum+p[1],0)/points.length];\n  return convexHull(points).map(p=>{\n    const dx=p[0]-center[0],dy=p[1]-center[1],length=Math.max(1,Math.hypot(dx,dy));\n    return [p[0]+dx/length*padding,p[1]+dy/length*padding];\n  });\n}\n\nfunction drawClosedShape(points, fill, stroke, lineWidth, dash){\n  if(points.length<3) return;\n  ctx.save();\n  if(dash) ctx.setLineDash(dash);\n  ctx.beginPath();\n  points.forEach((p,index)=>{if(index===0)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);});\n  ctx.closePath();\n  if(fill){ctx.fillStyle=fill;ctx.fill();}\n  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lineWidth;ctx.stroke();}\n  ctx.restore();\n}\n\nfunction proteinBodyPoints(){\n  const cx=width*0.52, cy=height*0.55;\n  const rx=Math.min(width,height)*0.34;\n  const ry=Math.min(width,height)*0.30;\n  const factors=[1.00,0.92,1.06,0.90,1.02,0.94,1.07,0.91,1.03,0.95,1.04,0.90,1.05,0.93];\n  const points=[];\n  for(let i=0;i<factors.length;i++){\n    const angle=(Math.PI*2*i/factors.length)-0.22;\n    const f=factors[i];\n    points.push([cx+Math.cos(angle)*rx*f,cy+Math.sin(angle)*ry*f]);\n  }\n  return points;\n}\n\nfunction drawProteinBody(alpha,dpr){\n  drawClosedShape(proteinBodyPoints(),`rgba(242,242,244,${0.92*alpha})`,`rgba(199,199,204,${0.95*alpha})`,1.25*dpr,null);\n}\n\nfunction drawInternalPocketLabel(projectedLocal,alpha,dpr){\n  if(!projectedLocal.length) return;\n  const x=projectedLocal.reduce((sum,p)=>sum+p[0],0)/projectedLocal.length;\n  const y=projectedLocal.reduce((sum,p)=>sum+p[1],0)/projectedLocal.length;\n  ctx.save();\n  ctx.globalAlpha=alpha;\n  ctx.fillStyle=\"#6e6e73\";\n  ctx.font=`${10*dpr}px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif`;\n  ctx.textAlign=\"center\";\n  ctx.fillText(\"internal pocket\",x,y+4*dpr);\n  ctx.restore();\n}\n\nfunction drawPocketBoundary(projectedLocal, alpha, dpr){\n  const points=projectedLocal.map(item=>[item[0],item[1]]);\n  const hull=expandedHull(points,12*dpr);\n  drawClosedShape(hull,`rgba(0,0,0,${0.018*alpha})`,`rgba(29,29,31,${0.22*alpha})`,1.15*dpr,[5*dpr,5*dpr]);\n}\n\nfunction drawPocketAtoms(projectedPocket, ligandAtoms, alpha, dpr, contactIndexes){\n  const items=pocket.map((atom,index)=>({atom,index,p:projectedPocket[index],distance:ligandAtoms.length?distanceToAtoms(atom,ligandAtoms):distanceToCenter(atom,targetCenter)}));\n  items.sort((a,b)=>a.p[2]-b.p[2]);\n  items.forEach(item=>{\n    const contact=contactIndexes && contactIndexes.has(item.index);\n    const near=item.distance<=6.2;\n    if(!near && !contact) return;\n    const radius=(contact?5.3:(near?3.7:2.7))*dpr*item.p[3];\n    ctx.beginPath();ctx.arc(item.p[0],item.p[1],radius,0,Math.PI*2);\n    ctx.fillStyle=contact?`rgba(255,255,255,${0.98*alpha})`:`rgba(229,229,231,${0.82*alpha})`;\n    ctx.fill();\n    ctx.strokeStyle=contact?`rgba(29,29,31,${0.62*alpha})`:`rgba(134,134,139,${0.32*alpha})`;\n    ctx.lineWidth=(contact?1.15:0.8)*dpr;\n    ctx.stroke();\n  });\n}\n\nfunction drawBonds(projected,pairs,stroke,widthPx,alpha){\n  if(!pairs.length) return;\n  ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=stroke;ctx.lineWidth=widthPx;ctx.beginPath();\n  pairs.forEach(pair=>{const a=projected[pair[0]],b=projected[pair[1]];ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);});\n  ctx.stroke();ctx.restore();\n}\n\nfunction drawMolecule(atoms, projected, alpha, dpr, offsetX){\n  if(!atoms.length) return;\n  const bonds=bondPairs(atoms,1.82);\n  const moved=projected.map(p=>[p[0]+offsetX,p[1],p[2],p[3]]);\n  drawBonds(moved,bonds,\"#1d1d1f\",2.0*dpr,alpha);\n  const sorted=atoms.map((atom,index)=>({atom,p:moved[index]})).sort((a,b)=>a.p[2]-b.p[2]);\n  sorted.forEach(item=>{\n    const radius=4.8*dpr*item.p[3];\n    ctx.save();ctx.globalAlpha=alpha;\n    ctx.beginPath();ctx.arc(item.p[0],item.p[1],radius,0,Math.PI*2);\n    ctx.fillStyle=\"#1d1d1f\";ctx.fill();\n    ctx.beginPath();ctx.arc(item.p[0]-radius*.25,item.p[1]-radius*.3,radius*.22,0,Math.PI*2);\n    ctx.fillStyle=\"#ffffff\";ctx.globalAlpha=alpha*.72;ctx.fill();ctx.restore();\n  });\n}\n\nfunction drawReference(projected, alpha, dpr){\n  if(!referenceAtoms.length) return;\n  const bonds=bondPairs(referenceAtoms,1.82);\n  ctx.save();ctx.setLineDash([5*dpr,4*dpr]);\n  drawBonds(projected,bonds,\"#86868b\",1.25*dpr,alpha*.72);\n  ctx.restore();\n  projected.forEach(p=>{\n    ctx.save();ctx.globalAlpha=alpha*.78;ctx.beginPath();ctx.arc(p[0],p[1],4.6*dpr*p[3],0,Math.PI*2);ctx.strokeStyle=\"#86868b\";ctx.lineWidth=1.1*dpr;ctx.stroke();ctx.restore();\n  });\n}\n\nfunction drawContacts(projectedPocket, projectedLigand, contacts, alpha, dpr){\n  if(!contacts.length) return;\n  ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=\"#86868b\";ctx.lineWidth=1*dpr;ctx.setLineDash([4*dpr,5*dpr]);\n  contacts.forEach(pair=>{\n    const p=projectedPocket[pair[0]],l=projectedLigand[pair[1]];\n    ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(l[0],l[1]);ctx.stroke();\n  });\n  ctx.restore();\n}\n\nfunction setStory(scene, title, sub, candidate, legend){\n  titleNode.textContent=title;\n  subNode.textContent=sub;\n  candidateNode.textContent=candidate || \"\";\n  legendNode.innerHTML=legend || \"\";\n  sceneDots.forEach((dot,index)=>dot.classList.toggle(\"active\",index===scene));\n}\n\nfunction targetLegend(){\n  return '<span><i class=\"mark protein\"></i>protein body (schematic)</span><span><i class=\"mark pocket\"></i>measured pocket</span>';\n}\nfunction searchLegend(){\n  return '<span><i class=\"mark pocket\"></i>measured pocket</span><span><i class=\"mark candidate\"></i>candidate</span>';\n}\nfunction resultLegend(){\n  return `<span><i class=\"mark pocket\"></i>pocket contacts</span><span><i class=\"mark contact\"></i>predicted contacts</span><span><i class=\"mark candidate\"></i>candidate</span>${referenceAtoms.length?'<span><i class=\"mark reference\"></i>181L reference</span>':''}`;\n}\n\nfunction frame(now){\n  const dpr=resize();\n  ctx.clearRect(0,0,width,height);\n  ctx.fillStyle=\"#ffffff\";ctx.fillRect(0,0,width,height);\n\n  const cycle=now%SCENE_TOTAL_MS;\n  let scene=0, local=cycle, duration=SCENE_TARGET_MS;\n  if(cycle>=SCENE_TARGET_MS && cycle<SCENE_TARGET_MS+SCENE_SEARCH_MS){scene=1;local=cycle-SCENE_TARGET_MS;duration=SCENE_SEARCH_MS;}\n  else if(cycle>=SCENE_TARGET_MS+SCENE_SEARCH_MS){scene=2;local=cycle-SCENE_TARGET_MS-SCENE_SEARCH_MS;duration=SCENE_RESULT_MS;}\n  const alpha=fadeWindow(local,duration);\n  const yaw=now*0.00011;\n\n  const rotatedPocket=pocket.map(atom=>rotate(atom.position,targetCenter,yaw));\n  const projectedPocket=rotatedPocket.map(project);\n  const projectedLocal=localPocket.map(item=>projectedPocket[item.index]);\n\n  if(scene===0){\n    setStory(0,\"1. The target pocket\",\"The protein surrounds a small internal cavity. ProteinLock asks which molecule fits best inside this measured pocket.\",\"\",targetLegend());\n    drawProteinBody(alpha,dpr);\n    drawPocketBoundary(projectedLocal,alpha*1.15,dpr);\n    drawPocketAtoms(projectedPocket,[],alpha,dpr,null);\n    drawInternalPocketLabel(projectedLocal,alpha,dpr);\n    return requestAnimationFrame(frame);\n  }\n\n  if(scene===1){\n    const candidates=searchCandidates.length?searchCandidates:(best?[best]:[]);\n    const count=Math.max(1,candidates.length);\n    const slot=SCENE_SEARCH_MS/count;\n    const index=Math.min(count-1,Math.floor(local/slot));\n    const candidate=candidates[index] || best;\n    const slotLocal=local-index*slot;\n    const enter=smooth(slotLocal/Math.min(650,slot*.35));\n    const leave=smooth((slot-slotLocal)/Math.min(650,slot*.35));\n    const candidateAlpha=alpha*Math.min(enter,leave);\n    const offsetX=(1-enter)*(-width*0.22);\n    const atoms=candidate && Array.isArray(candidate.atoms)?candidate.atoms:[];\n    const projected=atoms.map(atom=>project(rotate(atom.position,targetCenter,yaw)));\n    setStory(1,\"2. Testing candidates\",\"Each real candidate is moved and rotated inside the pocket. ProteinLock scores the fit and keeps the best result.\",candidate?candidate.name:\"\",searchLegend());\n    drawPocketBoundary(projectedLocal,alpha,dpr);\n    drawPocketAtoms(projectedPocket,atoms,alpha*.72,dpr,null);\n    drawMolecule(atoms,projected,candidateAlpha,dpr,offsetX);\n    return requestAnimationFrame(frame);\n  }\n\n  const atoms=bestAtoms;\n  const projectedBest=atoms.map(atom=>project(rotate(atom.position,targetCenter,yaw)));\n  const projectedReference=referenceAtoms.map(atom=>project(rotate(atom.position,targetCenter,yaw)));\n  const contacts=contactPairs(pocket,atoms,4.2);\n  const contactIndexes=new Set(contacts.map(pair=>pair[0]));\n  setStory(2,\"3. Best predicted fit\",\"The winner sits inside the pocket. Dashed lines mark the non-covalent contacts that contributed to our simplified score.\",best?best.name:\"\",resultLegend());\n  drawPocketBoundary(projectedLocal,alpha,dpr);\n  drawPocketAtoms(projectedPocket,atoms,alpha,dpr,contactIndexes);\n  drawContacts(projectedPocket,projectedBest,contacts,alpha*.88,dpr);\n  drawReference(projectedReference,alpha*.62,dpr);\n  drawMolecule(atoms,projectedBest,alpha,dpr,0);\n  requestAnimationFrame(frame);\n}\n\nrequestAnimationFrame(frame);\n",
+    "data": {
+      "target": {
+        "name": "T4 lysozyme L99A",
+        "pdb": "181L",
+        "pocket_atoms": [
+          {
+            "element": "N",
+            "position": [
+              24.618999,
+              6.871,
+              12.173
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.243,
+              6.205,
+              10.963
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.086,
+              5.251,
+              11.26
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              22.086,
+              5.17,
+              10.559
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.422001,
+              5.396,
+              10.409
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.403,
+              6.295,
+              9.67
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.910999,
+              4.33,
+              9.448
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.766001,
+              5.597,
+              9.537
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              20.374001,
+              6.76,
+              6.031
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              21.698,
+              6.156,
+              6.019
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              21.747,
+              4.662,
+              6.317
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              22.497,
+              3.905,
+              5.714
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.683001,
+              6.918,
+              6.954
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.893999,
+              8.379,
+              6.605
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.843,
+              8.996,
+              7.637
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.525,
+              8.524,
+              5.219
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              21.556,
+              2.019,
+              3.54
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.743,
+              1.963,
+              2.703
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.885,
+              1.251,
+              3.432
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              24.555,
+              0.336,
+              2.95
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.208,
+              3.358,
+              2.277
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.315001,
+              3.235,
+              1.225
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.025999,
+              4.173,
+              1.75
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              24.101,
+              1.688,
+              4.642
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.107,
+              1.129,
+              5.505
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.959999,
+              -0.392,
+              5.686
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              25.964001,
+              -1.131,
+              5.691
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.006001,
+              1.855,
+              6.871
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.08,
+              1.445,
+              7.826
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.346001,
+              2.03,
+              7.761
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.851,
+              0.462,
+              8.788
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.358999,
+              1.661,
+              8.638
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.851,
+              0.09,
+              9.683
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.101,
+              0.707,
+              9.623
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              29.091,
+              0.303,
+              10.491
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              32.101002,
+              4.608,
+              5.1
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.898001,
+              5.353,
+              5.415
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.052,
+              6.053,
+              6.74
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              30.591999,
+              7.176,
+              6.901
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              29.639999,
+              4.458,
+              5.457
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              33.189999,
+              9.257,
+              6.42
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.473999,
+              10.415,
+              5.916
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.632999,
+              11.07,
+              7.011
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              31.610001,
+              12.293,
+              7.155
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.500999,
+              10.039,
+              4.768
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.182999,
+              9.785,
+              3.444
+            ]
+          },
+          {
+            "element": "S",
+            "position": [
+              30.997999,
+              9.529,
+              2.12
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.629,
+              11.259,
+              1.758
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              30.9,
+              10.255,
+              7.762
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.038,
+              10.804,
+              8.794
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.868999,
+              11.459,
+              9.874
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              30.513,
+              12.51,
+              10.349
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              29.055,
+              9.794,
+              9.385
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.318001,
+              10.422,
+              10.55
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.030001,
+              9.391,
+              8.338
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              24.136,
+              15.006,
+              8.712
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.311001,
+              15.77,
+              7.809
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.041,
+              15.885,
+              6.502
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              23.473,
+              15.6,
+              5.441
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.983,
+              17.158001,
+              8.357
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              22.212999,
+              17.003,
+              9.511
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.191,
+              17.948999,
+              7.329
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              25.302999,
+              16.316,
+              6.628
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.186001,
+              16.471001,
+              5.507
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.097,
+              15.287,
+              4.577
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              25.733999,
+              15.44,
+              3.423
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              26.357,
+              14.096,
+              5.097
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.308001,
+              12.899,
+              4.265
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.964001,
+              12.621,
+              3.636
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              24.858999,
+              12.272,
+              2.446
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.728001,
+              11.717,
+              5.092
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.830999,
+              10.501,
+              4.171
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.094,
+              12.024,
+              5.661
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              23.962999,
+              12.764,
+              4.509
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.584999,
+              12.549,
+              4.177
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.174,
+              13.272,
+              2.886
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              21.33,
+              12.788,
+              2.133
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              21.684,
+              12.704,
+              5.383
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              22.816999,
+              14.414,
+              2.584
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.562,
+              15.168,
+              1.337
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.18,
+              14.581,
+              0.055
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              23.080999,
+              15.143,
+              -1.047
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              23.995001,
+              13.532,
+              0.164
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.597,
+              12.897,
+              -0.987
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.68,
+              11.81,
+              -1.523
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              24.096001,
+              10.705,
+              -1.81
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.858999,
+              12.201,
+              -0.532
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.048,
+              13.118,
+              -0.41
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.038,
+              14.22,
+              0.45
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.190001,
+              12.875,
+              -1.169
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.143,
+              15.066,
+              0.554
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              29.297001,
+              13.718,
+              -1.09
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              29.278999,
+              14.807,
+              -0.21
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              24.455,
+              7.904,
+              -2.537
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.915001,
+              6.932,
+              -1.603
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.157,
+              5.816,
+              -2.353
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              23.346001,
+              4.623,
+              -2.123
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.055,
+              7.57,
+              -0.462
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              23.805,
+              8.477,
+              0.545
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              22.82,
+              9.096,
+              1.552
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              24.871,
+              7.716,
+              1.305
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              25.608999,
+              3.678,
+              -4.115
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.302999,
+              2.724,
+              -3.301
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.384001,
+              1.542,
+              -2.982
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              25.783001,
+              0.38,
+              -3.045
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.813,
+              3.389,
+              -2.014
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.976999,
+              4.377,
+              -2.25
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              28.198999,
+              5.235,
+              -0.997
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              29.275,
+              3.619,
+              -2.52
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              30.618999,
+              10.839,
+              -6.241
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.072001,
+              11.36,
+              -4.966
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.051998,
+              12.534,
+              -5.152
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              32.140999,
+              13.426,
+              -4.319
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.764999,
+              10.268,
+              -4.071
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.822001,
+              9.28,
+              -3.348
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.636999,
+              8.091,
+              -2.819
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              30.132999,
+              9.963,
+              -2.183
+            ]
+          },
+          {
+            "element": "N",
+            "position": [
+              35.561001,
+              3.099,
+              -1.354
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              34.210999,
+              2.735,
+              -1.737
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              34.264999,
+              2.021,
+              -3.08
+            ]
+          },
+          {
+            "element": "O",
+            "position": [
+              33.508999,
+              1.088,
+              -3.357
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              33.300999,
+              3.984,
+              -1.834
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.587002,
+              4.438,
+              -0.575
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.723,
+              3.604,
+              0.135
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.726002,
+              5.755,
+              -0.118
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.066999,
+              4.048,
+              1.289
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              32.056,
+              6.221,
+              1.014
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              31.23,
+              5.357,
+              1.739
+            ]
+          }
+        ]
+      },
+      "best_candidate": {
+        "name": "PL-C06",
+        "score": 11.358398,
+        "repulsion": 6.31839,
+        "contact": -17.676788,
+        "polar": 0.0,
+        "pose": [
+          26.718962,
+          5.515483,
+          5.137661,
+          5.071048,
+          2.561642,
+          1.704765
+        ],
+        "atoms": [
+          {
+            "element": "C",
+            "position": [
+              26.87504671897404,
+              4.357377797068278,
+              4.372129224405237
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.459050731599525,
+              4.264485247121906,
+              5.702515840730267
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.302966291963404,
+              5.422591005454559,
+              6.4680468330625365
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.562877281025962,
+              6.673588202931722,
+              5.903192775594762
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.978873268400477,
+              6.766480752878094,
+              4.572806159269732
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.1349577080366,
+              5.60837499454544,
+              3.8072751669374627
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.031801808967295,
+              3.1942986276243226,
+              3.6033095528523
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.202746418867278,
+              1.925937167004756,
+              2.7648960835180207
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.37369102876726,
+              0.657575706385189,
+              1.9264826141837417
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.544635638667245,
+              -0.6107857542343771,
+              1.088069144849463
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.715580248567232,
+              -1.8791472148539432,
+              0.24965567551518397
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.886524858467215,
+              -3.14750867547351,
+              -0.5887577938190942
+            ]
+          }
+        ]
+      },
+      "search_candidates": [
+        {
+          "name": "PL-C10",
+          "score": 8.053351,
+          "atoms": [
+            {
+              "element": "C",
+              "position": [
+                26.72188851098976,
+                6.486630639688559,
+                4.15911890166804
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.263518239752933,
+                5.180154048017845,
+                4.345199115841254
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                25.775794906066675,
+                4.781992323654537,
+                5.592276575757438
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                25.74644148901024,
+                5.690305360311441,
+                6.653273098331959
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.20481176024707,
+                6.996781951982155,
+                6.467192884158745
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.692535093933326,
+                7.394943676345463,
+                5.220115424242561
+              ]
+            },
+            {
+              "element": "O",
+              "position": [
+                27.204724313207972,
+                6.880803102601428,
+                2.924539354786795
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PL-C02",
+          "score": 9.946146,
+          "atoms": [
+            {
+              "element": "C",
+              "position": [
+                26.28443490346074,
+                5.628029776981224,
+                4.100419296450726
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.154640663293645,
+                6.978302815491034,
+                4.434375001502954
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.198782885358217,
+                7.374037085981103,
+                5.773424982419237
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.37271909653926,
+                6.419500223018776,
+                6.778518703549274
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.502513336706354,
+                5.069227184508966,
+                6.444562998497045
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.458371114641782,
+                4.673492914018897,
+                5.105513017580763
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.240103220250585,
+                5.230594903756211,
+                2.755618484654283
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PL-C06",
+          "score": 11.358398,
+          "atoms": [
+            {
+              "element": "C",
+              "position": [
+                26.87504671897404,
+                4.357377797068278,
+                4.372129224405237
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.459050731599525,
+                4.264485247121906,
+                5.702515840730267
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.302966291963404,
+                5.422591005454559,
+                6.4680468330625365
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.562877281025962,
+                6.673588202931722,
+                5.903192775594762
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                26.978873268400477,
+                6.766480752878094,
+                4.572806159269732
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.1349577080366,
+                5.60837499454544,
+                3.8072751669374627
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.031801808967295,
+                3.1942986276243226,
+                3.6033095528523
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.202746418867278,
+                1.925937167004756,
+                2.7648960835180207
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.37369102876726,
+                0.657575706385189,
+                1.9264826141837417
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.544635638667245,
+                -0.6107857542343771,
+                1.088069144849463
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.715580248567232,
+                -1.8791472148539432,
+                0.24965567551518397
+              ]
+            },
+            {
+              "element": "C",
+              "position": [
+                27.886524858467215,
+                -3.14750867547351,
+                -0.5887577938190942
+              ]
+            }
+          ]
+        }
+      ],
+      "reference_pose_validation": {
+        "found_atoms": [
+          {
+            "element": "C",
+            "position": [
+              25.810070405751723,
+              6.229392475974415,
+              4.003555655146359
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.452451799663148,
+              5.307084368959467,
+              4.989997201593875
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              25.84843485315465,
+              5.5116087398503915,
+              6.313997278278245
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.602035594248278,
+              6.638439524025585,
+              6.651556344853642
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.959654200336853,
+              7.560747631040533,
+              5.665114798406126
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.56367114684535,
+              7.3562232601496085,
+              4.341114721721755
+            ]
+          }
+        ],
+        "crystal_atoms": [
+          {
+            "element": "C",
+            "position": [
+              25.978001,
+              5.327,
+              4.779
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.395,
+              5.074,
+              3.499
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.34,
+              5.86,
+              2.902
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.837,
+              6.921,
+              3.569
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              27.42,
+              7.196,
+              4.856
+            ]
+          },
+          {
+            "element": "C",
+            "position": [
+              26.497999,
+              6.379,
+              5.469
+            ]
+          }
+        ],
+        "rmsd": 1.535501
+      },
+      "ranking": [
+        {
+          "rank": 1,
+          "name": "PL-C06",
+          "score": 11.358398,
+          "label": "UNKNOWN",
+          "has_experimental_delta_g": false,
+          "experimental_delta_g": null
+        },
+        {
+          "rank": 2,
+          "name": "PL-C03",
+          "score": 10.950383,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -5.76
+        },
+        {
+          "rank": 3,
+          "name": "PL-C07",
+          "score": 10.652479,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -4.67
+        },
+        {
+          "rank": 4,
+          "name": "PL-C04",
+          "score": 10.372524,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -6.55
+        },
+        {
+          "rank": 5,
+          "name": "PL-C02",
+          "score": 9.946146,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -5.52
+        },
+        {
+          "rank": 6,
+          "name": "PL-C05",
+          "score": 9.43792,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -6.7
+        },
+        {
+          "rank": 7,
+          "name": "PL-C01",
+          "score": 9.367447,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -5.19
+        },
+        {
+          "rank": 8,
+          "name": "PL-C09",
+          "score": 9.338823,
+          "label": "NEGATIVE",
+          "has_experimental_delta_g": false,
+          "experimental_delta_g": null
+        },
+        {
+          "rank": 9,
+          "name": "PL-C08",
+          "score": 9.284579,
+          "label": "POSITIVE",
+          "has_experimental_delta_g": true,
+          "experimental_delta_g": -5.46
+        },
+        {
+          "rank": 10,
+          "name": "PL-C10",
+          "score": 8.053351,
+          "label": "NEGATIVE",
+          "has_experimental_delta_g": false,
+          "experimental_delta_g": null
+        }
+      ],
+      "validation": {
+        "pose_rmsd": 1.535501,
+        "pose_pass": true,
+        "auc": 0.928571,
+        "auc_pass": true,
+        "binders": 7,
+        "decoys": 2,
+        "affinity_pair_accuracy": 0.52381,
+        "crystal_pose_score": 7.515686,
+        "reference_search_score": 9.367447,
+        "historical_verified": 8,
+        "historical_complete": false
+      },
+      "final_gate": {
+        "expected_candidates": 75,
+        "expected_positive": 44,
+        "expected_negative": 31,
+        "candidate_count": 0,
+        "answer_key_count": 0,
+        "verified_candidates": 0,
+        "verified_answer_key": 0,
+        "positive_count": 0,
+        "negative_count": 0,
+        "id_set_match": false,
+        "candidate_hash_match": false,
+        "answer_key_hash_match": false,
+        "provenance_verified": false,
+        "ready": false,
+        "reason": "candidate set is incomplete",
+        "candidate_sha256": "dfb2a571028db3ba0e04cf125756101385744225c0e2308bd8c7b3927239c338",
+        "answer_key_sha256": "2f0a4a05620023528438c0a577f9ad1c80528b57c64f97d622a4673b5c8889c1"
+      },
+      "answer_key_open": true
+    }
+  }
+}
