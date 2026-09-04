@@ -1,23 +1,23 @@
 {
   "version": "microgrid-0.13.7",
-  "updated_at_unix": 1788552000,
+  "updated_at_unix": 1788555599,
   "nodes_online": 10,
   "nodes_known": 10,
-  "tasks_computing": 10,
-  "tasks_open": 34,
-  "tasks_completed": 43629,
+  "tasks_computing": 9,
+  "tasks_open": 33,
+  "tasks_completed": 60447,
   "projects_online": 1,
   "nodes": [
-    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43633, "project": "paperplane-1337-17665"},
-    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43635, "project": "paperplane-1337-17665"},
-    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43630, "project": "paperplane-1337-17665"},
-    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43634, "project": "paperplane-1337-17665"},
-    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43636, "project": "paperplane-1337-17665"},
-    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43637, "project": "paperplane-1337-17665"},
-    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43631, "project": "paperplane-1337-17665"},
-    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43638, "project": "paperplane-1337-17665"},
-    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43632, "project": "paperplane-1337-17665"},
-    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 43639, "project": "paperplane-1337-17665"}
+    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60455, "project": "paperplane-1337-17665"},
+    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60450, "project": "paperplane-1337-17665"},
+    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60451, "project": "paperplane-1337-17665"},
+    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60454, "project": "paperplane-1337-17665"},
+    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60453, "project": "paperplane-1337-17665"},
+    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60449, "project": "paperplane-1337-17665"},
+    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60448, "project": "paperplane-1337-17665"},
+    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60452, "project": "paperplane-1337-17665"},
+    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 60456, "project": "paperplane-1337-17665"}
   ],
   "projects": [
     {"name": "paperplane-1337-17665"}
