@@ -1,23 +1,23 @@
 {
   "version": "microgrid-0.13.7",
-  "updated_at_unix": 1788511734,
+  "updated_at_unix": 1788525854,
   "nodes_online": 8,
   "nodes_known": 8,
-  "tasks_computing": 8,
+  "tasks_computing": 7,
   "tasks_open": 24,
-  "tasks_completed": 41567,
+  "tasks_completed": 35832,
   "projects_online": 1,
   "nodes": [
-    {"name": "esp32-node-8", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41575, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-1", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41574, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-7", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41570, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-2", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41571, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-6", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41566, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-5", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41569, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-3", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41573, "project": "paperplane-1337-4058605"},
-    {"name": "esp32-node-4", "version": "0.11.4", "score": 99, "state": "computing", "task_id": 41572, "project": "paperplane-1337-4058605"}
+    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "idle", "task_id": 0, "project": ""},
+    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35838, "project": "paperplane-1337-750"},
+    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35833, "project": "paperplane-1337-750"},
+    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35840, "project": "paperplane-1337-750"},
+    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35839, "project": "paperplane-1337-750"},
+    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35834, "project": "paperplane-1337-750"},
+    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35836, "project": "paperplane-1337-750"},
+    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 35835, "project": "paperplane-1337-750"}
   ],
   "projects": [
-    {"name": "paperplane-1337-4058605"}
+    {"name": "paperplane-1337-750"}
   ]
 }
