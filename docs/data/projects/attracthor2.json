@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "id": "attracthor2",
+  "title": "Attracthor2 Continuous Structure Search",
+  "description": "An open-ended search for repeatable structure in deterministic random-like numerical streams. ESP32 nodes measure compact phase-space experiments; the Project Tool continuously explores, verifies anomalies and launches controls instead of converging to a fixed iteration limit.",
+  "status": "paused",
+  "updated_at_unix": 1788642038,
+  "started_at_unix": 1788642038,
+  "completed_at_unix": null,
+  "progress": {
+    "current": 0,
+    "total": 0,
+    "unit": "experiments",
+    "label": "Experiments tested",
+    "throughput": 0.0,
+    "throughput_unit": "experiments/s",
+    "eta_seconds": null,
+    "help": "Attracthor2 has no target iteration count. The counter grows until the Project Tool is paused."
+  },
+  "best": {
+    "label": "Strongest anomaly",
+    "value": "0.00",
+    "unit": "z",
+    "status": "waiting for results",
+    "help": "Largest approximate standardized deviation against an iid uniform-bin reference. Phase-space samples overlap, so this is a ranking heuristic rather than a formal p-value or proof of non-randomness. Very weak generators can legitimately produce values far above 999 z."
+  },
+  "metrics": [
+    {
+      "label": "Anomalous results",
+      "value": "0",
+      "help": "Validated task results at or above the search threshold. These trigger follow-up work; they are not automatically called discoveries."
+    },
+    {
+      "label": "Terminal leads archived",
+      "value": "0",
+      "help": "Bounded archive of at most 128 terminal non-control leads, deduplicated by generator/transform/bit-window/dominant metric."
+    },
+    {
+      "label": "Follow-ups queued",
+      "value": "0"
+    },
+    {
+      "label": "Search threshold",
+      "value": "8.0 z"
+    }
+  ],
+  "search": {
+    "mode": "continuous",
+    "stop_reason": "ready",
+    "project_name": "attracthor2-main",
+    "window": 16,
+    "master_seed": 2809244786,
+    "next_experiment_id": 1,
+    "completed_total": 0,
+    "failed_total": 0,
+    "duplicate_total": 0,
+    "pending_followups": 0,
+    "threshold_z": 8.0,
+    "anomalous_total": 0,
+    "archived_leads": 0
+  },
+  "details": {
+    "contract": "same ELF + same compact experiment input = same byte-identical result",
+    "strategy": "continuous exploration with deterministic verify, neighbor, alternate-seed and control follow-ups",
+    "phase_space": "3D 16x16x16 bins from delay, delta-delay or bijective permuted-delay embeddings",
+    "metrics": [
+      "occupancy",
+      "collision pairs",
+      "serial recurrence",
+      "cross-axis correlation",
+      "axis bias"
+    ],
+    "hardware_rng": "not used as a source because Microgrid consensus requires deterministic outputs"
+  },
+  "visualization": {
+    "code": "const best = data && data.best ? data.best : null;\nconst points = data && Array.isArray(data.points) ? data.points : [];\nconst recent = data && Array.isArray(data.recent) ? data.recent : [];\nconst top = data && Array.isArray(data.top) ? data.top : [];\nconst archive = data && Array.isArray(data.archive) ? data.archive : [];\nconst threshold = Number(data && data.threshold) || 8;\nconst completed = Number(data && data.completed) || 0;\nconst anomalous = Number(data && data.anomalous) || 0;\nconst archived = Number(data && data.archived) || 0;\n\nroot.style.width = \"100%\";\nroot.style.height = \"100%\";\nroot.style.minHeight = \"280px\";\nroot.style.position = \"relative\";\nroot.style.overflow = \"hidden\";\nroot.style.background = \"#ffffff\";\n\nroot.innerHTML = `\n<style>\n  *{box-sizing:border-box}\n  html,body{margin:0;background:#fff;color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif}\n  .a2{position:relative;height:100%;min-height:280px;overflow:hidden;background:#fff}\n  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}\n  .story{position:absolute;left:18px;top:15px;z-index:3;max-width:430px;pointer-events:none}\n  .title{font-size:17px;font-weight:700;letter-spacing:-.02em;color:#1d1d1f}\n  .sub{font-size:11px;color:#6e6e73;margin-top:3px;line-height:1.4}\n  .scene-dots{position:absolute;right:10px;bottom:5px;z-index:4;display:flex;gap:1px;align-items:center}\n  .scene-dot{position:relative;width:20px;height:20px;border:0;padding:0;border-radius:50%;background:transparent;cursor:pointer;appearance:none}\n  .scene-dot::after{content:\"\";position:absolute;left:7px;top:7px;width:6px;height:6px;border-radius:50%;background:#d2d2d7;transition:background .12s ease}\n  .scene-dot:hover::after{background:#86868b}\n  .scene-dot.active::after{background:#1d1d1f}\n  .scene-dot:focus-visible{outline:1px solid #86868b;outline-offset:-2px}\n  .footer{position:absolute;left:18px;bottom:11px;z-index:3;color:#86868b;font-size:10px;pointer-events:none;letter-spacing:.01em}\n</style>\n<div class=\"a2\">\n  <canvas></canvas>\n  <div class=\"story\"><div class=\"title\"></div><div class=\"sub\"></div></div>\n  <div class=\"footer\"></div>\n  <div class=\"scene-dots\"><button class=\"scene-dot\" type=\"button\" aria-label=\"Show scene 1\"></button><button class=\"scene-dot\" type=\"button\" aria-label=\"Show scene 2\"></button><button class=\"scene-dot\" type=\"button\" aria-label=\"Show scene 3\"></button></div>\n</div>`;\n\nconst canvas = root.querySelector(\"canvas\");\nconst ctx = canvas.getContext(\"2d\");\nconst titleNode = root.querySelector(\".title\");\nconst subNode = root.querySelector(\".sub\");\nconst footerNode = root.querySelector(\".footer\");\nconst sceneDots = Array.from(root.querySelectorAll(\".scene-dot\"));\nlet width=1,height=1;\n\nlet currentScene=Number.isInteger(initialScene)?Math.max(0,Math.min(2,initialScene)):0;\n\nfunction activateScene(index, notify=true){\n  currentScene=Math.max(0,Math.min(sceneDots.length-1,index));\n  sceneDots.forEach((dot,i)=>{\n    const active=i===currentScene;\n    dot.classList.toggle(\"active\",active);\n    dot.setAttribute(\"aria-pressed\",active?\"true\":\"false\");\n  });\n  if(notify && project && project.id){\n    window.parent.postMessage({type:\"alinoe-visualization-scene\",projectId:project.id,scene:currentScene},\"*\");\n  }\n}\nsceneDots.forEach((dot,index)=>dot.addEventListener(\"click\",()=>activateScene(index)));\nactivateScene(currentScene,false);\n\nfunction resize(){\n  const rect=canvas.getBoundingClientRect();\n  const dpr=Math.min(window.devicePixelRatio||1,2);\n  const w=Math.max(1,Math.round(rect.width*dpr));\n  const h=Math.max(1,Math.round(rect.height*dpr));\n  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;width=w;height=h;}\n  return dpr;\n}\nfunction clamp(v,a,b){return Math.max(a,Math.min(b,v));}\nfunction smooth(v){const t=clamp(v,0,1);return t*t*(3-2*t);}\nfunction setScene(index,title,sub,footer){\n  titleNode.textContent=title;subNode.textContent=sub;footerNode.textContent=footer||\"\";\n  sceneDots.forEach((dot,i)=>{\n    const active=i===index;\n    dot.classList.toggle(\"active\",active);\n    dot.setAttribute(\"aria-pressed\",active?\"true\":\"false\");\n  });\n}\nfunction line(x1,y1,x2,y2,stroke,widthPx,alpha=1,dash=[]){\n  ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=stroke;ctx.lineWidth=widthPx;ctx.setLineDash(dash);\n  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();\n}\nfunction text(value,x,y,size,dpr,color=\"#6e6e73\",align=\"left\",weight=400){\n  ctx.save();ctx.fillStyle=color;ctx.textAlign=align;ctx.font=`${weight} ${size*dpr}px -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif`;ctx.fillText(value,x,y);ctx.restore();\n}\nfunction formatZ(value){\n  const v=Math.max(0,Number(value)||0);\n  if(v<1000)return v.toFixed(2);\n  if(v<1e6)return `${(v/1e3).toFixed(1)}k`;\n  if(v<1e9)return `${(v/1e6).toFixed(1)}M`;\n  if(v<1e12)return `${(v/1e9).toFixed(1)}B`;\n  return v.toExponential(2);\n}\n\nfunction rotatePoint(p,angle){\n  const x=(Number(p[0])||0)-7.5,y=(Number(p[1])||0)-7.5,z=(Number(p[2])||0)-7.5;\n  const ca=Math.cos(angle),sa=Math.sin(angle),cb=Math.cos(-0.56),sb=Math.sin(-0.56);\n  const x1=x*ca-z*sa,z1=x*sa+z*ca;\n  const y2=y*cb-z1*sb,z2=y*sb+z1*cb;\n  return [x1,y2,z2];\n}\nfunction project(p,dpr,angle){\n  const q=rotatePoint(p,angle);\n  const scale=Math.min(width,height)*0.031;\n  const perspective=1/(1+q[2]*0.018);\n  return [width*.53+q[0]*scale*perspective,height*.57-q[1]*scale*perspective,q[2]];\n}\nfunction cubeCorners(){\n  const values=[0,15],c=[];for(const x of values)for(const y of values)for(const z of values)c.push([x,y,z]);return c;\n}\nconst cubeEdges=[[0,1],[0,2],[0,4],[1,3],[1,5],[2,3],[2,6],[3,7],[4,5],[4,6],[5,7],[6,7]];\n\nfunction drawEmpty(alpha,dpr){\n  ctx.save();ctx.globalAlpha=alpha;\n  text(\"waiting for the first validated experiment\",width*.5,height*.55,12,dpr,\"#86868b\",\"center\",500);\n  ctx.restore();\n}\n\nfunction drawPhase(now,alpha,dpr){\n  if(!best||!points.length){drawEmpty(alpha,dpr);return;}\n  const angle=now*.00024;\n  const corners=cubeCorners().map(p=>project(p,dpr,angle));\n  ctx.save();ctx.globalAlpha=alpha;\n  cubeEdges.forEach(([a,b])=>line(corners[a][0],corners[a][1],corners[b][0],corners[b][1],\"#d2d2d7\",.8*dpr,alpha,[3*dpr,4*dpr]));\n  const projected=points.map((p,i)=>({p:project(p,dpr,angle),i})).sort((a,b)=>a.p[2]-b.p[2]);\n  projected.forEach((item,index)=>{\n    const depth=(item.p[2]+12)/24;\n    const radius=(index%29===0?2.25:1.25)*dpr;\n    ctx.globalAlpha=alpha*(0.22+0.62*clamp(depth,0,1));\n    ctx.fillStyle=index%29===0?\"#1d1d1f\":\"#6e6e73\";\n    ctx.beginPath();ctx.arc(item.p[0],item.p[1],radius,0,Math.PI*2);ctx.fill();\n  });\n  ctx.globalAlpha=alpha;\n  text(\"0\",corners[0][0]-8*dpr,corners[0][1]+12*dpr,9,dpr,\"#86868b\",\"right\");\n  text(\"15\",corners[7][0]+7*dpr,corners[7][1]-6*dpr,9,dpr,\"#86868b\");\n  const score=formatZ(best.score||0);\n  text(`${best.generator_name||\"generator\"} \u00b7 ${best.transform_name||\"delay\"} \u00b7 \u03c4 ${best.tau}`,width-22*dpr,height-47*dpr,10,dpr,\"#1d1d1f\",\"right\",600);\n  text(`bits ${best.bit_offset}..${Number(best.bit_offset)+Number(best.bit_width)-1} \u00b7 anomaly ${score} z`,width-22*dpr,height-30*dpr,9,dpr,\"#86868b\",\"right\");\n  ctx.restore();\n}\n\nfunction logScore(v){return Math.log10(1+Math.max(0,Number(v)||0));}\nfunction drawSearch(alpha,dpr){\n  if(!recent.length){drawEmpty(alpha,dpr);return;}\n  const left=48*dpr,right=width-28*dpr,top=Math.max(78*dpr,height*.27),bottom=height-47*dpr;\n  const w=Math.max(1,right-left),h=Math.max(1,bottom-top);\n  const scores=recent.map(r=>Number(r.score)||0);\n  const ymax=Math.max(logScore(threshold)*1.2,...scores.map(logScore),1);\n\n  ctx.save();ctx.globalAlpha=alpha;\n  for(let i=0;i<=4;i++){const y=top+h*i/4;line(left,y,right,y,\"#eeeeef\",1*dpr,alpha);}\n  line(left,bottom,right,bottom,\"#d2d2d7\",1*dpr,alpha);\n  const thresholdY=bottom-h*(logScore(threshold)/ymax);\n  line(left,thresholdY,right,thresholdY,\"#86868b\",.9*dpr,alpha,[4*dpr,4*dpr]);\n  text(`${threshold.toFixed(1)} z follow-up threshold`,right,thresholdY-6*dpr,9,dpr,\"#86868b\",\"right\");\n\n  let previous=null;\n  recent.forEach((item,i)=>{\n    const x=left+w*(recent.length<=1?0.5:i/(recent.length-1));\n    const y=bottom-h*(logScore(item.score)/ymax);\n    if(previous)line(previous[0],previous[1],x,y,\"#d2d2d7\",.9*dpr,alpha*.95);\n    const interesting=Number(item.score)>=threshold;\n    ctx.globalAlpha=alpha*(interesting?1:.62);ctx.fillStyle=interesting?\"#1d1d1f\":\"#86868b\";\n    ctx.beginPath();ctx.arc(x,y,(interesting?2.8:1.8)*dpr,0,Math.PI*2);ctx.fill();\n    previous=[x,y];\n  });\n  ctx.globalAlpha=alpha;\n  text(\"anomaly score \u00b7 log10 display\",left,top-10*dpr,9,dpr,\"#86868b\");\n  text(`${completed.toLocaleString()} experiments`,right,bottom+19*dpr,9,dpr,\"#86868b\",\"right\");\n  text(`${anomalous.toLocaleString()} threshold crossings \u00b7 ${archived.toLocaleString()} archived leads`,right,top+12*dpr,10,dpr,\"#1d1d1f\",\"right\",600);\n  ctx.restore();\n}\n\nfunction drawEvidence(alpha,dpr){\n  if(!best){drawEmpty(alpha,dpr);return;}\n  const z=best.z||{};\n  const rows=[\n    [\"occupancy\",Number(z.occupancy)||0],\n    [\"collisions\",Number(z.collisions)||0],\n    [\"recurrence\",Number(z.recurrence)||0],\n    [\"correlation\",Number(z.correlation)||0],\n    [\"axis bias\",Number(z.axis_bias)||0],\n  ];\n  const left=42*dpr,right=Math.min(width*.61,width-190*dpr),top=Math.max(78*dpr,height*.27),rowH=29*dpr;\n  const barLeft=left+86*dpr;\n  const maxLog=Math.max(logScore(threshold)*1.15,...rows.map(row=>logScore(row[1])),1);\n  ctx.save();ctx.globalAlpha=alpha;\n  rows.forEach((row,i)=>{\n    const y=top+i*rowH;\n    text(row[0],left,y+10*dpr,9.5,dpr,\"#6e6e73\");\n    line(barLeft,y+6*dpr,right,y+6*dpr,\"#eeeeef\",7*dpr,alpha);\n    const fill=clamp(logScore(row[1])/maxLog,0,1);\n    line(barLeft,y+6*dpr,barLeft+(right-barLeft)*fill,y+6*dpr,row[1]>=threshold?\"#1d1d1f\":\"#86868b\",7*dpr,alpha);\n    text(`${formatZ(row[1])} z`,right+9*dpr,y+10*dpr,9,dpr,\"#1d1d1f\");\n  });\n  const thresholdX=barLeft+(right-barLeft)*clamp(logScore(threshold)/maxLog,0,1);\n  line(thresholdX,top-7*dpr,thresholdX,top+rowH*4+18*dpr,\"#d2d2d7\",.8*dpr,alpha,[3*dpr,4*dpr]);\n  text(\"bar length uses log10(1 + z)\",left,top+rowH*5+7*dpr,8.5,dpr,\"#86868b\");\n\n  const leads=archive.length?archive:top;\n  const tableX=Math.max(width*.69,right+70*dpr);\n  text(archive.length?\"verified lead archive\":\"top anomaly leads\",tableX,top-12*dpr,9,dpr,\"#86868b\",\"left\",600);\n  leads.slice(0,5).forEach((item,i)=>{\n    const y=top+12*dpr+i*25*dpr;\n    const name=`#${item.experiment_id} \u00b7 ${item.generator_name}`;\n    text(name,tableX,y,9,dpr,\"#1d1d1f\",\"left\",i===0?600:400);\n    text(`${formatZ(item.score||0)} z \u00b7 \u03c4 ${item.tau}`,width-24*dpr,y,9,dpr,\"#86868b\",\"right\");\n  });\n  text(`dominant metric: ${best.dominant||\"\u2014\"}`,tableX,top+151*dpr,9,dpr,\"#1d1d1f\",\"left\",600);\n  text(\"z is a ranking heuristic against an iid uniform-bin reference\",tableX,top+169*dpr,8.5,dpr,\"#86868b\",\"left\");\n  ctx.restore();\n}\n\nfunction frame(now){\n  const dpr=resize();ctx.clearRect(0,0,width,height);ctx.fillStyle=\"#fff\";ctx.fillRect(0,0,width,height);\n  const scene=currentScene;\n  if(scene===0){\n    setScene(0,\"1. Phase space\",\"The strongest current lead, regenerated locally from the same generator, seed, transform and \u03c4 used by the ESP32 task.\",\"16 \u00d7 16 \u00d7 16 phase-space bins \u00b7 deterministic replay\");\n    drawPhase(now,1,dpr);\n  }else if(scene===1){\n    setScene(1,\"2. Continuous search\",\"Every point is one validated experiment. Crossing the threshold creates verification, neighbor, alternate-seed and control jobs.\",\"no target iteration count \u00b7 search continues until paused\");\n    drawSearch(1,dpr);\n  }else{\n    setScene(2,\"3. Anomaly fingerprint\",\"The five component scores explain why the current lead was flagged. Bars are logarithmic so one huge component cannot hide the others.\",\"manual scene \u00b7 approximate z-scores rank leads; follow-ups test persistence\");\n    drawEvidence(1,dpr);\n  }\n  requestAnimationFrame(frame);\n}\nrequestAnimationFrame(frame);\n",
+    "data": {
+      "best": null,
+      "points": [],
+      "recent": [],
+      "top": [],
+      "threshold": 8.0,
+      "completed": 0,
+      "anomalous": 0,
+      "archived": 0,
+      "archive": []
+    }
+  }
+}
