@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788570000,
+  "updated_at_unix": 1788573600,
   "counts": {
-    "running": 1,
-    "completed": 2,
+    "running": 0,
+    "completed": 3,
     "other": 0,
     "total": 3
   },
@@ -11,10 +11,10 @@
     {
       "id": "paperplane",
       "title": "Foldable Paper Plane Distance Search",
-      "status": "running",
-      "updated_at_unix": 1788569991,
+      "status": "completed",
+      "updated_at_unix": 1788570451,
       "started_at_unix": 1788547263,
-      "completed_at_unix": null,
+      "completed_at_unix": 1788570451,
       "json": "paperplane.json"
     },
     {
