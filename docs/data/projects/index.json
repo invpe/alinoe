@@ -1,30 +1,30 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788595201,
+  "updated_at_unix": 1788598801,
   "counts": {
-    "running": 1,
-    "completed": 2,
+    "running": 2,
+    "completed": 1,
     "other": 0,
     "total": 3
   },
   "projects": [
     {
+      "id": "paperplane",
+      "title": "Foldable Paper Plane Distance Search",
+      "status": "running",
+      "updated_at_unix": 1788598799,
+      "started_at_unix": 1788597957,
+      "completed_at_unix": null,
+      "json": "paperplane.json"
+    },
+    {
       "id": "rotor3d",
       "title": "Rotor3D Passive Autorotation Search",
       "status": "running",
-      "updated_at_unix": 1788595193,
-      "started_at_unix": 1788594673,
+      "updated_at_unix": 1788598799,
+      "started_at_unix": 1788598799,
       "completed_at_unix": null,
       "json": "rotor3d.json"
-    },
-    {
-      "id": "paperplane",
-      "title": "Foldable Paper Plane Distance Search",
-      "status": "completed",
-      "updated_at_unix": 1788570451,
-      "started_at_unix": 1788547263,
-      "completed_at_unix": 1788570451,
-      "json": "paperplane.json"
     },
     {
       "id": "proteinlock",
