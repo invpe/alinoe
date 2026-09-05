@@ -1,13 +1,22 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788642001,
+  "updated_at_unix": 1788645601,
   "counts": {
     "running": 0,
     "completed": 3,
-    "other": 0,
-    "total": 3
+    "other": 1,
+    "total": 4
   },
   "projects": [
+    {
+      "id": "attracthor2",
+      "title": "Attracthor2 Continuous Structure Search",
+      "status": "paused",
+      "updated_at_unix": 1788642038,
+      "started_at_unix": 1788642038,
+      "completed_at_unix": null,
+      "json": "attracthor2.json"
+    },
     {
       "id": "paperplane",
       "title": "Foldable Paper Plane Distance Search",
