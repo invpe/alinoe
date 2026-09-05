@@ -3,17 +3,17 @@
   "id": "rotor3d",
   "title": "Rotor3D Passive Autorotation Search",
   "description": "Search a palm-sized, PLA-printable two-blade rotor geometry for maximum simulated descent time after release from rest.",
-  "status": "running",
-  "updated_at_unix": 1788562782,
+  "status": "completed",
+  "updated_at_unix": 1788565307,
   "started_at_unix": 1788561423,
-  "completed_at_unix": null,
+  "completed_at_unix": 1788565307,
   "progress": {
-    "current": 6400,
-    "total": 150000,
+    "current": 18227,
+    "total": 18227,
     "unit": "candidates",
-    "throughput": 4.71,
+    "throughput": 4.69,
     "throughput_unit": "candidates/s",
-    "eta_seconds": 30495
+    "eta_seconds": 0
   },
   "best": {
     "label": "Best simulated descent time",
@@ -42,16 +42,16 @@
   ],
   "search": {
     "mode": "convergence",
-    "stop_reason": null,
-    "evaluated": 6400,
-    "submitted": 6415,
+    "stop_reason": "converged",
+    "evaluated": 18227,
+    "submitted": 18227,
     "minimum_candidates": 10000,
     "patience_candidates": 15000,
     "improvement_epsilon_s": 0.004,
     "maximum_candidates": 150000,
     "last_improvement_at": 4095,
     "last_meaningful_improvement_at": 3212,
-    "candidates_since_meaningful_improvement": 3188
+    "candidates_since_meaningful_improvement": 15015
   },
   "details": {
     "project_name": "rotor3d-1337-25293",
