@@ -1,25 +1,26 @@
 {
   "version": "microgrid-0.13.7",
-  "updated_at_unix": 1788595201,
+  "updated_at_unix": 1788598800,
   "nodes_online": 10,
   "nodes_known": 10,
   "tasks_computing": 10,
-  "tasks_open": 40,
-  "tasks_completed": 142906,
-  "projects_online": 1,
+  "tasks_open": 120,
+  "tasks_completed": 154593,
+  "projects_online": 2,
   "nodes": [
-    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142912, "project": "rotor3d-1337-46408"},
-    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142910, "project": "rotor3d-1337-46408"},
-    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142913, "project": "rotor3d-1337-46408"},
-    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142916, "project": "rotor3d-1337-46408"},
-    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142907, "project": "rotor3d-1337-46408"},
-    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142911, "project": "rotor3d-1337-46408"},
-    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142915, "project": "rotor3d-1337-46408"},
-    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142914, "project": "rotor3d-1337-46408"},
-    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142909, "project": "rotor3d-1337-46408"},
-    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 142902, "project": "rotor3d-1337-46408"}
+    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154600, "project": "paperplane-1337-49076"},
+    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154599, "project": "paperplane-1337-49076"},
+    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154594, "project": "paperplane-1337-49076"},
+    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154596, "project": "paperplane-1337-49076"},
+    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154602, "project": "paperplane-1337-49076"},
+    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154603, "project": "paperplane-1337-49076"},
+    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154601, "project": "paperplane-1337-49076"},
+    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154598, "project": "paperplane-1337-49076"},
+    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154595, "project": "paperplane-1337-49076"},
+    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 154597, "project": "paperplane-1337-49076"}
   ],
   "projects": [
-    {"name": "rotor3d-1337-46408"}
+    {"name": "paperplane-1337-49076"},
+    {"name": "rotor3d-1337-49703"}
   ]
 }
