@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788645601,
+  "updated_at_unix": 1788649200,
   "counts": {
     "running": 0,
     "completed": 3,
@@ -12,8 +12,8 @@
       "id": "attracthor2",
       "title": "Attracthor2 Continuous Structure Search",
       "status": "paused",
-      "updated_at_unix": 1788642038,
-      "started_at_unix": 1788642038,
+      "updated_at_unix": 1788647123,
+      "started_at_unix": 1788642399,
       "completed_at_unix": null,
       "json": "attracthor2.json"
     },
