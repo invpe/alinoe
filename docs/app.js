@@ -4,6 +4,7 @@ let loadedProjects = [];
 let activeProjectFilter = "all";
 let activeProjectIndex = 0;
 let activeProjectId = "";
+const visualizationSceneByProject = new Map();
 let appConfig = {
   data_base_url: "data",
   grid_poll_ms: 5000,
@@ -77,11 +78,16 @@ function formatBest(best) {
     unit: String(best.unit || ""),
     label: displayValue(best.label || "Best result"),
     status: String(best.status || ""),
+    help: String(best.help || ""),
   };
 }
 
 function renderMetric(metric) {
-  return `<div class="fact"><span>${escapeHTML(metric?.label || "Metric")}</span><strong>${escapeHTML(displayValue(metric?.value))}</strong></div>`;
+  const help = String(metric?.help || "");
+  const helpAttributes = help
+    ? ` tabindex="0" data-help="${escapeHTML(help)}" aria-haspopup="true"`
+    : "";
+  return `<div class="fact${help ? " has-help" : ""}"${helpAttributes}><span>${escapeHTML(metric?.label || "Metric")}</span><strong>${escapeHTML(displayValue(metric?.value))}</strong></div>`;
 }
 
 function renderProject(project) {
@@ -97,14 +103,16 @@ function renderProject(project) {
 
   const genericMetrics = [
     {
-      label: progress.unit ? `${progress.unit} tested` : "Progress",
-      value: total ? `${fmtInt.format(current)} / ${fmtInt.format(total)}` : fmtInt.format(current),
+      label: progress.label || (progress.unit ? `${progress.unit} tested` : "Progress"),
+      value: progress.display_value || (total ? `${fmtInt.format(current)} / ${fmtInt.format(total)}` : fmtInt.format(current)),
+      help: progress.help || "",
     },
   ];
-  if (progress.throughput_unit || throughput > 0) {
+  if (progress.show_throughput !== false && (progress.throughput_unit || throughput > 0)) {
     genericMetrics.push({
-      label: "Throughput",
+      label: progress.throughput_label || "Throughput",
       value: `${throughput.toFixed(2)} ${progress.throughput_unit || "/ s"}`,
+      help: progress.throughput_help || "",
     });
   }
 
@@ -125,8 +133,10 @@ function renderProject(project) {
       <div class="project-grid">
         ${visualizationHTML}
         <div class="best">
-          <div class="best-label">${escapeHTML(best.label)}</div>
-          <div class="best-value">${escapeHTML(best.value)}${best.unit ? ` <small>${escapeHTML(best.unit)}</small>` : ""}</div>
+          <div class="best-headline${best.help ? " has-help" : ""}"${best.help ? ` tabindex="0" data-help="${escapeHTML(best.help)}" aria-haspopup="true"` : ""}>
+            <div class="best-label">${escapeHTML(best.label)}</div>
+            <div class="best-value">${escapeHTML(best.value)}${best.unit ? ` <small>${escapeHTML(best.unit)}</small>` : ""}</div>
+          </div>
           ${best.status ? `<div class="result-status">${escapeHTML(best.status)}</div>` : ""}
           <div class="project-facts">
             ${[...genericMetrics, ...metrics].map(renderMetric).join("")}
@@ -147,7 +157,7 @@ function base64UTF8(value) {
   return btoa(binary);
 }
 
-function visualizationSource(project) {
+function visualizationSource(project, initialScene = 0) {
   const visualization = project.visualization || {};
   const projectMetadata = { ...project };
   delete projectMetadata.visualization;
@@ -155,6 +165,7 @@ function visualizationSource(project) {
     project: projectMetadata,
     code: String(visualization.code || ""),
     data: visualization.data ?? {},
+    scene: Number.isInteger(initialScene) ? initialScene : 0,
   });
 
   return `<!doctype html>
@@ -168,7 +179,7 @@ function visualizationSource(project) {
   const payload=JSON.parse(new TextDecoder().decode(bytes));
   const root=document.getElementById("root");
   try {
-    new Function("root", "project", "data", payload.code)(root, payload.project, payload.data);
+    new Function("root", "project", "data", "initialScene", payload.code)(root, payload.project, payload.data, payload.scene);
   } catch (error) {
     root.innerHTML='<div style="height:280px;display:grid;place-items:center;color:#a98262;font:13px system-ui,sans-serif">Visualization error</div>';
     console.error(error);
@@ -186,8 +197,89 @@ function mountVisualization(project) {
   iframe.className = "project-visualization";
   iframe.setAttribute("sandbox", "allow-scripts");
   iframe.setAttribute("title", `${project.title || project.id} visualization`);
-  iframe.srcdoc = visualizationSource(project);
+  iframe.srcdoc = visualizationSource(project, visualizationSceneByProject.get(project.id) || 0);
   target.replaceChildren(iframe);
+}
+
+
+window.addEventListener("message", event => {
+  const message = event.data;
+  if (!message || message.type !== "alinoe-visualization-scene") return;
+  const projectId = String(message.projectId || "");
+  const scene = Number(message.scene);
+  if (!projectId || !Number.isInteger(scene) || scene < 0 || scene > 15) return;
+  visualizationSceneByProject.set(projectId, scene);
+});
+
+let helpTooltip = null;
+let helpTarget = null;
+
+function ensureHelpTooltip() {
+  if (helpTooltip) return helpTooltip;
+  helpTooltip = document.createElement("div");
+  helpTooltip.id = "metricHelpTooltip";
+  helpTooltip.className = "help-tooltip";
+  helpTooltip.setAttribute("role", "tooltip");
+  helpTooltip.hidden = true;
+  document.body.appendChild(helpTooltip);
+  return helpTooltip;
+}
+
+function positionHelpTooltip(target) {
+  const tooltip = ensureHelpTooltip();
+  const rect = target.getBoundingClientRect();
+  const margin = 10;
+  const maxLeft = Math.max(margin, window.innerWidth - tooltip.offsetWidth - margin);
+  let left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2;
+  left = Math.max(margin, Math.min(maxLeft, left));
+  let top = rect.top - tooltip.offsetHeight - margin;
+  if (top < margin) top = rect.bottom + margin;
+  tooltip.style.left = `${Math.round(left)}px`;
+  tooltip.style.top = `${Math.round(top)}px`;
+}
+
+function showHelpTooltip(target) {
+  const help = String(target?.dataset?.help || "").trim();
+  if (!help) return;
+  const tooltip = ensureHelpTooltip();
+  helpTarget = target;
+  tooltip.textContent = help;
+  tooltip.hidden = false;
+  target.setAttribute("aria-describedby", tooltip.id);
+  requestAnimationFrame(() => positionHelpTooltip(target));
+}
+
+function hideHelpTooltip(target = null) {
+  if (target && helpTarget && target !== helpTarget) return;
+  if (helpTarget) helpTarget.removeAttribute("aria-describedby");
+  helpTarget = null;
+  if (helpTooltip) helpTooltip.hidden = true;
+}
+
+function installHelpTooltips() {
+  ensureHelpTooltip();
+  document.addEventListener("mouseover", event => {
+    const target = event.target.closest?.(".has-help[data-help]");
+    if (target) showHelpTooltip(target);
+  });
+  document.addEventListener("mouseout", event => {
+    const target = event.target.closest?.(".has-help[data-help]");
+    if (target && !target.contains(event.relatedTarget)) hideHelpTooltip(target);
+  });
+  document.addEventListener("focusin", event => {
+    const target = event.target.closest?.(".has-help[data-help]");
+    if (target) showHelpTooltip(target);
+  });
+  document.addEventListener("focusout", event => {
+    const target = event.target.closest?.(".has-help[data-help]");
+    if (target) hideHelpTooltip(target);
+  });
+  window.addEventListener("resize", () => {
+    if (helpTarget && helpTooltip && !helpTooltip.hidden) positionHelpTooltip(helpTarget);
+  });
+  window.addEventListener("scroll", () => {
+    if (helpTarget && helpTooltip && !helpTooltip.hidden) positionHelpTooltip(helpTarget);
+  }, {passive: true});
 }
 
 function filteredProjects() {
@@ -331,6 +423,7 @@ async function loadConfig() {
 
 async function startApp() {
   await loadConfig();
+  installHelpTooltips();
 
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", () => {
