@@ -3,17 +3,17 @@
   "id": "paperplane",
   "title": "Foldable Paper Plane Distance Search",
   "description": "Search a reproducible parametric A4 fold construction and launch conditions for maximum simulated horizontal distance.",
-  "status": "running",
-  "updated_at_unix": 1788569991,
+  "status": "completed",
+  "updated_at_unix": 1788570451,
   "started_at_unix": 1788547263,
-  "completed_at_unix": null,
+  "completed_at_unix": 1788570451,
   "progress": {
-    "current": 97800,
+    "current": 100000,
     "total": 100000,
     "unit": "candidates",
-    "throughput": 4.3,
+    "throughput": 4.31,
     "throughput_unit": "candidates/s",
-    "eta_seconds": 511
+    "eta_seconds": 0
   },
   "best": {
     "label": "Best simulated distance",
@@ -42,16 +42,16 @@
   ],
   "search": {
     "mode": "convergence",
-    "stop_reason": null,
-    "evaluated": 97800,
-    "submitted": 97809,
+    "stop_reason": "maximum_candidates",
+    "evaluated": 100000,
+    "submitted": 100000,
     "minimum_candidates": 20000,
     "patience_candidates": 50000,
     "improvement_epsilon_m": 0.005,
     "maximum_candidates": 100000,
     "last_improvement_at": 84434,
     "last_meaningful_improvement_at": 84434,
-    "candidates_since_meaningful_improvement": 13366
+    "candidates_since_meaningful_improvement": 15566
   },
   "details": {
     "project_name": "paperplane-1337-17665",
