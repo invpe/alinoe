@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "updated_at_unix": 1788678000,
+  "updated_at_unix": 1788681601,
   "counts": {
-    "running": 0,
+    "running": 1,
     "completed": 3,
-    "other": 1,
+    "other": 0,
     "total": 4
   },
   "projects": [
     {
       "id": "attracthor2",
       "title": "Attracthor2 Continuous Structure Search",
-      "status": "paused",
-      "updated_at_unix": 1788647123,
-      "started_at_unix": 1788642399,
+      "status": "running",
+      "updated_at_unix": 1788681601,
+      "started_at_unix": 1788678713,
       "completed_at_unix": null,
       "json": "attracthor2.json"
     },
