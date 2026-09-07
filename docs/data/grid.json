@@ -1,23 +1,23 @@
 {
   "version": "microgrid-0.13.7",
-  "updated_at_unix": 1788739200,
+  "updated_at_unix": 1788742801,
   "nodes_online": 10,
   "nodes_known": 10,
   "tasks_computing": 10,
   "tasks_open": 104,
-  "tasks_completed": 254445,
+  "tasks_completed": 256127,
   "projects_online": 1,
   "nodes": [
-    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254452, "project": "attracthor2-main"},
-    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254450, "project": "attracthor2-main"},
-    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254453, "project": "attracthor2-main"},
-    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254451, "project": "attracthor2-main"},
-    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254445, "project": "attracthor2-main"},
-    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254437, "project": "attracthor2-main"},
-    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254454, "project": "attracthor2-main"},
-    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254449, "project": "attracthor2-main"},
-    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254448, "project": "attracthor2-main"},
-    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 254455, "project": "attracthor2-main"}
+    {"name": "light_ola", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256134, "project": "attracthor2-main"},
+    {"name": "light_dining", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256135, "project": "attracthor2-main"},
+    {"name": "light_garage", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256136, "project": "attracthor2-main"},
+    {"name": "looko2", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256132, "project": "attracthor2-main"},
+    {"name": "water_garden", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256128, "project": "attracthor2-main"},
+    {"name": "switch_kitchen", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256131, "project": "attracthor2-main"},
+    {"name": "light_bedroom", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256133, "project": "attracthor2-main"},
+    {"name": "light_attic", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256130, "project": "attracthor2-main"},
+    {"name": "switch_washing", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256129, "project": "attracthor2-main"},
+    {"name": "switch_saloon", "version": "0.13.7", "score": 99, "state": "computing", "task_id": 256137, "project": "attracthor2-main"}
   ],
   "projects": [
     {"name": "attracthor2-main"}
