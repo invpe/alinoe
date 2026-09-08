@@ -4,11 +4,11 @@
   "title": "Attracthor2 Continuous Structure Search",
   "description": "Searches generated number streams for hidden patterns and unusual behavior. ",
   "status": "running",
-  "updated_at_unix": 1788861600,
+  "updated_at_unix": 1788865200,
   "started_at_unix": 1788678713,
   "completed_at_unix": null,
   "progress": {
-    "current": 88866,
+    "current": 90639,
     "total": 0,
     "unit": "experiments",
     "label": "Experiments tested",
@@ -27,12 +27,12 @@
   "metrics": [
     {
       "label": "Unexplained threshold crossings",
-      "value": "37215",
+      "value": "37947",
       "help": "Results that looked unusual enough to deserve another check."
     },
     {
       "label": "Positive controls caught",
-      "value": "397",
+      "value": "402",
       "help": "Known LCG32 weaknesses caught by the detector. They are test cases, not discoveries."
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "label": "Follow-ups queued",
-      "value": "11"
+      "value": "6"
     },
     {
       "label": "Search threshold",
@@ -67,15 +67,15 @@
     "project_name": "attracthor2-main",
     "window": 16,
     "master_seed": 2809244786,
-    "next_experiment_id": 88893,
-    "completed_total": 88866,
+    "next_experiment_id": 90662,
+    "completed_total": 90639,
     "failed_total": 0,
     "duplicate_total": 9,
-    "threshold_crossings_total": 37907,
-    "unexplained_total": 37215,
-    "positive_control_hits_total": 397,
+    "threshold_crossings_total": 38644,
+    "unexplained_total": 37947,
+    "positive_control_hits_total": 402,
     "archived_leads": 72,
-    "pending_followups": 11,
+    "pending_followups": 6,
     "threshold_score": 8.0
   },
   "details": {
@@ -9136,1444 +9136,1444 @@
       ],
       "recent": [
         {
-          "experiment_id": 88684,
-          "score": 1.7029,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88692,
-          "score": 20.8925,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88693,
-          "score": 22.7179,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88694,
-          "score": 19.5419,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88695,
-          "score": 1.4107,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88688,
-          "score": 338822.9734,
+          "experiment_id": 90461,
+          "score": 67.325,
           "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88689,
-          "score": 338822.9734,
-          "generator": "LCG32",
-          "transform": "delta",
+          "transform": "permute-delay",
           "purpose": "seed-check",
           "tier": 2
         },
         {
-          "experiment_id": 88690,
-          "score": 372130.5332,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88700,
-          "score": 1.4799,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88701,
-          "score": 1.7866,
-          "generator": "SplitMix32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88703,
-          "score": 1.7096,
-          "generator": "SplitMix32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88702,
-          "score": 1.8644,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88696,
-          "score": 350408.2116,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88691,
-          "score": 1.9666,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88697,
-          "score": 350408.2116,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88698,
-          "score": 338822.9734,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88699,
-          "score": 2.3239,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88704,
-          "score": 32.664,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88705,
-          "score": 32.9105,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88706,
-          "score": 31.5485,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88708,
-          "score": 35.2729,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88709,
-          "score": 34.6128,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88710,
-          "score": 34.8718,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88716,
-          "score": 69466.1978,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88707,
-          "score": 1.1511,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88712,
-          "score": 31.5485,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88711,
-          "score": 0.8164,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88717,
-          "score": 0.8838,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88719,
-          "score": 2.2981,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88718,
-          "score": 0.8618,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88713,
-          "score": 32.9602,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88720,
-          "score": 1.6046,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88721,
-          "score": 1.4167,
-          "generator": "SplitMix32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88723,
-          "score": 1.6775,
-          "generator": "SplitMix32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88725,
-          "score": 0.8519,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88724,
-          "score": 2.1839,
-          "generator": "SplitMix32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88722,
-          "score": 1.8259,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88714,
-          "score": 32.6952,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88731,
-          "score": 2.0142,
-          "generator": "XorShift32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88730,
-          "score": 1.6914,
-          "generator": "SplitMix32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88732,
-          "score": 1.2311,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88726,
-          "score": 173733.3353,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88734,
-          "score": 1.4637,
+          "experiment_id": 90464,
+          "score": 1.8281,
           "generator": "XorShift32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88727,
-          "score": 173733.3353,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 1
+          "experiment_id": 90466,
+          "score": 1.7236,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
         },
         {
-          "experiment_id": 88728,
-          "score": 209937.206,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88715,
-          "score": 1.5496,
+          "experiment_id": 90465,
+          "score": 1.17,
           "generator": "PCG32",
           "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90467,
+          "score": 1.8553,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90462,
+          "score": 103.1955,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90468,
+          "score": 1.2796,
+          "generator": "CounterHash32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90459,
+          "score": 0.8733,
+          "generator": "PCG32",
+          "transform": "permute-delay",
           "purpose": "control",
           "tier": 2
         },
         {
-          "experiment_id": 88735,
-          "score": 1.2816,
-          "generator": "XorShift32",
-          "transform": "delay",
+          "experiment_id": 90469,
+          "score": 1.4752,
+          "generator": "SplitMix32",
+          "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88733,
-          "score": 1.6126,
-          "generator": "XorShift32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88736,
-          "score": 1.5494,
-          "generator": "XorShift32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88729,
-          "score": 2.3199,
+          "experiment_id": 90470,
+          "score": 1.6148,
           "generator": "PCG32",
           "transform": "delta",
-          "purpose": "control",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88738,
-          "score": 10.7332,
-          "generator": "LCG32",
-          "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88740,
-          "score": 0.6187,
+          "experiment_id": 90471,
+          "score": 2.3126,
+          "generator": "XorShift32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90473,
+          "score": 2.3686,
+          "generator": "XorShift32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90474,
+          "score": 3.4239,
           "generator": "SplitMix32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88737,
-          "score": 8.1776,
+          "experiment_id": 90472,
+          "score": 1.8402,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90479,
+          "score": 1.9445,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90476,
+          "score": 2.7871,
+          "generator": "LCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90475,
+          "score": 1.5468,
+          "generator": "CounterHash32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90480,
+          "score": 2.4659,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90478,
+          "score": 1.1152,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90477,
+          "score": 3.9775,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90481,
+          "score": 1.1933,
+          "generator": "SplitMix32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90482,
+          "score": 1.4061,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90485,
+          "score": 1.6017,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90487,
+          "score": 0.4785,
           "generator": "LCG32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88743,
+          "experiment_id": 90483,
+          "score": 2.2539,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90484,
+          "score": 1.5918,
+          "generator": "SplitMix32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90486,
+          "score": 1.4065,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90490,
+          "score": 1.9661,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90488,
+          "score": 1.3569,
+          "generator": "SplitMix32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90463,
+          "score": 1.1422,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90491,
+          "score": 1.2303,
+          "generator": "SplitMix32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90489,
+          "score": 2.8616,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90492,
+          "score": 1353.9441,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90496,
+          "score": 1.3608,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90495,
+          "score": 8.7538,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90493,
+          "score": 3.4914,
+          "generator": "CounterHash32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90502,
+          "score": 1.7883,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90494,
+          "score": 1.0606,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90497,
+          "score": 2.4357,
+          "generator": "CounterHash32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90500,
+          "score": 1.5876,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90498,
+          "score": 2.1398,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90504,
+          "score": 0.7969,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90499,
+          "score": 1.3585,
+          "generator": "SplitMix32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90503,
+          "score": 1.9558,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90501,
+          "score": 2.1913,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90505,
+          "score": 1.4292,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90506,
+          "score": 2.5273,
+          "generator": "LCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90507,
+          "score": 1.9527,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90516,
+          "score": 21.2977,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90517,
+          "score": 3.0194,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90508,
+          "score": 3452.7254,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90509,
+          "score": 3452.7254,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90512,
+          "score": 94.428,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "verify",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90513,
+          "score": 94.3596,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "seed-check",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90510,
+          "score": 4674.6944,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "neighbor",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90518,
+          "score": 1.6324,
+          "generator": "CounterHash32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90514,
+          "score": 151.6099,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "neighbor",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90511,
+          "score": 0.8495,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "control",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90519,
+          "score": 19.3949,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90522,
+          "score": 1.3534,
+          "generator": "CounterHash32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90520,
+          "score": 2.1213,
+          "generator": "SplitMix32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90515,
+          "score": 2.4007,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90523,
+          "score": 1.4502,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90521,
           "score": 1.4142,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90524,
+          "score": 53.8891,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90525,
+          "score": 52.7519,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90526,
+          "score": 54.1658,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90527,
+          "score": 0.9092,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90528,
+          "score": 5551.5067,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90529,
+          "score": 5551.5067,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90530,
+          "score": 7506.6571,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90532,
+          "score": 5551.5067,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90531,
+          "score": 1.6971,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90533,
+          "score": 5551.5067,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90534,
+          "score": 6127.4452,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90536,
+          "score": 170.7466,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90537,
+          "score": 170.7466,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90535,
+          "score": 2.2231,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90538,
+          "score": 262.492,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90540,
+          "score": 170.7466,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90539,
+          "score": 1.7921,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90541,
+          "score": 170.7466,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90542,
+          "score": 262.492,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90544,
+          "score": 7506.6571,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90543,
+          "score": 1.6153,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90545,
+          "score": 7506.6571,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90546,
+          "score": 5447.562,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90548,
+          "score": 262.492,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90552,
+          "score": 51.2658,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90547,
+          "score": 1.9791,
+          "generator": "PCG32",
+          "transform": "delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90549,
+          "score": 262.492,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90553,
+          "score": 55.3807,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90550,
+          "score": 123.9622,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90554,
+          "score": 52.8967,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90555,
+          "score": 1.2019,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90551,
+          "score": 3.1702,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90556,
+          "score": 85.9182,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90557,
+          "score": 81.9924,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90558,
+          "score": 85.8012,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90559,
+          "score": 0.9487,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90560,
+          "score": 82.4341,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90561,
+          "score": 81.4891,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90562,
+          "score": 81.1388,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90564,
+          "score": 85.8012,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90563,
+          "score": 0.9032,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90565,
+          "score": 86.1766,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90566,
+          "score": 85.9182,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90568,
+          "score": 83.9705,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90567,
+          "score": 1.5196,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90569,
+          "score": 82.4441,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90570,
+          "score": 84.7851,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90571,
+          "score": 1.3542,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90572,
+          "score": 84.9136,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90573,
+          "score": 92.1258,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90574,
+          "score": 83.866,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90583,
+          "score": 2.1213,
+          "generator": "XorShift32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90580,
+          "score": 1.3225,
+          "generator": "LCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90582,
+          "score": 1.787,
+          "generator": "SplitMix32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90584,
+          "score": 1.1576,
+          "generator": "SplitMix32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90581,
+          "score": 2.0329,
+          "generator": "SplitMix32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90575,
+          "score": 1.1521,
+          "generator": "PCG32",
+          "transform": "delta",
+          "purpose": "control",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90576,
+          "score": 84.7851,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90577,
+          "score": 84.1308,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90587,
+          "score": 1.4589,
+          "generator": "CounterHash32",
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90588,
+          "score": 6.9132,
           "generator": "LCG32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88739,
-          "score": 2.1875,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88742,
-          "score": 1.4333,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88741,
-          "score": 1.1865,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88744,
-          "score": 278000.4729,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88745,
-          "score": 278000.4729,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88746,
-          "score": 335926.6638,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88748,
-          "score": 278000.4729,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88749,
-          "score": 278000.4729,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88750,
-          "score": 335926.6638,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88752,
-          "score": 335926.6638,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88753,
-          "score": 335926.6638,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88754,
-          "score": 278000.4729,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88747,
-          "score": 1.9365,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88751,
-          "score": 2.2981,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88764,
-          "score": 2.1655,
-          "generator": "CounterHash32",
+          "experiment_id": 90585,
+          "score": 3.3843,
+          "generator": "SplitMix32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88756,
-          "score": 7.7849,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88757,
-          "score": 8.0115,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88758,
-          "score": 22.4382,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88765,
-          "score": 2.2811,
+          "experiment_id": 90586,
+          "score": 2.0457,
           "generator": "PCG32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88759,
-          "score": 1.118,
+          "experiment_id": 90589,
+          "score": 1.008,
           "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 1
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
         },
         {
-          "experiment_id": 88768,
-          "score": 1.7678,
+          "experiment_id": 90578,
+          "score": 83.9705,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90591,
+          "score": 0.6116,
+          "generator": "CounterHash32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90590,
+          "score": 1.5643,
           "generator": "XorShift32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88760,
-          "score": 13.2486,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88769,
-          "score": 1.7678,
-          "generator": "XorShift32",
-          "transform": "delta",
+          "experiment_id": 90594,
+          "score": 1.1381,
+          "generator": "SplitMix32",
+          "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88755,
-          "score": 1.936,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88761,
-          "score": 12.8473,
+          "experiment_id": 90596,
+          "score": 42.6363,
           "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "seed-check",
-          "tier": 1
+          "transform": "delay",
+          "purpose": "explore",
+          "tier": 0
         },
         {
-          "experiment_id": 88762,
-          "score": 13.8562,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "neighbor",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88767,
-          "score": 2.205,
+          "experiment_id": 90593,
+          "score": 2.0574,
           "generator": "PCG32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88766,
-          "score": 0.7071,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88770,
-          "score": 1.3022,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88763,
-          "score": 1.3416,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "control",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88771,
-          "score": 1.9096,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88772,
-          "score": 2.3437,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88773,
-          "score": 5.0381,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88774,
-          "score": 5.0381,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88775,
-          "score": 12.3389,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88777,
-          "score": 20.3955,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88778,
-          "score": 20.3955,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88779,
-          "score": 25.9949,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88776,
-          "score": 1.7452,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88780,
-          "score": 1.0607,
-          "generator": "PCG32",
-          "transform": "delta",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88781,
-          "score": 16.4596,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88782,
-          "score": 16.7076,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88783,
-          "score": 18.5052,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88793,
-          "score": 1.7255,
-          "generator": "XorShift32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88794,
-          "score": 1.7463,
+          "experiment_id": 90595,
+          "score": 4.1831,
           "generator": "CounterHash32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88785,
-          "score": 16.9267,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88786,
-          "score": 17.3893,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88784,
-          "score": 1.7018,
+          "experiment_id": 90579,
+          "score": 3.3172,
           "generator": "PCG32",
-          "transform": "permute-delay",
+          "transform": "delta",
           "purpose": "control",
           "tier": 2
         },
         {
-          "experiment_id": 88787,
-          "score": 32.5431,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88795,
-          "score": 2.0769,
-          "generator": "SplitMix32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88796,
-          "score": 2.1655,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88798,
-          "score": 0.7955,
-          "generator": "SplitMix32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88788,
-          "score": 1.5488,
-          "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88797,
-          "score": 2.0771,
+          "experiment_id": 90597,
+          "score": 1.5097,
           "generator": "XorShift32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88799,
-          "score": 23703356.3386,
-          "generator": "LCG32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88789,
-          "score": 18.5052,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88801,
-          "score": 0.8086,
-          "generator": "SplitMix32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88802,
-          "score": 26202.5662,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88790,
-          "score": 19.0377,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88791,
-          "score": 56.5701,
-          "generator": "LCG32",
-          "transform": "permute-delay",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88805,
-          "score": 0.8568,
-          "generator": "SplitMix32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88803,
-          "score": 0.9213,
-          "generator": "CounterHash32",
-          "transform": "delta",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88807,
-          "score": 1.1348,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88806,
-          "score": 2.5973,
+          "experiment_id": 90592,
+          "score": 1.2809,
           "generator": "PCG32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88800,
-          "score": 0.6885,
-          "generator": "SplitMix32",
+          "experiment_id": 90599,
+          "score": 5908427.2914,
+          "generator": "LCG32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88804,
-          "score": 2.9168,
-          "generator": "PCG32",
+          "experiment_id": 90603,
+          "score": 1.6112,
+          "generator": "SplitMix32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88792,
-          "score": 1.0929,
+          "experiment_id": 90602,
+          "score": 1.7179,
           "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88809,
-          "score": 1459695.0296,
-          "generator": "LCG32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88812,
-          "score": 115807.1589,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88808,
-          "score": 0.8397,
-          "generator": "CounterHash32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88810,
-          "score": 2.9885,
-          "generator": "XorShift32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88813,
-          "score": 1.8857,
-          "generator": "CounterHash32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88811,
-          "score": 0.6173,
-          "generator": "SplitMix32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88818,
-          "score": 1.6936,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88821,
-          "score": 1.3236,
-          "generator": "SplitMix32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88820,
-          "score": 1.9557,
-          "generator": "CounterHash32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88824,
-          "score": 0.9619,
+          "experiment_id": 90600,
+          "score": 0.7904,
           "generator": "PCG32",
-          "transform": "permute-delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88823,
-          "score": 1.4599,
-          "generator": "CounterHash32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88819,
+          "experiment_id": 90601,
+          "score": 1385.0347,
+          "generator": "LCG32",
+          "transform": "permute-delay",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90598,
           "score": 1.812,
-          "generator": "XorShift32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88822,
-          "score": 2.0596,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
-        },
-        {
-          "experiment_id": 88815,
-          "score": 65574.2718,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88816,
-          "score": 137529.4647,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "neighbor",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88814,
-          "score": 65574.2718,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88817,
-          "score": 1.5329,
           "generator": "PCG32",
-          "transform": "delay",
-          "purpose": "control",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88829,
-          "score": 2.6557,
-          "generator": "CounterHash32",
-          "transform": "delay",
+          "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88833,
-          "score": 5765.7611,
+          "experiment_id": 90604,
+          "score": 272.9322,
           "generator": "LCG32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88825,
-          "score": 289585.7214,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 1
+          "experiment_id": 90606,
+          "score": 1.5023,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
         },
         {
-          "experiment_id": 88832,
-          "score": 1.5105,
-          "generator": "XorShift32",
+          "experiment_id": 90607,
+          "score": 1.7408,
+          "generator": "CounterHash32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88826,
-          "score": 289585.7214,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88831,
-          "score": 2.939,
+          "experiment_id": 90605,
+          "score": 1.8073,
           "generator": "PCG32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88830,
-          "score": 1.2544,
+          "experiment_id": 90615,
+          "score": 2.0123,
+          "generator": "XorShift32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90608,
+          "score": 38.7251,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90616,
+          "score": 3.4367,
+          "generator": "LCG32",
+          "transform": "delta",
+          "purpose": "explore",
+          "tier": 0
+        },
+        {
+          "experiment_id": 90617,
+          "score": 1.0425,
           "generator": "CounterHash32",
           "transform": "delta",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88827,
-          "score": 61048.7879,
-          "generator": "LCG32",
+          "experiment_id": 90612,
+          "score": 1.7206,
+          "generator": "PCG32",
           "transform": "delay",
-          "purpose": "neighbor",
-          "tier": 1
+          "purpose": "explore",
+          "tier": 0
         },
         {
-          "experiment_id": 88834,
-          "score": 1.6344,
-          "generator": "SplitMix32",
+          "experiment_id": 90613,
+          "score": 1.2816,
+          "generator": "PCG32",
           "transform": "permute-delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88836,
-          "score": 1.6188,
-          "generator": "XorShift32",
+          "experiment_id": 90609,
+          "score": 38.7251,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90614,
+          "score": 1.6794,
+          "generator": "CounterHash32",
           "transform": "delay",
           "purpose": "explore",
           "tier": 0
         },
         {
-          "experiment_id": 88835,
-          "score": 36226.5143,
+          "experiment_id": 90610,
+          "score": 32.973,
           "generator": "LCG32",
           "transform": "delay",
-          "purpose": "explore",
-          "tier": 0
+          "purpose": "neighbor",
+          "tier": 1
         },
         {
-          "experiment_id": 88828,
-          "score": 0.4149,
+          "experiment_id": 90611,
+          "score": 2.0994,
           "generator": "PCG32",
           "transform": "delay",
           "purpose": "control",
           "tier": 1
         },
         {
-          "experiment_id": 88837,
-          "score": 104945.9773,
+          "experiment_id": 90618,
+          "score": 3530.4519,
           "generator": "LCG32",
-          "transform": "delay",
+          "transform": "permute-delay",
           "purpose": "verify",
-          "tier": 2
+          "tier": 1
         },
         {
-          "experiment_id": 88839,
-          "score": 83857.2234,
+          "experiment_id": 90619,
+          "score": 3530.4519,
           "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88841,
-          "score": 220074.2819,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88840,
-          "score": 2.4442,
-          "generator": "PCG32",
-          "transform": "delay",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88842,
-          "score": 220074.2819,
-          "generator": "LCG32",
-          "transform": "delay",
+          "transform": "permute-delay",
           "purpose": "seed-check",
-          "tier": 2
+          "tier": 1
         },
         {
-          "experiment_id": 88838,
-          "score": 104945.9773,
+          "experiment_id": 90620,
+          "score": 1664.629,
           "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88843,
-          "score": 104945.9773,
-          "generator": "LCG32",
-          "transform": "delay",
+          "transform": "permute-delay",
           "purpose": "neighbor",
-          "tier": 2
+          "tier": 1
         },
         {
-          "experiment_id": 88845,
-          "score": 104945.9773,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88846,
-          "score": 104945.9773,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88847,
-          "score": 83857.2234,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "neighbor",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88844,
-          "score": 1.0917,
-          "generator": "PCG32",
-          "transform": "delay",
-          "purpose": "control",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88849,
-          "score": 14482.2664,
+          "experiment_id": 90622,
+          "score": 750.1962,
           "generator": "LCG32",
           "transform": "delta",
           "purpose": "verify",
           "tier": 1
         },
         {
-          "experiment_id": 88850,
-          "score": 14482.2664,
+          "experiment_id": 90623,
+          "score": 750.1962,
           "generator": "LCG32",
           "transform": "delta",
           "purpose": "seed-check",
           "tier": 1
         },
         {
-          "experiment_id": 88851,
-          "score": 10105.275,
+          "experiment_id": 90621,
+          "score": 0.7564,
+          "generator": "PCG32",
+          "transform": "permute-delay",
+          "purpose": "control",
+          "tier": 1
+        },
+        {
+          "experiment_id": 90624,
+          "score": 784.571,
           "generator": "LCG32",
           "transform": "delta",
           "purpose": "neighbor",
           "tier": 1
         },
         {
-          "experiment_id": 88852,
-          "score": 1.3294,
+          "experiment_id": 90625,
+          "score": 0.5969,
           "generator": "PCG32",
           "transform": "delta",
           "purpose": "control",
           "tier": 1
         },
         {
-          "experiment_id": 88853,
-          "score": 463364.284,
+          "experiment_id": 90626,
+          "score": 34.814,
           "generator": "LCG32",
           "transform": "delay",
           "purpose": "verify",
           "tier": 2
         },
         {
-          "experiment_id": 88854,
-          "score": 463364.284,
+          "experiment_id": 90627,
+          "score": 34.814,
           "generator": "LCG32",
           "transform": "delay",
           "purpose": "seed-check",
           "tier": 2
         },
         {
-          "experiment_id": 88855,
-          "score": 52088.3281,
+          "experiment_id": 90628,
+          "score": 39.6311,
           "generator": "LCG32",
           "transform": "delay",
           "purpose": "neighbor",
           "tier": 2
         },
         {
-          "experiment_id": 88848,
-          "score": 2.1573,
+          "experiment_id": 90630,
+          "score": 34.814,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90631,
+          "score": 34.814,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "seed-check",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90632,
+          "score": 25.6105,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "neighbor",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90634,
+          "score": 25.6105,
+          "generator": "LCG32",
+          "transform": "delay",
+          "purpose": "verify",
+          "tier": 2
+        },
+        {
+          "experiment_id": 90629,
+          "score": 1.5443,
           "generator": "PCG32",
           "transform": "delay",
           "purpose": "control",
           "tier": 2
         },
         {
-          "experiment_id": 88857,
-          "score": 463364.284,
+          "experiment_id": 90635,
+          "score": 25.6105,
           "generator": "LCG32",
           "transform": "delay",
-          "purpose": "verify",
+          "purpose": "seed-check",
           "tier": 2
         },
         {
-          "experiment_id": 88856,
-          "score": 1.1711,
+          "experiment_id": 90633,
+          "score": 2.0957,
           "generator": "PCG32",
           "transform": "delay",
           "purpose": "control",
           "tier": 2
         },
         {
-          "experiment_id": 88858,
-          "score": 463364.284,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88859,
-          "score": 52088.3281,
+          "experiment_id": 90636,
+          "score": 34.814,
           "generator": "LCG32",
           "transform": "delay",
           "purpose": "neighbor",
           "tier": 2
         },
         {
-          "experiment_id": 88861,
-          "score": 97705.2035,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88865,
-          "score": 90634.1385,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "verify",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88862,
-          "score": 97705.2035,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 2
-        },
-        {
-          "experiment_id": 88860,
-          "score": 0.2953,
+          "experiment_id": 90637,
+          "score": 1.9124,
           "generator": "PCG32",
           "transform": "delay",
           "purpose": "control",
           "tier": 2
         },
         {
-          "experiment_id": 88866,
-          "score": 90634.1385,
+          "experiment_id": 90638,
+          "score": 5675.8691,
           "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "seed-check",
-          "tier": 1
-        },
-        {
-          "experiment_id": 88863,
-          "score": 463364.284,
-          "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "neighbor",
+          "transform": "permute-delay",
+          "purpose": "verify",
           "tier": 2
         },
         {
-          "experiment_id": 88867,
-          "score": 56636.4412,
+          "experiment_id": 90639,
+          "score": 5675.8691,
           "generator": "LCG32",
-          "transform": "delay",
-          "purpose": "neighbor",
-          "tier": 1
+          "transform": "permute-delay",
+          "purpose": "seed-check",
+          "tier": 2
         }
       ],
       "top": [
@@ -11343,9 +11343,9 @@
         }
       ],
       "threshold": 8.0,
-      "completed": 88866,
-      "unexplained": 37215,
-      "positive_control_hits": 397,
+      "completed": 90639,
+      "unexplained": 37947,
+      "positive_control_hits": 402,
       "archived": 72
     }
   }
